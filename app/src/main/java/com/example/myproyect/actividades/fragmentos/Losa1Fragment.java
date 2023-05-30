@@ -18,6 +18,7 @@ import android.widget.EditText;
 import com.example.myproyect.R;
 import com.example.myproyect.actividades.actividades.BienvenidoActivity;
 import com.example.myproyect.actividades.actividades.PagoActivity;
+import com.example.myproyect.actividades.actividades.TablaReservaUser_Activity;
 
 import java.util.Calendar;
 
@@ -29,7 +30,7 @@ import java.util.Calendar;
 public class Losa1Fragment extends Fragment{
     EditText txtFechaRe;
 
-    Button btnReg,btnAceptar;
+    Button btnReg,btnAceptar,btnReservar;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -77,39 +78,21 @@ public class Losa1Fragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_losa1, container, false);
 
-        txtFechaRe = (EditText) view.findViewById(R.id.car1TxtFechaRe);
-        txtFechaRe.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.car1TxtFechaRe:
 
-                        cargarSelectorFechas();
-                        break;
-                    case R.id.car1BtnRegresar:
-                        Log.d("tag", "test");
-                        regresar();
-                        break;
-                    case R.id.car1BtnAceptar:
-                        pagoAceptar();
-                        break;
-                }
-            }
-        });
+
+
         btnReg = (Button) view.findViewById(R.id.car1BtnRegresar);
         btnReg.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
-                    case R.id.car1TxtFechaRe:
-                        cargarSelectorFechas();
-                        break;
+
                     case R.id.car1BtnRegresar:
                         Log.d("tag", "test");
                         regresar();
                         break;
                     case R.id.car1BtnAceptar:
-                        pagoAceptar();
+                        tablaAceptar();
                         break;
                 }
             }
@@ -119,27 +102,26 @@ public class Losa1Fragment extends Fragment{
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
-                    case R.id.car1TxtFechaRe:
-                        cargarSelectorFechas();
-                        break;
+
                     case R.id.car1BtnRegresar:
                         Log.d("tag", "test");
                         regresar();
                         break;
                     case R.id.car1BtnAceptar:
-                        pagoAceptar();
+
+                        tablaAceptar();
                         break;
                 }
             }
         });
         return view;
     }
+    private void tablaAceptar(){
+        Intent intent = new Intent(getContext(), TablaReservaUser_Activity.class);
+        startActivity(intent);
 
-    private void pagoAceptar() {
-        Intent iPago = new Intent(getContext(), PagoActivity.class);
-        startActivity(iPago);
-        getActivity().finish();
     }
+
 
     private void regresar() {
         Intent iBienvenido = new Intent(getContext(), BienvenidoActivity.class);
@@ -148,21 +130,4 @@ public class Losa1Fragment extends Fragment{
         getActivity().finish();
     }
 
-    private void cargarSelectorFechas() {
-        DatePickerDialog dpd;
-        final Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
-        int year =  2023;
-        dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int y, int m, int d) {
-                //2023-10-28
-                txtFechaRe.setText(y+"-"+((1+m) < 10 ? "0" + (m+1) : (m+1))+"-"+(d <10 ? "0" +d : d));
-                txtFechaRe.setTextColor(Color.parseColor("#ffffff"));
-            }
-        }, year, month, day );
-        dpd.show();
-
-    }
 }

@@ -28,7 +28,6 @@ public class BienvenidoActivity extends AppCompatActivity implements InterfaceMe
             Intent intent = new Intent(this, TablaReservaUser_Activity.class);
             startActivity(intent);
             finish();
-
         });
         btnSalida = findViewById(R.id.actvbtnCerrar);
         btnSalida.setOnClickListener(view -> {
