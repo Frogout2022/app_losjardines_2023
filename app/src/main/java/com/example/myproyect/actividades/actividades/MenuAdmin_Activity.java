@@ -14,7 +14,7 @@ public class MenuAdmin_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.myproyect.R.layout.activity_menu_admin);
-
+/// @tupapi
         asignarReferencias();
     }
     void asignarReferencias(){
