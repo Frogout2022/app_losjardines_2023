@@ -7,11 +7,11 @@
     tools:context=".actividades.actividades.MenuAdmin_Activity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnListarUsers_MenuAdm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="166dp"
-        android:text="Button"
+        android:text="LISTAR USUARIOS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,11 +19,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="185dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="315dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="48dp"
+        android:gravity="center_horizontal|center_vertical"
         android:text="Bienvenido administrador"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#DF1919"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,5 +39,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/btnListarUsers_MenuAdm" />
 </androidx.constraintlayout.widget.ConstraintLayout>

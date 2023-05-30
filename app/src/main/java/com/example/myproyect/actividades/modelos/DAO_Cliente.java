@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DAO_Cliente {
 
-    public ArrayList<Usuario> listarClientes() {//PARA V. MANTENIMIENTO DE EMPLEADO
+    public static ArrayList<Usuario> listarClientes() {//PARA V. MANTENIMIENTO DE EMPLEADO
         ArrayList<Usuario> lista = new ArrayList<>();
         Connection cnx = null;
         try {

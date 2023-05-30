@@ -16,7 +16,8 @@ insert into cliente values
 ('00000000', 'Nombre', 'Apellido', 'correo@email.com', '000', '111111111'),
 ('72673554', 'Milhos', 'Sihuay', 'mi@g.com', '123', '997653086' ),
 ('70829460', 'Luiggi', 'Rebatta', 'lu@g.com', '123', '969599087' ),
-('12345677', 'Marcelo', 'Yabar', 'ma@g.com', '123', '37373732' );
+('12345677', 'Marcelo', 'Yabar', 'ma@g.com', '123', '37373732' ),
+('72647015', 'Michell', 'Del Pino', 'mi_dp@g.com', '123', '913428693');
 
 
 create procedure sp_ListarCLI()#--------
@@ -109,7 +110,7 @@ insert into reserva values
 (4,false,false,false,'00000000','00000000','00000000'),
 (5,false,false,false,'00000000','00000000','00000000'),
 (6,false,false,false,'00000000','00000000','00000000');
-
+select * from reserva;
 #insert into reserva values (day(curdate()),false,false,false);
 
 create procedure sp_ListarRESERVA()#--------
@@ -126,6 +127,7 @@ dia int,
 hora boolean,
 dni char(8))
 update Reserva set hora5=hora,dni_h5=dni where dia_rsv=dia;
+call sp_ReservarH5(1,true,'70829460');
 
 create procedure sp_ReservarH7(#-----------------------EDIT
 dia int,
@@ -133,13 +135,12 @@ hora boolean,
 dni char(8))
 update Reserva set hora7=hora, dni_h7=dni where dia_rsv=dia;
 
-
 create procedure sp_ConsultarRsvCLI(#-------------------------
 Dni char(8))
 select * from Reserva where Dni_h3=Dni or dni_h5=Dni or dni_h7=dni;
 
-call sp_ConsultarRsvCLI('72673554');
-select * from Reserva;
+
+select * from cliente;
 
 
 

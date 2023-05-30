@@ -66,7 +66,6 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
             Toast.makeText(this, "Lista vacía: "+lista.size(), Toast.LENGTH_SHORT).show();
         }else{
             int index = 0,cantidadDias= 6,cantidadHoras=3;
-
             for (int i = 0; i < cantidadDias; i++) {
                 for (int j = 0; j < cantidadHoras; j++) {
                     if(lista.get(i).getArrayB()[j]){
@@ -84,7 +83,6 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
             }
 
         }
-
 
     }
     private void agregarListaTxtv(){

@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.example.myproyect.R;
 
 public class MenuAdmin_Activity extends AppCompatActivity {
-    Button btnSalir;
+    Button btnSalir, btnListarUsers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,5 +23,12 @@ public class MenuAdmin_Activity extends AppCompatActivity {
             Intent intent = new Intent(this, Login_Activity.class);
             startActivity(intent);
         });
+        btnListarUsers = findViewById(R.id.btnListarUsers_MenuAdm);
+        btnListarUsers.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ListarUsers_Admin_Activity.class);
+            startActivity(intent);
+            finish();
+        });
+
     }
 }
