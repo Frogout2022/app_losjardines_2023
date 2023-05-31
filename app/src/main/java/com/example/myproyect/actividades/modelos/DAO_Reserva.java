@@ -13,32 +13,49 @@ import java.util.List;
 
 public class DAO_Reserva {
 
+
     public static  ArrayList<Reserva> listarReserva() {//
         ArrayList<Reserva> lista = new ArrayList<>();
         Connection cnx = null;
         try {
             cnx = ConexionMySQL.getConexion();
-            CallableStatement csta = cnx.prepareCall("{call sp_ListarRESERVA()}");
+            CallableStatement csta = cnx.prepareCall("{call sp_ListarRESERVA_semanal()}");
             ResultSet rs = csta.executeQuery();
             Reserva reserva;
+
             while (rs.next()) {
                 boolean[] ab = new boolean[3];
-                int dia = rs.getInt(1);
-                ab[0] = rs.getBoolean(2);
-                ab[1] = rs.getBoolean(3);
-                ab[2] = rs.getBoolean(4);
+                String dia = rs.getString(2);
+                ab[0] = rs.getBoolean(3);
+                ab[1] = rs.getBoolean(4);
+                ab[2] = rs.getBoolean(5);
 
                 reserva = new Reserva(dia, ab);
                 lista.add(reserva);
             }
+
         } catch (Exception e) {
             System.out.println("ERROR AC listarReserva(): " + e);
         }
+
         ConexionMySQL.cerrarConexion(cnx);
         return lista;
     }
-    public static List<Reserva> ConsultarRsv(){
+    public static boolean LlenarTablaFEcha(){
+        Connection cnx = ConexionMySQL.getConexion();
+        Boolean b=false;
+        try {
+            CallableStatement csta = cnx.prepareCall("{call sp_insertar_Fechas}");
+            b = csta.execute();
+        }catch (Exception e){
+            System.out.println("ERROR AC listarReserva(): " + e);
+        }
+        ConexionMySQL.cerrarConexion(cnx);
+        return b;
+    }
 
+    /*
+    public static List<Reserva> ConsultarRsv(){
         List<Reserva> lista = new ArrayList<>();
         String dni = Login_Activity.getUsuario().getDNI();
         try{
@@ -58,7 +75,6 @@ public class DAO_Reserva {
                 arrayDni[0] = rs.getString(5);
                 arrayDni[1] = rs.getString(6);
                 arrayDni[2] = rs.getString(7);
-
                 reserva = new Reserva(dia, arrayb,arrayDni);
                 lista.add(reserva);
             }
@@ -67,16 +83,17 @@ public class DAO_Reserva {
         return lista;
     }
 
-    public static String insertarRSV(boolean b, int dia, int h){
+     */
+
+    public static String insertarRSV(String dia, int h){
         //editar
         String msg=null;
         String dni = Login_Activity.getUsuario().getDNI();
         try{
             Connection cnx=ConexionMySQL.getConexion();
-            CallableStatement csta=	cnx.prepareCall("{call sp_ReservarH"+h+"(?,?,?)}");
-            csta.setInt(1, dia);
-            csta.setBoolean(2, b);
-            csta.setString(3,dni);
+            CallableStatement csta=	cnx.prepareCall("{call sp_ReservarH"+h+"(?,?)}");
+            csta.setString(1,dia);
+            csta.setString(2,dni);
 
             csta.executeUpdate();
             msg="Reserva registrada correctamente";

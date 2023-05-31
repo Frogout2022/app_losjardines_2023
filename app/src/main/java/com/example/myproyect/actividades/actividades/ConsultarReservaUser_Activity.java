@@ -29,7 +29,7 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_consultar_reserva_user);
 
         asignarReferencias();
-        mostrar();
+        //mostrar();
 
     }
     private void asignarReferencias(){
@@ -40,6 +40,7 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         txtv = findViewById(R.id.txtv_consultasRsv_user);
 
     }
+    /*
     private void mostrar(){
         txtv.setLines(10);
         txtv.setEllipsize(TextUtils.TruncateAt.END);
@@ -90,4 +91,6 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         }
 
     }
+
+     */
 }

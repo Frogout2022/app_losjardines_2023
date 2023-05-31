@@ -18,18 +18,5 @@ public class Prueba_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prueba);
 
-    btn = findViewById(R.id.btn_prueba);
-    btn.setOnClickListener(view -> {
-            new Task().execute();
-
-    });
-    }
-
-    class  Task extends AsyncTask<Void, Void, Void>{
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            return null;
-        }
     }
 }

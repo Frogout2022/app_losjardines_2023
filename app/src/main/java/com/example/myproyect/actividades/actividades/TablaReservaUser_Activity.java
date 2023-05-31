@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -46,25 +47,39 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabla);
-
         asginarReferencias();
         agregarListaChk();
         agregarListaTxtv();
         updateTxtv();
+
         updateChk(); //consultar a la BD
         clickChk(); //actualizar visualización
 
         lblSemana.setText(Fecha.lblTablaReserva);
     }
+
     private void updateChk(){
         //consultar BD
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         ArrayList<Reserva> lista = new ArrayList<>();
         lista = DAO_Reserva.listarReserva();
-        if(lista.size() == 0 ){
-            Toast.makeText(this, "Lista vacía: "+lista.size(), Toast.LENGTH_SHORT).show();
+
+        if(lista.size()==0){
+            //Toast.makeText(this, "LISTA VACIA", Toast.LENGTH_SHORT).show();
+
+            if(DAO_Reserva.LlenarTablaFEcha()){
+                //Toast.makeText(this, "TABLA LLENA", Toast.LENGTH_SHORT).show();
+                lista = DAO_Reserva.listarReserva();
+            }else{
+                //Toast.makeText(this, "Error de call", Toast.LENGTH_SHORT).show();
+            }
+
         }else{
+            //Toast.makeText(this, "LISTA NO VACIA", Toast.LENGTH_SHORT).show();
+
             int index = 0,cantidadDias= 6,cantidadHoras=3;
             for (int i = 0; i < cantidadDias; i++) {
                 for (int j = 0; j < cantidadHoras; j++) {
@@ -81,10 +96,16 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
                     index++;
                 }
             }
-
         }
 
+
+
+
+
+
+
     }
+
     private void agregarListaTxtv(){
         listaTxtv.add(txtv_cl1);
         listaTxtv.add(txtv_cl2);
@@ -142,96 +163,105 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     }
     private void reservar(){
         //PROCESO DE RESERVA EN BD
+
         String msg = null;
         cantidadReservas = listaChkS.size();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String dni = usuario.getDNI();
+
+
+        List<String> lista = Fecha.getFechas();
+
         for(int i=0 ; i<listaChkS.size(); i++){
             int numOrden = listaChkS.get(i);
-            int dia = 0;
-            if(numOrden<=2){//dia 1 - columna 1
-                dia =1;
+            String dia = null;
+
+            if(numOrden<=2){
+                //dia 1 - columna 1
+                dia = lista.get(0);
                 switch (numOrden){
                     case 0:
-                        msg = DAO_Reserva.insertarRSV(true,dia,3);
+                        msg = DAO_Reserva.insertarRSV(dia,3);
                         break;
                     case 1:
-                        msg = DAO_Reserva.insertarRSV(true,dia,5);
+                        msg = DAO_Reserva.insertarRSV(dia,5);
                         break;
                     case 2:
-                        msg = DAO_Reserva.insertarRSV(true,dia,7);
+                        msg = DAO_Reserva.insertarRSV(dia,7);
                         break;
                 }
             }else if(numOrden<=5){
-                dia =2;
+                dia = lista.get(1);
                 switch (numOrden){
                     case 3:
-                        msg = DAO_Reserva.insertarRSV(true,dia,3);
+                        msg = DAO_Reserva.insertarRSV(dia,3);
                         break;
                     case 4:
-                        msg = DAO_Reserva.insertarRSV(true,dia,5);
+                        msg = DAO_Reserva.insertarRSV(dia,5);
                         break;
                     case 5:
-                        msg = DAO_Reserva.insertarRSV(true,dia,7);
+                        msg = DAO_Reserva.insertarRSV(dia,7);
                         break;
                 }
             }else if(numOrden<=8){
-                dia =3;
+                dia = lista.get(2);
                 switch (numOrden){
                     case 6:
-                        msg = DAO_Reserva.insertarRSV(true,dia,3);
+                        msg = DAO_Reserva.insertarRSV(dia,3);
                         break;
                     case 7:
-                        msg = DAO_Reserva.insertarRSV(true,dia,5);
+                        msg = DAO_Reserva.insertarRSV(dia,5);
                         break;
                     case 8:
-                        msg = DAO_Reserva.insertarRSV(true,dia,7);
+                        msg = DAO_Reserva.insertarRSV(dia,7);
                         break;
                 }
             }else if(numOrden<=11) {
-                dia = 4;
+                dia = lista.get(3);;
                 switch (numOrden) {
                     case 9:
-                        msg = DAO_Reserva.insertarRSV(true, dia, 3);
+                        msg = DAO_Reserva.insertarRSV(dia, 3);
                         break;
                     case 10:
-                        msg = DAO_Reserva.insertarRSV(true, dia, 5);
+                        msg = DAO_Reserva.insertarRSV(dia, 5);
                         break;
                     case 11:
-                        msg = DAO_Reserva.insertarRSV(true, dia, 7);
+                        msg = DAO_Reserva.insertarRSV(dia, 7);
                         break;
                 }
             }else if(numOrden<=14){
-                dia =5;
+                dia = lista.get(4);;
                 switch (numOrden){
                     case 12:
-                        msg = DAO_Reserva.insertarRSV(true,dia,3);
+                        msg = DAO_Reserva.insertarRSV(dia,3);
                         break;
                     case 13:
-                        msg = DAO_Reserva.insertarRSV(true,dia,5);
+                        msg = DAO_Reserva.insertarRSV(dia,5);
                         break;
                     case 14:
-                        msg = DAO_Reserva.insertarRSV(true,dia,7);
+                        msg = DAO_Reserva.insertarRSV(dia,7);
                         break;
                 }
             }else{
-                dia =6;
+                dia = lista.get(5);;
                 switch (numOrden){
                     case 15:
-                        msg = DAO_Reserva.insertarRSV(true,dia,3);
+                        msg = DAO_Reserva.insertarRSV(dia,3);
                         break;
                     case 16:
-                        msg = DAO_Reserva.insertarRSV(true,dia,5);
+                        msg = DAO_Reserva.insertarRSV(dia,5);
                         break;
                     case 17:
-                        msg = DAO_Reserva.insertarRSV(true,dia,7);
+                        msg = DAO_Reserva.insertarRSV(dia,7);
                         break;
                 }
             }
         }
+
+
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        updateChk();
+        updateChk(); //actualizar vista
 
     }
     private void asginarReferencias(){

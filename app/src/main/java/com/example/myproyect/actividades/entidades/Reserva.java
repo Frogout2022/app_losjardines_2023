@@ -4,17 +4,17 @@ package com.example.myproyect.actividades.entidades;
 //HORARIO3: 7PM - 8PM
 public class Reserva {
 
-    private int dia;
+    private String dia;
     private boolean[] arrayB = new boolean[3]; // true= ocupado - false = libre;
     private String[] arrayDni = new String[3];
 
-    public Reserva(int dia, boolean[] arrayB, String[] arrayDni) {
+    public Reserva(String dia, boolean[] arrayB, String[] arrayDni) {
         this.dia = dia;
         this.arrayB = arrayB;
         this.arrayDni = arrayDni;
     }
 
-    public Reserva(int dia, boolean[] arrayB) {
+    public Reserva(String dia, boolean[] arrayB) {
         this.dia = dia;
         this.arrayB = arrayB;
     }
@@ -31,11 +31,11 @@ public class Reserva {
         this.arrayDni = arrayDni;
     }
 
-    public int getDia() {
+    public String getDia() {
         return dia;
     }
 
-    public void setDia(int dia) {
+    public void setDia(String dia) {
         this.dia = dia;
     }
 
