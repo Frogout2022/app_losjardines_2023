@@ -37,7 +37,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,60 +46,29 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:text="@string/car4Horario"/>
-
-        </LinearLayout>
-        <RadioGroup
-            android:id="@+id/car4RgrReserva"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RadioButton
-                android:id="@+id/car4Rbt3a4"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="@string/car4Rbt3a4"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:checked="true"
-                android:textStyle="bold"/>
-
-            <RadioButton
-                android:id="@+id/car4Rbt5a6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:text="@string/car4Rbt5a6" />
-
-            <RadioButton
-                android:id="@+id/car4Rbt7a8"
+                android:text="@string/car4Rbt3a4"/>
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/car4Rbt5a6"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:text="@string/car4Rbt7a8"/>
-        </RadioGroup>
 
-
-        <EditText
-            android:id="@+id/car4TxtFechaRe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:clickable="false"
-            android:focusable="false"
-            android:hint="@string/car4FechaRes"
-            android:inputType="none"
-            android:maxLength="45"
-            android:minHeight="25dp"
-            android:textColorHint="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

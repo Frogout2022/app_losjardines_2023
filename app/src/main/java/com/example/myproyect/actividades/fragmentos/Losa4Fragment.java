@@ -18,6 +18,7 @@ import android.widget.EditText;
 import com.example.myproyect.R;
 import com.example.myproyect.actividades.actividades.BienvenidoActivity;
 import com.example.myproyect.actividades.actividades.PagoActivity;
+import com.example.myproyect.actividades.actividades.TablaReservaUser_Activity;
 
 import java.util.Calendar;
 
@@ -76,40 +77,18 @@ public class Losa4Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_losa4, container, false);
 
-        txtFechaRe = (EditText) view.findViewById(R.id.car4TxtFechaRe);
-        txtFechaRe.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.car4TxtFechaRe:
-
-                        cargarSelectorFechas();
-                        break;
-                    case R.id.car4BtnRegresar:
-                        Log.d("tag", "test");
-                        regresar();
-                        break;
-                    case R.id.car4BtnAceptar:
-                        pagoAceptar();
-                        break;
-                }
-            }
-        });
         btnReg = (Button) view.findViewById(R.id.car4BtnRegresar);
         btnReg.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
-                    case R.id.car4TxtFechaRe:
 
-                        cargarSelectorFechas();
-                        break;
                     case R.id.car4BtnRegresar:
                         Log.d("tag", "test");
                         regresar();
                         break;
                     case R.id.car4BtnAceptar:
-                        pagoAceptar();
+                        tablaAceptar();
                         break;
                 }
             }
@@ -119,16 +98,13 @@ public class Losa4Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
-                    case R.id.car4TxtFechaRe:
 
-                        cargarSelectorFechas();
-                        break;
                     case R.id.car4BtnRegresar:
                         Log.d("tag", "test");
                         regresar();
                         break;
                     case R.id.car4BtnAceptar:
-                        pagoAceptar();
+                        tablaAceptar();
                         break;
                 }
             }
@@ -136,10 +112,9 @@ public class Losa4Fragment extends Fragment {
         return view;
     }
 
-    private void pagoAceptar() {
-        Intent iPago = new Intent(getContext(), PagoActivity.class);
-        startActivity(iPago);
-        getActivity().finish();
+    private void tablaAceptar() {
+        Intent intent = new Intent(getContext(), TablaReservaUser_Activity.class);
+        startActivity(intent);
     }
 
     private void regresar() {
@@ -149,21 +124,5 @@ public class Losa4Fragment extends Fragment {
         getActivity().finish();
     }
 
-    private void cargarSelectorFechas() {
-        DatePickerDialog dpd;
-        final Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
-        int year =  2023;
-        dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int y, int m, int d) {
-                //2023-10-28
-                txtFechaRe.setText(y+"-"+((1+m) < 10 ? "0" + (m+1) : (m+1))+"-"+(d <10 ? "0" +d : d));
-                txtFechaRe.setTextColor(Color.parseColor("#ffffff"));
-            }
-        }, year, month, day );
-        dpd.show();
 
-    }
 }
