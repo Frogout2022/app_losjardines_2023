@@ -48,7 +48,7 @@ public class Tarjeta_Activity extends AppCompatActivity implements View.OnClickL
                 fechadevencimiento();
                 break;
             case  R.id.tarBtnContinuar:
-                registrotar();
+                registrar();
                 break;
             case R.id.tarBtnRegresar:
                 regresar();
@@ -70,12 +70,12 @@ public class Tarjeta_Activity extends AppCompatActivity implements View.OnClickL
         //" user = new Usuario( Nucuenta, Ticuenta, Fecha, CVV);
     }
 
-    private void registrotar() {
+    private void registrar() {
         capturarDatos();
         Toast.makeText(getApplicationContext(),"Metodo de pago Registrado", Toast.LENGTH_SHORT).show();
         // regresa al menu las 4 lozas (bienvenido)
-        Intent iBienvenido = new Intent(this, BienvenidoActivity.class);
-        startActivity(iBienvenido);
+        Intent iPago = new Intent(this, PagoActivity.class);
+        startActivity(iPago);
         finish();
 
         }

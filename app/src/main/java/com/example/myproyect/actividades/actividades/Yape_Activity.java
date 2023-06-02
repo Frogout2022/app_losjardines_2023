@@ -44,6 +44,7 @@ public class Yape_Activity extends AppCompatActivity implements View.OnClickList
     }
 
     private void regresarpago() {
+        Toast.makeText(getApplicationContext(),"El pago se verificara presencialmente", Toast.LENGTH_SHORT).show();
         Intent iPago = new Intent(this, PagoActivity.class);
         startActivity(iPago);
         finish();
