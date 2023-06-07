@@ -66,7 +66,7 @@
     <string name="bieBtnSalir">Salir</string>
 
     //Caracteristicas 1 string
-    <string name="car1TitLosa">Losa Deportiva {El pueblo}</string>
+    <string name="car1TitLosa">Losa Deportiva "El pueblo"</string>
     <string name="car1Horario">Carateristicas: </string>
     <string name="car1Rbt3a4">-Grass sintetico</string>
     <string name="car1Rbt5a6">-5 a 9 personas</string>
@@ -76,7 +76,7 @@
     <string name="car1BtnRegresar">Regresar</string>
 
     //Caracteristicas 2 string
-    <string name="car2TitLosa">Losa Deportiva {EL Barrio}</string>
+    <string name="car2TitLosa">Losa Deportiva "EL Barrio"</string>
     <string name="car2Horario">Carateristicas:</string>
     <string name="car2Rbt3a4">-Grass sintetico</string>
     <string name="car2Rbt5a6">-9 a 12 personas</string>
@@ -86,7 +86,7 @@
     <string name="car2BtnRegresar">Regresar</string>
 
     //Caracteristicas 3 string
-    <string name="car3TitLosa">Losa Deportiva {Los patas}</string>
+    <string name="car3TitLosa">Losa Deportiva "Los patas"</string>
     <string name="car3Horario">Carateristicas:</string>
     <string name="car3Rbt3a4">-Grass sintetico</string>
     <string name="car3Rbt5a6">-5 a 9 personas</string>
@@ -96,7 +96,7 @@
     <string name="car3BtnRegresar">Regresar</string>
 
     //Caracteristicas 4 string
-    <string name="car4TitLosa">Losa Deportiva {La Familia}</string>
+    <string name="car4TitLosa">Losa Deportiva "La Familia"</string>
     <string name="car4Horario">Carateristicas: </string>
     <string name="car4Rbt3a4">-Grass sintetico</string>
     <string name="car4Rbt5a6">-9 a 12 personas</string>

@@ -3,6 +3,7 @@ package com.example.myproyect.actividades.actividades;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -258,6 +259,8 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         updateChk(); //actualizar vista
 
+        Intent iPago= new Intent(this,PagoActivity.class);
+        startActivity(iPago);
     }
     private void asginarReferencias(){
 
