@@ -136,7 +136,7 @@ public class DAO_Reserva {
                 arrayDni[2] = dniBD;
 
 
-                reserva = new Reserva(dia, arrayB);
+                reserva = new Reserva(dia, arrayB, arrayDni);
                 lista.add(reserva);
             }
 
