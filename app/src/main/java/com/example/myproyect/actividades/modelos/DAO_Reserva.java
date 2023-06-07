@@ -3,7 +3,6 @@ package com.example.myproyect.actividades.modelos;
 import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.conexion.ConexionMySQL;
 import com.example.myproyect.actividades.entidades.Reserva;
-import com.example.myproyect.actividades.entidades.Usuario;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import java.util.List;
 public class DAO_Reserva {
 
 
-    public static  ArrayList<Reserva> listarReserva() {//
+    public static  ArrayList<Reserva> listarReservaSemanal() {// PARA LA ACT. TABLA RESERVAS - CLI
         ArrayList<Reserva> lista = new ArrayList<>();
         Connection cnx = null;
         try {
@@ -35,7 +34,7 @@ public class DAO_Reserva {
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR AC listarReserva(): " + e);
+            System.out.println("ERROR listarReserva_semanal(): " + e);
         }
 
         ConexionMySQL.cerrarConexion(cnx);
@@ -99,7 +98,55 @@ public class DAO_Reserva {
         return lista;
     }
 
+    public static List<Reserva> listarReservasCLI(){ //LISTAR TODAS LAS RESERVAS DEL AÑO
+        //PARA ACTV. LISTAR_RSV_ADMIN
 
+        ArrayList<Reserva> lista = new ArrayList<>();
+        Connection cnx = null;
+        try {
+            cnx = ConexionMySQL.getConexion();
+            CallableStatement csta = cnx.prepareCall("{call sp_ListarReservasCLI()}");
+            ResultSet rs = csta.executeQuery();
+            Reserva reserva;
+
+            while (rs.next()) {
+
+                String dia ;
+                boolean[] arrayB = new boolean[3];
+                String[] arrayDni = new String[3];
+                String dniBD = ""; //evitar valores nulos
+
+                // index 1 = id_reserva
+                dia = rs.getString(2);
+
+                arrayB[0] = rs.getBoolean(3);
+                arrayB[1] = rs.getBoolean(4);
+                arrayB[2] = rs.getBoolean(5);
+
+                dniBD = rs.getString(6);
+                if(dniBD == null) dniBD="";
+                arrayDni[0] = dniBD;
+
+                dniBD = rs.getString(7);
+                if(dniBD == null) dniBD="";
+                arrayDni[1] = dniBD;
+
+                dniBD = rs.getString(8);
+                if(dniBD == null) dniBD="";
+                arrayDni[2] = dniBD;
+
+
+                reserva = new Reserva(dia, arrayB);
+                lista.add(reserva);
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR DAO sp_ListarReservasCLI(): " + e);
+        }
+
+        ConexionMySQL.cerrarConexion(cnx);
+        return lista;
+    }
 
     public static String insertarRSV(String dia, int h){
         //editar

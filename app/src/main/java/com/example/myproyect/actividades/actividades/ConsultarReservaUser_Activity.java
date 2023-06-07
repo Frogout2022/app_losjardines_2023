@@ -69,7 +69,6 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
                     }
                     txtv.setText(txtv.getText()+"\n\n");
 
-
                 }
             }
             Toast.makeText(this, "Tiene "+listaRsv.size()+" reservas", Toast.LENGTH_SHORT).show();
