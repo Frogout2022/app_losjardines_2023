@@ -99,11 +99,6 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         }
 
 
-
-
-
-
-
     }
 
     private void agregarListaTxtv(){

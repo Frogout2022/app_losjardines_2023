@@ -54,7 +54,7 @@ public class DAO_Reserva {
         return b;
     }
 
-    /*
+
     public static List<Reserva> ConsultarRsv(){
         List<Reserva> lista = new ArrayList<>();
         String dni = Login_Activity.getUsuario().getDNI();
@@ -64,26 +64,42 @@ public class DAO_Reserva {
             csta.setString(1, dni);
             ResultSet rs= csta.executeQuery();
             Reserva reserva=null;
-            if(rs.next()) {
-                int dia;
+            while(rs.next()){
+                String dia;
                 boolean[] arrayb = new boolean[3];
                 String[] arrayDni = new String[3];
-                dia = rs.getInt(1);
-                arrayb[0] = rs.getBoolean(2);
-                arrayb[1] = rs.getBoolean(3);
-                arrayb[2] = rs.getBoolean(4);
-                arrayDni[0] = rs.getString(5);
-                arrayDni[1] = rs.getString(6);
-                arrayDni[2] = rs.getString(7);
+                String dniBD = "";
+                // 1 -> ID
+                dia = rs.getString(2);
+
+                arrayb[0] = rs.getBoolean(3);
+                arrayb[1] = rs.getBoolean(4);
+                arrayb[2] = rs.getBoolean(5);
+
+
+                dniBD = rs.getString(6);
+                if(dniBD == null) dniBD="";
+                arrayDni[0] = dniBD;
+
+                dniBD = rs.getString(7);
+                if(dniBD == null) dniBD="";
+                arrayDni[1] = dniBD;
+
+                dniBD = rs.getString(8);
+                if(dniBD == null) dniBD="";
+                arrayDni[2] = dniBD;
+
+
                 reserva = new Reserva(dia, arrayb,arrayDni);
                 lista.add(reserva);
             }
+
             ConexionMySQL.cerrarConexion(cnx);
-        }catch(Exception e){System.out.println("Error AC ConsultarCorreo(): "+e);}
+        }catch(Exception e){System.out.println("Error sp_ConsultarRsvCLI(): "+e);}
         return lista;
     }
 
-     */
+
 
     public static String insertarRSV(String dia, int h){
         //editar

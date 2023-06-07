@@ -5,6 +5,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+
 public class DAO_Administrador {
 
     public static boolean ConsultarAdm(String correo, String pass){ //consultar logueo
