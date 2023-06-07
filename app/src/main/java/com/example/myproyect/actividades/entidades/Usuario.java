@@ -21,6 +21,9 @@ public class Usuario {
         this.celular = celular;
 
     }
+    public Usuario(){
+
+    }
 
     public Usuario(String DNI) {
         this.DNI = DNI;

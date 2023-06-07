@@ -58,7 +58,7 @@
             android:text="RESERVAS REALIZADAS" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnActualizarDatos_BienvenidoActv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ACTUALIZAR DATOS" />

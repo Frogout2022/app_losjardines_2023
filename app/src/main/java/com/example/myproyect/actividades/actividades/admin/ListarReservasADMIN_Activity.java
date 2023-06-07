@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myproyect.R;
-import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.actividades.MenuAdmin_Activity;
 import com.example.myproyect.actividades.entidades.Reserva;
 import com.example.myproyect.actividades.modelos.DAO_Reserva;
@@ -20,7 +19,7 @@ import com.example.myproyect.actividades.modelos.DAO_Reserva;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListarReservas_Admin extends AppCompatActivity {
+public class ListarReservasADMIN_Activity extends AppCompatActivity {
     Button salir, actualizar;
     TextView listado;
     @Override
