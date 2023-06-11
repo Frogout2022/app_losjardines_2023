@@ -74,6 +74,7 @@ public class Usuario {
         this.correo = correo;
     }
 
-
-
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
 }
