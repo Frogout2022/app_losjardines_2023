@@ -1,6 +1,6 @@
 #drop database app_losjardines;
-create database app_losjardines;
-use app_losjardines;
+create database app_losjardines2;
+use app_losjardines2;
 SELECT NOW() AS fecha_hora_actual;
 SET lc_time_names = 'es_ES'; #CAMBIAR ESPAÑOL EL IDIOMA
 
@@ -14,7 +14,6 @@ Cel_Cli varchar(15) unique not null
 );
 
 insert into cliente values
-('00000000', 'Nombre', 'Apellido', 'correo@email.com', '000', '111111111'),
 ('72673554', 'Milhos', 'Sihuay', 'mi@g.com', '123', '997653086' ),
 ('70829460', 'Luiggi', 'Rebatta', 'lu@g.com', '123', '969599087' ),
 ('12345677', 'Marcelo', 'Yabar', 'ma@g.com', '123', '37373732' ),
@@ -49,6 +48,13 @@ Contra varchar(20))
 update Cliente set Contra_Cli=Contra where Dni_Cli=Dni;
 
 
+create procedure sp_EditarDatosCLI(#-----------------------
+Dni char(8) ,
+Correo varchar(53),
+Celular varchar(15))
+update Cliente set Correo_cli=correo , cel_cli=celular where Dni_Cli=Dni;
+
+
 create procedure sp_ConsultarDniCLI(#-------------------------
 Dni char(8))
 select * from Cliente where Dni_Cli=Dni;
@@ -56,6 +62,11 @@ select * from Cliente where Dni_Cli=Dni;
 create procedure sp_ConsultarCorreoCLI(#-------------------------
 Correo char(20))
 select * from Cliente where Correo_Cli=Correo;
+
+
+create procedure sp_ConsultarCelularCLI(#-------------------------
+Celular varchar(15))
+select * from Cliente where Cel_cli = celular;
 
 #-------------------------ADMIN--------
 create table Admin(
@@ -107,17 +118,12 @@ HORA7 boolean default 0 not null,
 DNI_H3 char(8) ,
 DNI_H5 char(8),
 DNI_H7 char(8),
-foreign key(fecha_rsv) references tb_fecha(fecha)
-on update cascade on delete cascade,
-foreign key(dni_h3) references cliente(dni_cli)
-on update cascade,
-foreign key(dni_h5) references cliente(dni_cli)
-on update cascade,
+foreign key(fecha_rsv) references tb_fecha(fecha),
+foreign key(dni_h3) references cliente(dni_cli),
+foreign key(dni_h5) references cliente(dni_cli),
 foreign key(dni_h7) references cliente(dni_cli)
-on update cascade
 );
-use app_losjardines;
-select * from reserva;
+
 #-------TRIGGER CREAR_RESERVA
 DELIMITER //
 CREATE TRIGGER crear_reserva
@@ -130,9 +136,6 @@ BEGIN
 END//
 DELIMITER ;
 
-drop table tb_fecha;
-drop table reserva;
-select * from tb_fecha;
 
 #--------------PROCEDURE INSERTAR_FECHAS
 
@@ -187,7 +190,6 @@ create procedure sp_ReservarH5(#-----------------------EDIT
 dia char(10),
 dni char(8))
 update Reserva set hora5=1,dni_h5=dni where fecha_rsv=dia;
-#call sp_ReservarH5(1,'70829460');
 
 create procedure sp_ReservarH7(#-----------------------EDIT
 dia char(10),
@@ -197,16 +199,10 @@ update Reserva set hora7=1, dni_h7=dni where fecha_rsv=dia;
 create procedure sp_ConsultarRsvCLI(#-------------------------
 Dni char(8))
 select * from Reserva where Dni_h3=Dni or dni_h5=Dni or dni_h7=dni;
-#call sp_ConsultarRsvCLI('72673554');
-
 
 create procedure sp_ListarReservasCLI() #--para el admin
 select * from Reserva where Dni_h3 is not null or dni_h5 is not null or dni_h7 is not null;
 
-call sp_ListarReservasCLI;
-
-use app_losjardines;
-select * from reserva;
 
 
 
