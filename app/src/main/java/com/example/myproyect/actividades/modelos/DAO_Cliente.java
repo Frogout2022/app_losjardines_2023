@@ -187,6 +187,24 @@ public class DAO_Cliente {
         return msg;
     }
 
+    public static String deleteCLI(){
+        String msg="";
+        String dni = Login_Activity.getUsuario().getDNI();
+        try {
+            Connection cnx = ConexionMySQL.getConexion();
+            CallableStatement psta = cnx.prepareCall("{call sp_EliminarCLI(?)}");
+            psta.setString(1, dni);
+            psta.executeQuery();
+            ConexionMySQL.cerrarConexion(cnx);
+            msg = "Usuario eliminado correctamente";
+
+        } catch (Exception e) {
+            System.out.println("ERROR[DAO] updateDatos(): "+e);
+            msg = "Error al eliminar"+e;
+        }
+        return msg;
+    }
+
 
 
 }

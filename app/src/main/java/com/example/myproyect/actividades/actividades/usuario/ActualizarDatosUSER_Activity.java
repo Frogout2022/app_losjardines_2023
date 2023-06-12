@@ -1,7 +1,9 @@
 package com.example.myproyect.actividades.actividades.usuario;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -21,9 +23,11 @@ import com.example.myproyect.actividades.clases.MostrarMensaje;
 import com.example.myproyect.actividades.entidades.Usuario;
 import com.example.myproyect.actividades.modelos.DAO_Cliente;
 
+import java.util.regex.Pattern;
+
 public class ActualizarDatosUSER_Activity extends AppCompatActivity {
 
-    TextView txtDNI, txtNOMBRES;
+    TextView txtDNI, txtNOMBRES, txtDeleteUser;
     Button btnReset, btnUpdate, btnSalir;
     EditText txtCorreo, txtCel;
     final String email = Login_Activity.getUsuario().getCorreo();
@@ -46,7 +50,10 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
             startActivity(intent);
             this.finish();
         });
-
+        txtDeleteUser = findViewById(R.id.txtvDeleteUser_ActualizarDatos_Actv);
+        txtDeleteUser.setOnClickListener(view -> {
+            delete();
+        });
 
         btnUpdate = findViewById(R.id.btnUpdate_ActDatos_Actv);
         txtCorreo.addTextChangedListener(new TextWatcher() {
@@ -116,6 +123,24 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
         });
 
 
+    }
+    private void delete(){
+        AlertDialog.Builder ventana = new AlertDialog.Builder(this);
+        ventana.setTitle("Confirmación: ");
+        ventana.setMessage("¿Estás seguro de que deseas eliminar tu cuenta?");
+        ventana.setPositiveButton("Confirmar",  (dialogInterface, i) -> {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            String msg = DAO_Cliente.deleteCLI();
+            if(!msg.substring(0,5).equals("Error")){
+                MostrarMensaje.mensaje(msg, this, Login_Activity.class);
+            }else {
+                MostrarMensaje.mensaje(msg, this);
+            }
+
+        });
+        ventana.setNegativeButton("Cancelar", null);
+        ventana.create().show();;
 
 
     }
@@ -124,15 +149,21 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
         String correoEdit = txtCorreo.getText().toString();
         String celEdit = txtCel.getText().toString();
 
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        String msg = DAO_Cliente.updateDatos(correoEdit, celEdit);
-        MostrarMensaje.mensaje(msg, this);
-        if(!msg.substring(0,4).equals("Error")){
-            btnUpdate.setEnabled(false);
-            mostrar();
+        String patronCorreo = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+        boolean esCorreoValido = Pattern.matches(patronCorreo, correoEdit);
+        if(esCorreoValido){
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            String msg = DAO_Cliente.updateDatos(correoEdit, celEdit);
+            MostrarMensaje.mensaje(msg, this);
+            if(!msg.substring(0,4).equals("Error")){
+                btnUpdate.setEnabled(false);
+                mostrar();
+            }
+        }else{
+            Toast.makeText(this, "Correo no valido", Toast.LENGTH_SHORT).show();
         }
+
 
     }
     private void mostrar(){

@@ -135,4 +135,16 @@
         android:text="SALIR"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnResetclave_ActDatos_Actv" />
+
+    <TextView
+        android:id="@+id/txtvDeleteUser_ActualizarDatos_Actv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:text="Darse de baja"
+        android:textColor="#DF316C"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSALIR_ActDatos_Actv" />
 </androidx.constraintlayout.widget.ConstraintLayout>
