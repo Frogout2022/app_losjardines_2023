@@ -28,6 +28,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="17dp"
         android:singleLine="false"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
