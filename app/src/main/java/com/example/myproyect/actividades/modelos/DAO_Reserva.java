@@ -29,10 +29,12 @@ public class DAO_Reserva {
 
             while (rs.next()) {
                 String[] arrayHorario = new String[3];
-                String dia = rs.getString(2);
-                arrayHorario[0] = rs.getString(3);
-                arrayHorario[1] = rs.getString(4);
-                arrayHorario[2] = rs.getString(5);
+                // i:1 -> id tabla
+                // i:2 --> id_losa
+                String dia = rs.getString(3);
+                arrayHorario[0] = rs.getString(4);
+                arrayHorario[1] = rs.getString(5);
+                arrayHorario[2] = rs.getString(6);
 
                 reserva = new Reserva(dia, arrayHorario);
                 lista.add(reserva);
@@ -58,45 +60,34 @@ public class DAO_Reserva {
         return b;
     }
 
-/*
-    public static List<Reserva> ConsultarRsv(){
+
+    public static List<Reserva> ConsultarRsv(String tabla){
         //CONSULTAR RESERVAS DEL CLIENTE
 
         List<Reserva> lista = new ArrayList<>();
         String dni = Login_Activity.getUsuario().getDNI();
         try{
             Connection cnx=ConexionMySQL.getConexion();
-            CallableStatement csta=cnx.prepareCall("{call sp_ConsultarRsvCLI(?)}");
-            csta.setString(1, dni);
+            CallableStatement csta=cnx.prepareCall("{call sp_ConsultarRsvCLI(?,?)}");
+            csta.setString(1, tabla);
+            csta.setString(2, dni);
             ResultSet rs= csta.executeQuery();
             Reserva reserva=null;
             while(rs.next()){
                 String dia;
-                boolean[] arrayb = new boolean[3];
+                int id_losa=0;
                 String[] arrayDni = new String[3];
                 String dniBD = "";
-                // 1 -> ID
-                dia = rs.getString(2);
+                // i:1 -> ID_tabla
+                // i:2 -> ID_LOSA
+                id_losa = rs.getInt(2);
+                dia = rs.getString(3);
 
-                arrayb[0] = rs.getBoolean(3);
-                arrayb[1] = rs.getBoolean(4);
-                arrayb[2] = rs.getBoolean(5);
+                arrayDni[0] = rs.getString(4);
+                arrayDni[1] = rs.getString(5);
+                arrayDni[2] = rs.getString(6);
 
-
-                dniBD = rs.getString(6);
-                if(dniBD == null) dniBD="";
-                arrayDni[0] = dniBD;
-
-                dniBD = rs.getString(7);
-                if(dniBD == null) dniBD="";
-                arrayDni[1] = dniBD;
-
-                dniBD = rs.getString(8);
-                if(dniBD == null) dniBD="";
-                arrayDni[2] = dniBD;
-
-
-                reserva = new Reserva(dia, arrayb,arrayDni);
+                reserva = new Reserva(dia, arrayDni, id_losa);
                 lista.add(reserva);
             }
 
@@ -105,7 +96,7 @@ public class DAO_Reserva {
         return lista;
     }
 
- */
+
 
     /*
     public static List<Reserva> listarReservasCLI(){ //LISTAR TODAS LAS RESERVAS DEL AÑO
