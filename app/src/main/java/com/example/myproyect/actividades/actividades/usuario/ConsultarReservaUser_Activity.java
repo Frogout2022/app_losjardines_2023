@@ -15,6 +15,7 @@ import com.example.myproyect.R;
 import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.clases.Fecha;
 import com.example.myproyect.actividades.entidades.Reserva;
+import com.example.myproyect.actividades.modelos.DAO_Losa;
 import com.example.myproyect.actividades.modelos.DAO_Reserva;
 
 import org.w3c.dom.Text;
@@ -90,8 +91,8 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
                     if (arrayDni[2].equals(dni)) txtv.append("7pm");
                 }
 
-
-                txtv.append("\nLUGAR: " + reserva.getId_losa() + "\n\n");
+                String nom= DAO_Losa.consultarNombre(reserva.getId_losa());
+                txtv.append("\nLUGAR: " + nom + "\n\n");
                 txtv.append("----------------------------------"+"\n");
                 i++;
             }

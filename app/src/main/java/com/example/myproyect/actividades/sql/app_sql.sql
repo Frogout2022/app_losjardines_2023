@@ -84,59 +84,80 @@ create procedure sp_ConsultarCorreoADM(#-------------------------
 Correo char(20))
 select * from Admin where Correo_Adm=Correo;
 
+#------------TABLA LOSA------------
+create table tb_losa(
+id int  auto_increment primary key,
+nombre_losa varchar(30) not null,
+descripcion varchar(80),
+horario varchar(50) not null,
+direccion varchar (80) not null,
+mantenimiento boolean default 0,
+precio_hora decimal default 0
+);
+
+
+insert into tb_losa (nombre_losa, horario, direccion) values
+('Losa del pueblo','L-V', 'direccion 1'),
+('Losa del barrio','L-V', 'direccion 2'),
+('Losa los patas','L-V', 'direccion 3'),
+('Losa la Familia','L-V', 'direccion 4');
 
 
 #------------TABLA RESERVAS------------
 
 create table reserva_losa1(
 id int  auto_increment primary key,
+id_losa int,
 fecha_rsv char(10) unique, #'2023-01-01'
 3pm char(8),
 5pm char(8),
 7pm char(8),
-id_losa int,
 foreign key(3pm) references cliente(dni_cli),
 foreign key(5pm) references cliente(dni_cli),
-foreign key(7pm) references cliente(dni_cli)
+foreign key(7pm) references cliente(dni_cli),
+foreign key(id_losa) references tb_losa(id)
 );
 
 
 create table reserva_losa2(
 id int  auto_increment primary key,
+id_losa int,
 fecha_rsv char(10) unique, #'2023-01-01'
 3pm char(8),
 5pm char(8),
 7pm char(8),
-id_losa int,
 foreign key(3pm) references cliente(dni_cli),
 foreign key(5pm) references cliente(dni_cli),
-foreign key(7pm) references cliente(dni_cli)
+foreign key(7pm) references cliente(dni_cli),
+foreign key(id_losa) references tb_losa(id)
 );
 
 
 create table reserva_losa3(
 id int  auto_increment primary key,
+id_losa int,
 fecha_rsv char(10) unique, #'2023-01-01'
 3pm char(8),
 5pm char(8),
 7pm char(8),
-id_losa int,
 foreign key(3pm) references cliente(dni_cli),
 foreign key(5pm) references cliente(dni_cli),
-foreign key(7pm) references cliente(dni_cli)
+foreign key(7pm) references cliente(dni_cli),
+foreign key(id_losa) references tb_losa(id)
 );
 
 
 create table reserva_losa4(
 id int  auto_increment primary key,
+id_losa int,
 fecha_rsv char(10) unique, #'2023-01-01'
 3pm char(8),
 5pm char(8),
 7pm char(8),
-id_losa int,
 foreign key(3pm) references cliente(dni_cli),
 foreign key(5pm) references cliente(dni_cli),
-foreign key(7pm) references cliente(dni_cli)
+foreign key(7pm) references cliente(dni_cli),
+foreign key(id_losa) references tb_losa(id)
 );
 
 
@@ -203,17 +224,14 @@ DELIMITER ;
 
 ### LISTAR RESERVAS INDIVIDUAL POR CLIENTE ###
 DELIMITER //
-CREATE PROCEDURE sp_ConsultarRsvCLI(IN tabla VARCHAR(30),IN dni INT )
+CREATE PROCEDURE sp_ConsultarRsvCLI(IN tabla VARCHAR(30),IN dni char(8) )
 BEGIN
-    SET @sql = CONCAT('SELECT *
-                       FROM ', tabla, '
-                       WHERE 3pm = ? OR 5pm= ? OR 7pm = ?');
+    SET @sql = CONCAT('SELECT * FROM ', tabla, ' WHERE 3pm = ', dni ,' OR 5pm= ',dni,' OR 7pm = ',dni);
     PREPARE stmt FROM @sql;
-    EXECUTE stmt USING @dni, @dni, @dni;
+    EXECUTE stmt;
     DEALLOCATE PREPARE stmt;
 END //
 DELIMITER ;
-
 
 ### LISTAR TODAS LAS RESERVAS COMPRADAS ### -> PARA EL ADMINISTRADOR
 DELIMITER //
@@ -231,10 +249,7 @@ BEGIN
 END //
 DELIMITER ;
 
+
 ##############<----------------->###############
-
-
-
-
 
 
