@@ -26,13 +26,13 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_reservas_admin);
         referencias();
-        mostrar();
+        //mostrar();
     }
     private void referencias(){
         listado = findViewById(R.id.txtvListadoRsvCLI_Admin);
         actualizar = findViewById(R.id.btnActualizar_ListaRsvCLI_Admin);
         actualizar.setOnClickListener(view -> {
-            mostrar();
+            //mostrar();
         });
         salir = findViewById(R.id.btnSalir_ListaRsvCLI_Admin);
         salir.setOnClickListener(view -> {
@@ -42,6 +42,7 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
         });
 
     }
+    /*
     private void mostrar(){
         listado.setLines(60);
         listado.setEllipsize(TextUtils.TruncateAt.END);
@@ -89,4 +90,6 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
             Toast.makeText(this, "Hay "+listaRsv.size()+" reservas actualmente", Toast.LENGTH_LONG).show();
         }
     }
+
+     */
 }
