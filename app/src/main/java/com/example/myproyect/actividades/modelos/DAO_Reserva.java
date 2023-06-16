@@ -13,23 +13,28 @@ import java.util.List;
 public class DAO_Reserva {
 
 
-    public static  ArrayList<Reserva> listarReservaSemanal() {// PARA LA ACT. TABLA RESERVAS - CLI
+    public static  ArrayList<Reserva> listarReservaSemanal(String tabla, int dia_min, int dia_max) {
+        // PARA LA ACT. TABLA RESERVAS - CLI
         ArrayList<Reserva> lista = new ArrayList<>();
         Connection cnx = null;
         try {
             cnx = ConexionMySQL.getConexion();
-            CallableStatement csta = cnx.prepareCall("{call sp_ListarRESERVA_semanal()}");
+            CallableStatement csta = cnx.prepareCall("{call sp_ListarRsv(?,?,?)}");
+            csta.setString(1, tabla); // 'reserva_losa1'
+            csta.setInt(2, dia_min); // acutal
+            csta.setInt(3, dia_max); // actual + 7
+
             ResultSet rs = csta.executeQuery();
             Reserva reserva;
 
             while (rs.next()) {
-                boolean[] ab = new boolean[3];
+                String[] arrayHorario = new String[3];
                 String dia = rs.getString(2);
-                ab[0] = rs.getBoolean(3);
-                ab[1] = rs.getBoolean(4);
-                ab[2] = rs.getBoolean(5);
+                arrayHorario[0] = rs.getString(3);
+                arrayHorario[1] = rs.getString(4);
+                arrayHorario[2] = rs.getString(5);
 
-                reserva = new Reserva(dia, ab);
+                reserva = new Reserva(dia, arrayHorario);
                 lista.add(reserva);
             }
 
@@ -53,8 +58,10 @@ public class DAO_Reserva {
         return b;
     }
 
-
+/*
     public static List<Reserva> ConsultarRsv(){
+        //CONSULTAR RESERVAS DEL CLIENTE
+
         List<Reserva> lista = new ArrayList<>();
         String dni = Login_Activity.getUsuario().getDNI();
         try{
@@ -98,6 +105,9 @@ public class DAO_Reserva {
         return lista;
     }
 
+ */
+
+    /*
     public static List<Reserva> listarReservasCLI(){ //LISTAR TODAS LAS RESERVAS DEL AÑO
         //PARA ACTV. LISTAR_RSV_ADMIN
 
@@ -148,15 +158,20 @@ public class DAO_Reserva {
         return lista;
     }
 
-    public static String insertarRSV(String dia, int h){
-        //editar
+     */
+
+    public static String insertarRSV(String losa, String dia, String hora){ //PARA ACTV. CLIENTE
+        //editar-UPDATE
+
         String msg=null;
         String dni = Login_Activity.getUsuario().getDNI();
         try{
             Connection cnx=ConexionMySQL.getConexion();
-            CallableStatement csta=	cnx.prepareCall("{call sp_ReservarH"+h+"(?,?)}");
-            csta.setString(1,dia);
-            csta.setString(2,dni);
+            CallableStatement csta=	cnx.prepareCall("{call sp_Reservar(?,?,?,?)}");
+            csta.setString(1,losa); // 'reserva_losa1'
+            csta.setString(2,dia); // '2023-12-31'
+            csta.setString(3,hora); // '3pm'
+            csta.setString(4,dni); // '12345678'
 
             csta.executeUpdate();
             msg="Reserva registrada correctamente";

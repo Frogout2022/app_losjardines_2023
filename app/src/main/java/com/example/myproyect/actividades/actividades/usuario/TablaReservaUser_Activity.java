@@ -67,25 +67,20 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         ArrayList<Reserva> lista = new ArrayList<>();
-        lista = DAO_Reserva.listarReservaSemanal();
+        int dia_siguiente = Fecha.obtenerNumeroDiaActual()+1;
+        lista = DAO_Reserva.listarReservaSemanal("reserva_losa1", dia_siguiente, dia_siguiente+7);
 
         if(lista.size()==0){
-            //Toast.makeText(this, "LISTA VACIA", Toast.LENGTH_SHORT).show();
-
-            if(DAO_Reserva.LlenarTablaFEcha()){
-                //Toast.makeText(this, "TABLA LLENA", Toast.LENGTH_SHORT).show();
-                lista = DAO_Reserva.listarReservaSemanal();
-            }else{
-                //Toast.makeText(this, "Error de call", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(this, "LISTA VACIA", Toast.LENGTH_SHORT).show();
 
         }else{
             //Toast.makeText(this, "LISTA NO VACIA", Toast.LENGTH_SHORT).show();
 
             int index = 0,cantidadDias= 6,cantidadHoras=3;
+
             for (int i = 0; i < cantidadDias; i++) {
                 for (int j = 0; j < cantidadHoras; j++) {
-                    if(lista.get(i).getArrayB()[j]){
+                    if(lista.get(i).getArrayDni()[j]!=null){
                         //true
                         listaChk.get(index).setChecked(true);
                         listaChk.get(index).setText("OCUPADO");
@@ -161,6 +156,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     private void reservar(){
         //PROCESO DE RESERVA EN BD
 
+        /*
         String msg = null;
         cantidadReservas = listaChkS.size();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -262,6 +258,8 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
 
         Intent iPago= new Intent(this, PagoActivity.class);
         startActivity(iPago);
+
+         */
     }
     private void asginarReferencias(){
 

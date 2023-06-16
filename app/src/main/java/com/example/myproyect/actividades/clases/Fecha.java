@@ -67,6 +67,12 @@ public class Fecha {
         return fechas;
     }
 
+    public static int obtenerNumeroDiaActual() {
+        Calendar calendar = Calendar.getInstance();
+        int numeroDiaActual = calendar.get(Calendar.DAY_OF_YEAR);
+        return numeroDiaActual;
+    }
+
 
 
 }
