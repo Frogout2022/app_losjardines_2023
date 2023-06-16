@@ -339,10 +339,10 @@
 
     <TextView
         android:id="@+id/lblSemana_TablaReserva"
-        android:layout_width="337dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="341dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:clickable="false"
         android:gravity="center"
         android:text="SEMANA XX - XX - JUN_2023"

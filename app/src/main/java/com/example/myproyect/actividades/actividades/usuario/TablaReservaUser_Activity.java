@@ -3,6 +3,7 @@ package com.example.myproyect.actividades.actividades.usuario;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -36,6 +37,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     CheckBox chkS1, chkS2,chkS3;
     TextView lblSemana, lblCantidadPagar;
     TextView txtv_cl1,txtv_cl2,txtv_cl3,txtv_cl4,txtv_cl5,txtv_cl6;
+    TextView lblNombreL;
     int numDia1, numDia6;
     Double cantidadPagar=0.0;
     int cantidadReservas=0;
@@ -59,9 +61,13 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         updateChk(); //consultar a la BD
         clickChk(); //actualizar visualización
 
+        lblSemana.setSingleLine(false);
         lblSemana.setText(Fecha.lblTablaReserva);
+        lblSemana.append("\n"+getIntent().getStringExtra("nombre"));
+
 
     }
+
 
     private void updateChk(){
         //consultar BD
@@ -220,6 +226,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         lblSemana = findViewById(R.id.lblSemana_TablaReserva);
         lblCantidadPagar = findViewById(R.id.lblCantidadPagar_TRU);
 
+
         btnVolver = findViewById(R.id.btnRegresar_TRU);
         btnVolver.setOnClickListener(view -> {
             super.onBackPressed();
@@ -230,6 +237,11 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
             reservar();
         });
 
+        referenciasChk();
+
+
+    }
+    private void referenciasChk(){
         chkL1 = findViewById(R.id.chkLunes_3pm_TRU);//0
         chkL2 = findViewById(R.id.chkLunes_5pm_TRU);//1
         chkL3 = findViewById(R.id.chkLunes_7pm_TRU);//2
@@ -253,7 +265,6 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         chkS1 = findViewById(R.id.chkSabado_3pm_TRU);
         chkS2 = findViewById(R.id.chkSabado_5pm_TRU);
         chkS3 = findViewById(R.id.chkSabado_7pm_TRU);
-
     }
     private void agregarListaChk(){
         listaChk.add(chkL1);
