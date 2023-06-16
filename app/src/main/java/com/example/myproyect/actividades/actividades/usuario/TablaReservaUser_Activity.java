@@ -46,6 +46,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     List<Integer> listaChkS = new ArrayList<>();
     List<TextView> listaTxtv = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         clickChk(); //actualizar visualización
 
         lblSemana.setText(Fecha.lblTablaReserva);
+
     }
 
     private void updateChk(){
@@ -69,7 +71,8 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
 
         ArrayList<Reserva> lista = new ArrayList<>();
         int dia_siguiente = Fecha.obtenerNumeroDiaActual()+1;
-        lista = DAO_Reserva.listarReservaSemanal("reserva_losa1", dia_siguiente, dia_siguiente+7);
+        String tabla = getIntent().getStringExtra("tabla");
+        lista = DAO_Reserva.listarReservaSemanal(tabla, dia_siguiente, dia_siguiente+7);
 
         if(lista.size()==0){
             Toast.makeText(this, "LISTA VACIA", Toast.LENGTH_SHORT).show();
@@ -164,7 +167,8 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
 
         String msg = null;
         List<String> lista = Fecha.getFechas();
-        String tabla = "reserva_losa1";
+        String tabla = getIntent().getStringExtra("tabla");
+
 
         int[][] casos = {
                 {0, 1, 2},     // Casos 0, 1, 2

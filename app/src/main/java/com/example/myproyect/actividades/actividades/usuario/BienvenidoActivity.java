@@ -40,15 +40,17 @@ public class BienvenidoActivity extends AppCompatActivity implements InterfaceMe
         });
         btnSalida = findViewById(R.id.actvbtnCerrar);
         btnSalida.setOnClickListener(view -> {
-            this.finish();
+
             Intent intent = new Intent(this, Login_Activity.class);
             startActivity(intent);
+            this.finish();
         });
         btnActualizarDatos = findViewById(R.id.btnActualizarDatos_BienvenidoActv);
         btnActualizarDatos.setOnClickListener(view -> {
+            finish();
             Intent intent = new Intent(this, ActualizarDatosUSER_Activity.class);
             startActivity(intent);
-            finish();
+
         });
     }
 
