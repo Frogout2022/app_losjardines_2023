@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actividades.actividades.MenuAdmin_Activity">
+    tools:context=".actividades.actividades.admin.MenuAdmin_Activity">
 
     <Button
         android:id="@+id/btnListarUsers_MenuAdm"

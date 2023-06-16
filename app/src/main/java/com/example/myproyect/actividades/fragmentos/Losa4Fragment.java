@@ -1,8 +1,6 @@
 package com.example.myproyect.actividades.fragmentos;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,15 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.example.myproyect.R;
-import com.example.myproyect.actividades.actividades.BienvenidoActivity;
-import com.example.myproyect.actividades.actividades.PagoActivity;
-import com.example.myproyect.actividades.actividades.TablaReservaUser_Activity;
-
-import java.util.Calendar;
+import com.example.myproyect.actividades.actividades.usuario.BienvenidoActivity;
+import com.example.myproyect.actividades.actividades.usuario.TablaReservaUser_Activity;
 
 /**
  * A simple {@link Fragment} subclass.

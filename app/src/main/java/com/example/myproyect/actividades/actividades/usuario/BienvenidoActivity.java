@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.usuario;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myproyect.R;
-import com.example.myproyect.actividades.actividades.usuario.ActualizarDatosUSER_Activity;
+import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.clases.InterfaceMenu;
 import com.example.myproyect.actividades.entidades.Usuario;
 
@@ -60,7 +60,7 @@ public class BienvenidoActivity extends AppCompatActivity implements InterfaceMe
 
     @Override
     public void onClickMenu(int idBoton) {
-        Intent iMenu = new Intent(this, Menu.class);
+        Intent iMenu = new Intent(this, Menu_Losas_Activity.class);
         iMenu.putExtra("idBoton",idBoton);
         startActivity(iMenu);
      //   finish();

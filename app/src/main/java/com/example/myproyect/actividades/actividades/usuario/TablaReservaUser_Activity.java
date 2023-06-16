@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.usuario;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myproyect.R;
+import com.example.myproyect.actividades.actividades.Login_Activity;
+import com.example.myproyect.actividades.actividades.usuario.pago.PagoActivity;
 import com.example.myproyect.actividades.clases.Fecha;
 import com.example.myproyect.actividades.entidades.Reserva;
 import com.example.myproyect.actividades.entidades.Usuario;
@@ -258,7 +260,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         updateChk(); //actualizar vista
 
-        Intent iPago= new Intent(this,PagoActivity.class);
+        Intent iPago= new Intent(this, PagoActivity.class);
         startActivity(iPago);
     }
     private void asginarReferencias(){

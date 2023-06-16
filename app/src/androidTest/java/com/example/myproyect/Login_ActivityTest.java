@@ -3,10 +3,10 @@ package com.example.myproyect;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.myproyect.actividades.actividades.BienvenidoActivity;
+import com.example.myproyect.actividades.actividades.usuario.BienvenidoActivity;
 import com.example.myproyect.actividades.actividades.Login_Activity;
-import com.example.myproyect.actividades.actividades.RecuperarPassword_Activity;
-import com.example.myproyect.actividades.actividades.RegistroActivity;
+import com.example.myproyect.actividades.actividades.usuario.RecuperarPassword_Activity;
+import com.example.myproyect.actividades.actividades.usuario.RegistroActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
