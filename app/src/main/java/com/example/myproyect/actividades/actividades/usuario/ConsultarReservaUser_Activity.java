@@ -80,9 +80,17 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
                 txtv.append("----------------------------------"+"\n");
                 txtv.append("FECHA: " + reserva.getDia() + "\nHORA: ");
                 String[] arrayDni = reserva.getArrayDni();
-                if (arrayDni[0] == dni) txtv.append("3pm");
-                if (arrayDni[1] == dni) txtv.append("5pm");
-                if (arrayDni[2] == dni) txtv.append("7pm");
+                if(arrayDni[0] != null){
+                    if (arrayDni[0].equals(dni)) txtv.append("3pm");
+                }
+                if(arrayDni[1] != null){
+                    if (arrayDni[1].equals(dni)) txtv.append("5pm");
+                }
+                if(arrayDni[2] != null){
+                    if (arrayDni[2].equals(dni)) txtv.append("7pm");
+                }
+
+
                 txtv.append("\nLUGAR: " + reserva.getId_losa() + "\n\n");
                 txtv.append("----------------------------------"+"\n");
                 i++;
