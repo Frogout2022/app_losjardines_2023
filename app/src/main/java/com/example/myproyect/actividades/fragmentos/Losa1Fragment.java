@@ -35,6 +35,8 @@ public class Losa1Fragment extends Fragment{
     private String mParam2;
     private final String nombre_tabla = "reserva_losa1";
 
+
+
     public Losa1Fragment() {
         // Required empty public constructor
     }
@@ -112,8 +114,11 @@ public class Losa1Fragment extends Fragment{
         return view;
     }
     private void tablaAceptar(){
+
         Intent intent = new Intent(getContext(), TablaReservaUser_Activity.class);
         intent.putExtra("tabla", nombre_tabla);
+        final String nombre_losa = getString(R.string.bieLblCan1);
+        intent.putExtra("nombre", nombre_losa);
         startActivity(intent);
         getActivity().finish();
 
