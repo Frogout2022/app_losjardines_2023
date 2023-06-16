@@ -160,17 +160,25 @@ public class DAO_Reserva {
 
      */
 
-    public static String insertarRSV(String losa, String dia, String hora){ //PARA ACTV. CLIENTE
+    public static String insertarRSV(String tabla, String dia, int hora){ //PARA ACTV. CLIENTE
         //editar-UPDATE
-
+        String hora_str= "";
+        switch (hora){
+            case 15:
+                hora_str="3pm";break;
+            case 17:
+                hora_str="5pm";break;
+            case 19:
+                hora_str="7pm";break;
+        }
         String msg=null;
         String dni = Login_Activity.getUsuario().getDNI();
         try{
             Connection cnx=ConexionMySQL.getConexion();
             CallableStatement csta=	cnx.prepareCall("{call sp_Reservar(?,?,?,?)}");
-            csta.setString(1,losa); // 'reserva_losa1'
+            csta.setString(1,tabla); // 'reserva_losa1'
             csta.setString(2,dia); // '2023-12-31'
-            csta.setString(3,hora); // '3pm'
+            csta.setString(3,hora_str); // '3pm'
             csta.setString(4,dni); // '12345678'
 
             csta.executeUpdate();

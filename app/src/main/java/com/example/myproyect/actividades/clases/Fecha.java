@@ -50,6 +50,7 @@ public class Fecha {
     }
 
     public static List<String>  getFechas(){
+        //retornar las fechas de los proximos días
         List<String> fechas = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
