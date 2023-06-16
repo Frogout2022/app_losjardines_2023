@@ -32,6 +32,7 @@ public class Losa3Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private final String nombre_tabla = "reserva_losa3";
 
     public Losa3Fragment() {
         // Required empty public constructor
@@ -107,6 +108,7 @@ public class Losa3Fragment extends Fragment {
 
     private void tablaAceptar() {
         Intent intent = new Intent(getContext(), TablaReservaUser_Activity.class);
+        intent.putExtra("tabla", nombre_tabla);
         startActivity(intent);
     }
 

@@ -22,16 +22,14 @@
         <activity
             android:name=".actividades.actividades.usuario.ConsultarReservaUser_Activity"
             android:exported="false">
-
         </activity>
+
         <activity
             android:name=".actividades.actividades.usuario.TablaReservaUser_Activity"
             android:exported="false">
-
         </activity>
-        <activity
-            android:name=".Prueba_Activity"
-            android:exported="false" />
+
+
         <activity
             android:name=".actividades.actividades.usuario.pago.Tarjeta_Activity"
             android:exported="false" />
@@ -74,19 +72,19 @@
         </activity>
         <activity
             android:name=".actividades.actividades.CargaActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".actividades.actividades.Login_Activity"
-            android:exported="false">
-
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
