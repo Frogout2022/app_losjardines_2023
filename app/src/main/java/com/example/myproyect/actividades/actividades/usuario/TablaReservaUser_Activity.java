@@ -22,6 +22,7 @@ import com.example.myproyect.actividades.entidades.Usuario;
 import com.example.myproyect.actividades.modelos.DAO_Reserva;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -156,99 +157,41 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     private void reservar(){
         //PROCESO DE RESERVA EN BD
 
-        /*
-        String msg = null;
+
         cantidadReservas = listaChkS.size();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String dni = usuario.getDNI();
 
-
+        String msg = null;
         List<String> lista = Fecha.getFechas();
+        String tabla = "reserva_losa1";
 
-        for(int i=0 ; i<listaChkS.size(); i++){
+        int[][] casos = {
+                {0, 1, 2},     // Casos 0, 1, 2
+                {3, 4, 5},     // Casos 3, 4, 5
+                {6, 7, 8},     // Casos 6, 7, 8
+                {9, 10, 11},   // Casos 9, 10, 11
+                {12, 13, 14},  // Casos 12, 13, 14
+                {15, 16, 17}   // Casos 15, 16, 17
+        };
+
+        for (int i = 0; i < listaChkS.size(); i++) {
             int numOrden = listaChkS.get(i);
-            String dia = null;
+            int grupo = -1;
+            String dia;
 
-            if(numOrden<=2){
-                //dia 1 - columna 1
-                dia = lista.get(0);
-                switch (numOrden){
-                    case 0:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 1:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 2:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
+            // Determinar el grupo al que pertenece numOrden
+            for (int j = 0; j < casos.length; j++) {
+                if (Arrays.stream(casos[j]).anyMatch(x -> x == numOrden)) {
+                    grupo = j;
+                    break;
                 }
-            }else if(numOrden<=5){
-                dia = lista.get(1);
-                switch (numOrden){
-                    case 3:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 4:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 5:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
-                }
-            }else if(numOrden<=8){
-                dia = lista.get(2);
-                switch (numOrden){
-                    case 6:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 7:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 8:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
-                }
-            }else if(numOrden<=11) {
-                dia = lista.get(3);;
-                switch (numOrden) {
-                    case 9:
-                        msg = DAO_Reserva.insertarRSV(dia, 3);
-                        break;
-                    case 10:
-                        msg = DAO_Reserva.insertarRSV(dia, 5);
-                        break;
-                    case 11:
-                        msg = DAO_Reserva.insertarRSV(dia, 7);
-                        break;
-                }
-            }else if(numOrden<=14){
-                dia = lista.get(4);;
-                switch (numOrden){
-                    case 12:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 13:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 14:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
-                }
-            }else{
-                dia = lista.get(5);;
-                switch (numOrden){
-                    case 15:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 16:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 17:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
-                }
+            }
+
+            if (grupo != -1) {
+                dia = lista.get(grupo);
+                int hora = 15 + ((numOrden - grupo * 3) * 2);
+                msg = DAO_Reserva.insertarRSV(tabla, dia, hora);
             }
         }
 
@@ -259,7 +202,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         Intent iPago= new Intent(this, PagoActivity.class);
         startActivity(iPago);
 
-         */
+
     }
     private void asginarReferencias(){
 
