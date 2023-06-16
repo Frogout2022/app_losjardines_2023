@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.example.myproyect.R;
+import com.example.myproyect.actividades.actividades.Login_Activity;
 
 public class MenuAdmin_Activity extends AppCompatActivity {
     Button btnSalir, btnListarUsers;

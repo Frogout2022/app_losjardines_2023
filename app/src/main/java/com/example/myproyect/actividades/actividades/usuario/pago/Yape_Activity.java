@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.usuario.pago;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.myproyect.R;
+import com.example.myproyect.actividades.actividades.usuario.BienvenidoActivity;
 
 public class Yape_Activity extends AppCompatActivity implements View.OnClickListener {
     Button btnConfirmar, btnRegresar;
