@@ -1,26 +1,24 @@
 package com.example.myproyect.actividades.entidades;
 
 public class CanchaDeportiva {
-    private String direccion;
+
     private String nombre;
-    private String horarios;
-    private boolean mantenimiento;
+    private String descripcion;
+    private String horario ;
+    private String direccion;
+    private Boolean mantenimiento;
     private double precio;
 
-    public CanchaDeportiva(String direccion, String nombre, String horarios, boolean mantenimiento, double precio) {
-        this.direccion = direccion;
+    public CanchaDeportiva(String nombre, String descripcion, String horario, String direccion, Boolean mantenimiento, double precio) {
         this.nombre = nombre;
-        this.horarios = horarios;
+        this.descripcion = descripcion;
+        this.horario = horario;
+        this.direccion = direccion;
         this.mantenimiento = mantenimiento;
         this.precio = precio;
     }
+    public CanchaDeportiva(){
 
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     public String getNombre() {
@@ -31,19 +29,35 @@ public class CanchaDeportiva {
         this.nombre = nombre;
     }
 
-    public String getHorarios() {
-        return horarios;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setHorarios(String horarios) {
-        this.horarios = horarios;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public boolean isMantenimiento() {
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Boolean getMantenimiento() {
         return mantenimiento;
     }
 
-    public void setMantenimiento(boolean mantenimiento) {
+    public void setMantenimiento(Boolean mantenimiento) {
         this.mantenimiento = mantenimiento;
     }
 
