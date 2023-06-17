@@ -29,7 +29,7 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_consultar_reserva_user);
 
         asignarReferencias();
-        //mostrar();
+        mostrar();
 
     }
     private void asignarReferencias(){
@@ -40,7 +40,7 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         txtv = findViewById(R.id.txtv_consultasRsv_user);
 
     }
-    /*
+
     private void mostrar(){
         txtv.setLines(10);
         txtv.setEllipsize(TextUtils.TruncateAt.END);
@@ -53,44 +53,27 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
             txtv.setText("NO TIENE RESERVAS");
         }else{
             txtv.setText("");
+                String anio = "";
+                for(int i=0 ; i<listaRsv.size(); i++) {
+                    txtv.setText(txtv.getText()+"FECHA: "+
+                            listaRsv.get(i).getDia()+"\nHORA: ");
 
-            for(int i=0 ; i<listaRsv.size(); i++){
-                List<String> listaDias = Fecha.obtenerDiasSemanaProximos();
-                List<String> listaHoras = new ArrayList<>();
-                String dni = Login_Activity.getUsuario().getDNI();
-                String hora =  null;
-
-                for(int j=0 ; j<3; j++){
-                    if(listaRsv.get(i).getArrayDni()[j].equals(dni)){
-                        switch (j){
-                            case 0:
-                                hora = "3pm";
-                                listaHoras.add(hora);
-                                break;
-                            case 1:
-                                hora = "5pm";
-                                listaHoras.add(hora);
-                                break;
-                            case 2:
-                                hora = "7pm";
-                                listaHoras.add(hora);
-                                break;
-                        }
-
+                    if(listaRsv.get(i).getArrayDni()[0].equals(Login_Activity.getUsuario().getDNI())) {
+                        txtv.setText(txtv.getText()+"3pm");
                     }
+                    if(listaRsv.get(i).getArrayDni()[1].equals(Login_Activity.getUsuario().getDNI())) {
+                        txtv.setText(txtv.getText()+"5pm");
+                    }
+                    if(listaRsv.get(i).getArrayDni()[2].equals(Login_Activity.getUsuario().getDNI())) {
+                        txtv.setText(txtv.getText()+"7pm");
+                    }
+                    txtv.setText(txtv.getText()+"\n\n");
+
                 }
-                int dia = listaRsv.get(i).getDia();
-                txtv.setText(
-                        txtv.getText()+"\n"+
-                        "DIA: "+ dia+" -> "+listaDias.get(dia-1)+"\n"+
-                        "HORA: "+listaHoras.get(i)+"\n"
-                        );
             }
             Toast.makeText(this, "Tiene "+listaRsv.size()+" reservas", Toast.LENGTH_SHORT).show();
 
-        }
-
     }
 
-     */
+
 }

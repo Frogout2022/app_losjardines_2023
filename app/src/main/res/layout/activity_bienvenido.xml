@@ -52,13 +52,13 @@
             android:textColorHint="@color/white"></Button>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnReservasRealizadas_BienvenidoActv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="RESERVAS REALIZADAS" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnActualizarDatos_BienvenidoActv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ACTUALIZAR DATOS" />

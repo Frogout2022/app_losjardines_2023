@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -66,14 +65,14 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         ArrayList<Reserva> lista = new ArrayList<>();
-        lista = DAO_Reserva.listarReserva();
+        lista = DAO_Reserva.listarReservaSemanal();
 
         if(lista.size()==0){
             //Toast.makeText(this, "LISTA VACIA", Toast.LENGTH_SHORT).show();
 
             if(DAO_Reserva.LlenarTablaFEcha()){
                 //Toast.makeText(this, "TABLA LLENA", Toast.LENGTH_SHORT).show();
-                lista = DAO_Reserva.listarReserva();
+                lista = DAO_Reserva.listarReservaSemanal();
             }else{
                 //Toast.makeText(this, "Error de call", Toast.LENGTH_SHORT).show();
             }
@@ -98,11 +97,6 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
                 }
             }
         }
-
-
-
-
-
 
 
     }

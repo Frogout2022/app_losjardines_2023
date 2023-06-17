@@ -4,7 +4,7 @@ package com.example.myproyect.actividades.entidades;
 //HORARIO3: 7PM - 8PM
 public class Reserva {
 
-    private String dia;
+    private String dia; //fecha
     private boolean[] arrayB = new boolean[3]; // true= ocupado - false = libre;
     private String[] arrayDni = new String[3];
 

@@ -1,7 +1,8 @@
 #drop database app_losjardines;
 create database app_losjardines;
-
 use app_losjardines;
+SELECT NOW() AS fecha_hora_actual;
+SET lc_time_names = 'es_ES'; #CAMBIAR ESPAÑOL EL IDIOMA
 
 create table Cliente(
 Dni_Cli char(8) primary key,
@@ -29,7 +30,7 @@ Nombre varchar(20),
 Apellido varchar(20) ,
 Correo varchar(30) ,
 Contrasena varchar(20),
-Celular varchar(10) 
+Celular varchar(10)
 )
 insert into Cliente values(Dni,Nombre,Apellido,Correo,Contrasena,Celular);
 
@@ -85,62 +86,128 @@ Correo char(20))
 select * from Admin where Correo_Adm=Correo;
 
 
-#----------------tabla reserva------
-
-create table RESERVA(
-DIA_rsv int primary key,
-HORA3 boolean not null,
-HORA5 boolean not null,
-HORA7 boolean not null,
-DNI_H3 char(8) not null,
-DNI_H5 char(8) not null,
-DNI_H7 char(8) not null,
-foreign key(DNI_H3) references Cliente(dni_cli)
-on update cascade on delete cascade,
-foreign key(DNI_H5) references Cliente(dni_cli)
-on update cascade on delete cascade,
-foreign key(DNI_H7) references Cliente(dni_cli)
-on update cascade on delete cascade
+#----------------TABLA FECHA------
+create table tb_FECHA(
+fecha char(10) primary KEY,
+Day_name char(15) default 'N' null,
+day_numb int default 0 NOT null,
+mes_numb int default 0 NOT null,
+anio_numb int default 0 NOT null
 );
 
-insert into reserva values
-(1,false,false,false,'00000000','00000000','00000000'),
-(2,false,false,false,'00000000','00000000','00000000'),
-(3,false,false,false,'00000000','00000000','00000000'),
-(4,false,false,false,'00000000','00000000','00000000'),
-(5,false,false,false,'00000000','00000000','00000000'),
-(6,false,false,false,'00000000','00000000','00000000');
-select * from reserva;
-#insert into reserva values (day(curdate()),false,false,false);
 
-create procedure sp_ListarRESERVA()#--------
+#------------TABLA RESERVA------------
+
+create table reserva(
+id int  auto_increment primary key,
+fecha_rsv char(10), #'2023-01-01'
+HORA3 boolean default 0 not null,
+HORA5 boolean default 0 not null,
+HORA7 boolean default 0 not null,
+DNI_H3 char(8) ,
+DNI_H5 char(8),
+DNI_H7 char(8),
+foreign key(fecha_rsv) references tb_fecha(fecha)
+on update cascade on delete cascade,
+foreign key(dni_h3) references cliente(dni_cli)
+on update cascade,
+foreign key(dni_h5) references cliente(dni_cli)
+on update cascade,
+foreign key(dni_h7) references cliente(dni_cli)
+on update cascade
+);
+use app_losjardines;
 select * from reserva;
+#-------TRIGGER CREAR_RESERVA
+DELIMITER //
+CREATE TRIGGER crear_reserva
+AFTER INSERT ON tb_fecha
+FOR EACH ROW
+BEGIN
+	DECLARE valor char(10);
+    set valor = new.fecha;
+    INSERT INTO reserva (fecha_rsv) VALUES (valor);
+END//
+DELIMITER ;
+
+drop table tb_fecha;
+drop table reserva;
+select * from tb_fecha;
+
+#--------------PROCEDURE INSERTAR_FECHAS
+
+DELIMITER //
+CREATE PROCEDURE sp_insertar_fechas()
+BEGIN
+    DECLARE fecha_inicio DATE;
+    DECLARE fecha_fin DATE;
+    DECLARE fecha_actual DATE;
+
+    SET fecha_inicio = CONCAT(YEAR(CURDATE()), '-01-01');
+    SET fecha_fin = CONCAT(YEAR(CURDATE()), '-12-31');
+    SET fecha_actual = fecha_inicio;
+
+    WHILE fecha_actual <= fecha_fin DO
+        INSERT INTO TB_FECHA  VALUES (fecha_actual, dayname(fecha_actual),day(fecha_actual),month(fecha_actual),year(fecha_actual));
+        SET fecha_actual = DATE_ADD(fecha_actual, INTERVAL 1 DAY);
+    END WHILE;
+
+    SELECT 'Fechas insertadas correctamente.' AS mensaje;
+END //
+DELIMITER ;
+
+#---llamar funcion para insertar todas las fechas del año
+CALL SP_insertar_fechas();
+
+
+#----SP TABLA RESERVA--------
+
+DELIMITER //
+CREATE PROCEDURE sp_ListarRESERVA_semanal()#---------PROCEDURE
+BEGIN
+    SELECT *
+    FROM RESERVA
+    WHERE FECHA_RSV IN (
+        DATE_ADD(CURDATE(), INTERVAL 1 DAY),
+        DATE_ADD(CURDATE(), INTERVAL 2 DAY),
+        DATE_ADD(CURDATE(), INTERVAL 3 DAY),
+        DATE_ADD(CURDATE(), INTERVAL 4 DAY),
+        DATE_ADD(CURDATE(), INTERVAL 5 DAY),
+        DATE_ADD(CURDATE(), INTERVAL 6 DAY)
+    );
+END//
+DELIMITER ;
 
 create procedure sp_ReservarH3(#-----------------------EDIT
-dia int,
-hora boolean,
+dia char(10),
 dni char(8))
-update Reserva set hora3=hora, dni_h3=dni where dia_rsv=dia;
+update Reserva set hora3=1, dni_h3=dni where fecha_rsv=dia;
 
 create procedure sp_ReservarH5(#-----------------------EDIT
-dia int,
-hora boolean,
+dia char(10),
 dni char(8))
-update Reserva set hora5=hora,dni_h5=dni where dia_rsv=dia;
-call sp_ReservarH5(1,true,'70829460');
+update Reserva set hora5=1,dni_h5=dni where fecha_rsv=dia;
+#call sp_ReservarH5(1,'70829460');
 
 create procedure sp_ReservarH7(#-----------------------EDIT
-dia int,
-hora boolean,
+dia char(10),
 dni char(8))
-update Reserva set hora7=hora, dni_h7=dni where dia_rsv=dia;
+update Reserva set hora7=1, dni_h7=dni where fecha_rsv=dia;
 
 create procedure sp_ConsultarRsvCLI(#-------------------------
 Dni char(8))
 select * from Reserva where Dni_h3=Dni or dni_h5=Dni or dni_h7=dni;
+#call sp_ConsultarRsvCLI('72673554');
 
 
-select * from cliente;
+create procedure sp_ListarReservasCLI() #--para el admin
+select * from Reserva where Dni_h3 is not null or dni_h5 is not null or dni_h7 is not null;
+
+call sp_ListarReservasCLI;
+
+use app_losjardines;
+select * from reserva;
+
 
 
 

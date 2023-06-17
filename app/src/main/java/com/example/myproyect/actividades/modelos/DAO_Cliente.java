@@ -1,5 +1,6 @@
 package com.example.myproyect.actividades.modelos;
 
+import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.conexion.ConexionMySQL;
 import com.example.myproyect.actividades.entidades.Usuario;
 
@@ -112,6 +113,20 @@ public class DAO_Cliente {
         }catch(Exception e){System.out.println("Error AC ConsultarCorreo(): "+e);}
         return b;
     }
+    public static boolean ConsultarCelular(String celular){
+
+        boolean b = false;
+        try{
+            Connection cnx=ConexionMySQL.getConexion();
+            CallableStatement csta=cnx.prepareCall("{call sp_ConsultarCelularCLI(?)}");
+            csta.setString(1, celular);
+            ResultSet rs= csta.executeQuery();
+            if(rs.next()) b= true;
+            ConexionMySQL.cerrarConexion(cnx);
+        }catch(Exception e){System.out.println("ERROR[DAO] ConsultarCelular(): "+e);}
+        return b;
+    }
+
 
     public static boolean ConsultarDni(String dni){//PARA CONFIRMAR EL RESET PASS
         //PARA V. RESET PASS
@@ -140,6 +155,52 @@ public class DAO_Cliente {
         } catch (Exception e) {
             System.out.println("Error editarPass: "+e);
             msg="Error al actualizar la contraseña";
+        }
+        return msg;
+    }
+
+    public static  String updateDatos(String correo, String celular){
+        String msg= "";
+        if(ConsultarCorreo(correo)){
+            msg = "Correo ya existe ";
+        }else if(ConsultarCelular(celular)){
+            msg = msg+"Celular ya existe ";
+        }else{
+            String dni = Login_Activity.getUsuario().getDNI();
+            try {
+                Connection cnx = ConexionMySQL.getConexion();
+                CallableStatement psta = cnx.prepareCall("{call sp_EditarDatosCLI(?,?,?)}");
+                psta.setString(1, dni);
+                psta.setString(2, correo);
+                psta.setString(3, celular);
+                psta.executeQuery();
+                ConexionMySQL.cerrarConexion(cnx);
+                msg = "Datos actualizados correctamente";
+                Login_Activity.usuario.setCorreo(correo);
+                Login_Activity.usuario.setCelular(celular);
+            } catch (Exception e) {
+                System.out.println("ERROR[DAO] updateDatos(): "+e);
+                msg = "Error al actualizar"+e;
+            }
+        }
+
+        return msg;
+    }
+
+    public static String deleteCLI(){
+        String msg="";
+        String dni = Login_Activity.getUsuario().getDNI();
+        try {
+            Connection cnx = ConexionMySQL.getConexion();
+            CallableStatement psta = cnx.prepareCall("{call sp_EliminarCLI(?)}");
+            psta.setString(1, dni);
+            psta.executeQuery();
+            ConexionMySQL.cerrarConexion(cnx);
+            msg = "Usuario eliminado correctamente";
+
+        } catch (Exception e) {
+            System.out.println("ERROR[DAO] updateDatos(): "+e);
+            msg = "Error al eliminar"+e;
         }
         return msg;
     }

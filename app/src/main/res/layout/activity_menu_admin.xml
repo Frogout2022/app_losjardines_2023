@@ -21,8 +21,8 @@
         android:id="@+id/textView"
         android:layout_width="315dp"
         android:layout_height="64dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="52dp"
         android:gravity="center_horizontal|center_vertical"
         android:text="Bienvenido administrador"
         android:textColor="#DF1919"
@@ -34,10 +34,19 @@
         android:id="@+id/btnSalirAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="22dp"
         android:text="SALIR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnListarRsvUsers_MenuAdm" />
+
+    <Button
+        android:id="@+id/btnListarRsvUsers_MenuAdm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="23dp"
+        android:text="LISTAR RESERVAS"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnListarUsers_MenuAdm" />
 </androidx.constraintlayout.widget.ConstraintLayout>

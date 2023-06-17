@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".actividades.actividades.admin.ListarReservasADMIN_Activity">
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="272dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="26dp"
+        android:text="LISTAR RESERVAS DE CLIENTS"
+        android:textColor="#D1A41E"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtvListadoRsvCLI_Admin"
+        android:layout_width="289dp"
+        android:layout_height="449dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="27dp"
+        android:text="Listado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <Button
+        android:id="@+id/btnSalir_ListaRsvCLI_Admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="36dp"
+        android:text="Salir"
+        app:layout_constraintStart_toEndOf="@+id/btnActualizar_ListaRsvCLI_Admin"
+        app:layout_constraintTop_toBottomOf="@+id/txtvListadoRsvCLI_Admin" />
+
+    <Button
+        android:id="@+id/btnActualizar_ListaRsvCLI_Admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="36dp"
+        android:text="ACTUALIZAR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtvListadoRsvCLI_Admin" />
+</androidx.constraintlayout.widget.ConstraintLayout>

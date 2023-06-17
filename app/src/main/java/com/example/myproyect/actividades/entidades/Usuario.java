@@ -21,6 +21,9 @@ public class Usuario {
         this.celular = celular;
 
     }
+    public Usuario(){
+
+    }
 
     public Usuario(String DNI) {
         this.DNI = DNI;
@@ -71,6 +74,7 @@ public class Usuario {
         this.correo = correo;
     }
 
-
-
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
 }

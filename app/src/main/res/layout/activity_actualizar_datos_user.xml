@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".actividades.actividades.usuario.ActualizarDatosUSER_Activity">
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="295dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        android:text="ACTUALIZAR DATOS"
+        android:textColor="#FF9800"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="28dp"
+        android:text="DNI:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/txtvDNI_ActualizarDatos_Actv"
+        android:layout_width="166dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="28dp"
+        android:text="0000000"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="46dp"
+        android:text="Nombres y Apellidos:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtvDNI_ActualizarDatos_Actv" />
+
+    <TextView
+        android:id="@+id/txtvNOMBRES_ActualizarDatos_Actv"
+        android:layout_width="307dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="20dp"
+        android:text="Datos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <EditText
+        android:id="@+id/txtCorreo_ActualizarDatos_Actv"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="18dp"
+        android:text="Correo:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtvNOMBRES_ActualizarDatos_Actv" />
+
+    <EditText
+        android:id="@+id/txtCelular_ActualizarDatos_Actv"
+        android:layout_width="254dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:text="Celular:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCorreo_ActualizarDatos_Actv" />
+
+    <Button
+        android:id="@+id/btnUpdate_ActDatos_Actv"
+        android:layout_width="166dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="28dp"
+        android:enabled="false"
+        android:text="Actualizar Datos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCelular_ActualizarDatos_Actv" />
+
+    <Button
+        android:id="@+id/btnResetclave_ActDatos_Actv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="16dp"
+        android:text="RESET CLAVE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUpdate_ActDatos_Actv" />
+
+    <Button
+        android:id="@+id/btnSALIR_ActDatos_Actv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="9dp"
+        android:text="SALIR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnResetclave_ActDatos_Actv" />
+
+    <TextView
+        android:id="@+id/txtvDeleteUser_ActualizarDatos_Actv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:text="Darse de baja"
+        android:textColor="#DF316C"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSALIR_ActDatos_Actv" />
+</androidx.constraintlayout.widget.ConstraintLayout>
