@@ -114,9 +114,6 @@ fecha_rsv char(10) unique, #'2023-01-01'
 3pm char(8),
 5pm char(8),
 7pm char(8),
-foreign key(3pm) references cliente(dni_cli),
-foreign key(5pm) references cliente(dni_cli),
-foreign key(7pm) references cliente(dni_cli),
 foreign key(id_losa) references tb_losa(id)
 );
 
@@ -128,9 +125,6 @@ fecha_rsv char(10) unique, #'2023-01-01'
 3pm char(8),
 5pm char(8),
 7pm char(8),
-foreign key(3pm) references cliente(dni_cli),
-foreign key(5pm) references cliente(dni_cli),
-foreign key(7pm) references cliente(dni_cli),
 foreign key(id_losa) references tb_losa(id)
 );
 
@@ -142,9 +136,6 @@ fecha_rsv char(10) unique, #'2023-01-01'
 3pm char(8),
 5pm char(8),
 7pm char(8),
-foreign key(3pm) references cliente(dni_cli),
-foreign key(5pm) references cliente(dni_cli),
-foreign key(7pm) references cliente(dni_cli),
 foreign key(id_losa) references tb_losa(id)
 );
 
@@ -156,9 +147,6 @@ fecha_rsv char(10) unique, #'2023-01-01'
 3pm char(8),
 5pm char(8),
 7pm char(8),
-foreign key(3pm) references cliente(dni_cli),
-foreign key(5pm) references cliente(dni_cli),
-foreign key(7pm) references cliente(dni_cli),
 foreign key(id_losa) references tb_losa(id)
 );
 
@@ -251,6 +239,6 @@ BEGIN
 END //
 DELIMITER ;
 
-
+SELECT 'FINISH' AS mensaje;
 ##############<----------------->###############
 
