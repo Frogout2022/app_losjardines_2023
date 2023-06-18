@@ -23,8 +23,8 @@ import java.util.regex.Pattern;
 
 public class ActualizarDatosUSER_Activity extends AppCompatActivity {
 
-    TextView txtDNI, txtNOMBRES, txtDeleteUser;
-    Button btnReset, btnUpdate, btnSalir;
+    TextView txtDNI, txtNOMBRES, txtDeleteUser, txtFechaR;
+    Button btnReset, btnUpdate, btnSalir, btnBaja;
     EditText txtCorreo, txtCel;
     final String email = Login_Activity.getUsuario().getCorreo();
     final String cel = Login_Activity.getUsuario().getCelular();
@@ -38,6 +38,11 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
         mostrar();
     }
     private void referencias(){
+        txtFechaR = findViewById(R.id.txtvFecha_registro_ActualizarDatosCLI);
+        btnBaja = findViewById(R.id.btnDeleteUser_ActualizarDatos_Actv);
+        btnBaja.setOnClickListener(view -> {
+            delete();
+        });
         txtCorreo = findViewById(R.id.txtCorreo_ActualizarDatos_Actv);
         txtCel = findViewById(R.id.txtCelular_ActualizarDatos_Actv);
         btnSalir = findViewById(R.id.btnSALIR_ActDatos_Actv);
@@ -48,10 +53,32 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
         });
         txtDeleteUser = findViewById(R.id.txtvDeleteUser_ActualizarDatos_Actv);
         txtDeleteUser.setOnClickListener(view -> {
-            delete();
+            //delete();
         });
 
         btnUpdate = findViewById(R.id.btnUpdate_ActDatos_Actv);
+        listenerCorreo();
+        listenerCel();
+
+        txtDNI = findViewById(R.id.txtvDNI_ActualizarDatos_Actv);
+
+        txtNOMBRES = findViewById(R.id.txtvNOMBRES_ActualizarDatos_Actv);
+        btnReset = findViewById(R.id.btnResetclave_ActDatos_Actv);
+        btnReset.setOnClickListener(view -> {
+            Intent intent = new Intent(this, RecuperarPassword_Activity.class);
+            intent.putExtra("login",false);
+            startActivity(intent);
+            finish();
+        });
+
+
+        btnUpdate.setOnClickListener(view -> {
+            update();
+        });
+
+
+    }
+    private void listenerCorreo(){
         txtCorreo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -76,7 +103,8 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
                 //Toast.makeText(ActualizarDatosUSER_Activity.this, b+"", Toast.LENGTH_SHORT).show();
             }
         });
-
+    }
+    private void listenerCel(){
         txtCel.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,24 +129,6 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
                 //Toast.makeText(ActualizarDatosUSER_Activity.this, b+"", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        txtDNI = findViewById(R.id.txtvDNI_ActualizarDatos_Actv);
-
-        txtNOMBRES = findViewById(R.id.txtvNOMBRES_ActualizarDatos_Actv);
-        btnReset = findViewById(R.id.btnResetclave_ActDatos_Actv);
-        btnReset.setOnClickListener(view -> {
-            Intent intent = new Intent(this, RecuperarPassword_Activity.class);
-            startActivity(intent);
-            finish();
-        });
-
-
-        btnUpdate.setOnClickListener(view -> {
-            update();
-        });
-
-
     }
     private void delete(){
         AlertDialog.Builder ventana = new AlertDialog.Builder(this);
@@ -140,7 +150,6 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
 
 
     }
-
     private void update(){
         String correoEdit = txtCorreo.getText().toString();
         String celEdit = txtCel.getText().toString();
@@ -171,6 +180,8 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
         txtNOMBRES.setText(nombres.toUpperCase());
         txtCorreo.setText(usuario.getCorreo());
         txtCel.setText(usuario.getCelular());
+        String fecha = usuario.getFecha_registro();
+        txtFechaR.setText(fecha.substring(0,10));
 
 
     }

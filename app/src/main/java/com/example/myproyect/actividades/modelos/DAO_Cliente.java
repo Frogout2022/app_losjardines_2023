@@ -30,7 +30,8 @@ public class DAO_Cliente {
                 String correo = rs.getString(4);
                 String clave = rs.getString(5);
                 String cel = rs.getString(6);
-                user = new Usuario(DNI, nom, ape, correo, clave, cel);
+                String fecha = rs.getString(7);
+                user = new Usuario(DNI, nom, ape, correo, clave, cel, fecha);
                 lista.add(user);
             }
         } catch (Exception e) {
@@ -58,7 +59,8 @@ public class DAO_Cliente {
                 String email = rs.getString(4);
                 String clave = rs.getString(5);
                 String cel = rs.getString(6);
-                user = new Usuario(dni,nom,ape,email,clave,cel);
+                String fecha = rs.getString(7);
+                user = new Usuario(dni,nom,ape,email,clave,cel,fecha);
             }
 
             ConexionMySQL.cerrarConexion(cnx);
@@ -84,7 +86,7 @@ public class DAO_Cliente {
             msg="Usuario registrado correctamente";
             ConexionMySQL.cerrarConexion(cnx);
         }catch(Exception e){
-            System.out.println("ERROR AC insertar(): " +e);
+            System.out.println("ERROR[DAO] insertar(): " +e);
             msg= "Error al registrar!";
         }
 
@@ -190,7 +192,7 @@ public class DAO_Cliente {
             msg = "Usuario eliminado correctamente";
 
         } catch (Exception e) {
-            System.out.println("ERROR[DAO] updateDatos(): "+e);
+            System.out.println("ERROR[DAO] deleteCLI(): "+e);
             msg = "Error al eliminar"+e;
         }
         return msg;

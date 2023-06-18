@@ -107,6 +107,7 @@ public class Login_Activity extends AppCompatActivity {
                                     //DNI ENCONTRADO
                                     Intent intent = new Intent(context, RecuperarPassword_Activity.class);
                                     intent.putExtra("dni", dni);
+                                    intent.putExtra("login",true);
                                     startActivity(intent);
                                 }else{
                                     Toast.makeText(context, "DNI incorrecto", Toast.LENGTH_SHORT).show();

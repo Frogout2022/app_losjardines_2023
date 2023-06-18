@@ -7,11 +7,22 @@ public class Usuario {
     private String correo;
     private String clave;
     private String celular;
+    private String fecha_registro;
 
     public String getCelular() {
         return celular;
     }
 
+    public Usuario(String DNI, String nombre, String apellido, String correo, String clave, String celular, String fecha_registro) {
+        this.DNI = DNI;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.clave = clave;
+        this.correo = correo;
+        this.celular = celular;
+        this.fecha_registro = fecha_registro;
+
+    }
     public Usuario(String DNI, String nombre, String apellido, String correo, String clave, String celular) {
         this.DNI = DNI;
         this.nombre = nombre;
@@ -19,7 +30,6 @@ public class Usuario {
         this.clave = clave;
         this.correo = correo;
         this.celular = celular;
-
     }
     public Usuario(){
 
@@ -76,5 +86,13 @@ public class Usuario {
 
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    public String getFecha_registro() {
+        return fecha_registro;
+    }
+
+    public void setFecha_registro(String fecha_registro) {
+        this.fecha_registro = fecha_registro;
     }
 }
