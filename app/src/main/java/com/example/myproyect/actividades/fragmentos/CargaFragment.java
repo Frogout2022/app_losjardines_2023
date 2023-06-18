@@ -12,10 +12,10 @@ import com.example.myproyect.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link carga#newInstance} factory method to
+ * Use the {@link CargaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class carga extends Fragment {
+public class CargaFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class carga extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public carga() {
+    public CargaFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class carga extends Fragment {
      * @return A new instance of fragment carga.
      */
     // TODO: Rename and change types and number of parameters
-    public static carga newInstance(String param1, String param2) {
-        carga fragment = new carga();
+    public static CargaFragment newInstance(String param1, String param2) {
+        CargaFragment fragment = new CargaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

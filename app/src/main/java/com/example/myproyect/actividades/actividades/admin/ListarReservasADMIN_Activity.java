@@ -1,6 +1,8 @@
 package com.example.myproyect.actividades.actividades.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import com.example.myproyect.R;
 import com.example.myproyect.actividades.entidades.CanchaDeportiva;
 import com.example.myproyect.actividades.entidades.Reserva;
+import com.example.myproyect.actividades.fragmentos.CargaFragment;
 import com.example.myproyect.actividades.modelos.DAO_Losa;
 import com.example.myproyect.actividades.modelos.DAO_Reserva;
 
@@ -29,11 +33,29 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
     TextView txtvListado, txtvMonto;
     Spinner spnLista;
     private String nombre_tabla = "";
+    FrameLayout frmlCarga;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_reservas_admin);
         referencias();
+
+        //mostrarCarga();
+    }
+    private void mostrarCarga(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        CargaFragment cargaFragment = new CargaFragment();
+
+        fragmentTransaction.replace(R.id.frml_Carga, cargaFragment);
+
+        // Opcional: Agregar la transacción a la pila de retroceso
+        fragmentTransaction.addToBackStack(null);
+
+        // Aplicar los cambios y mostrar el Fragmento
+        fragmentTransaction.commit();
+
     }
     private void funSpinner(){
         List<CanchaDeportiva> lista = new ArrayList<>();
@@ -140,6 +162,8 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
     }
 
     private void referencias(){
+        frmlCarga = findViewById(R.id.frml_Carga);
+
         txtvMonto = findViewById(R.id.txtvMonto_Adm);
 
         spnLista = findViewById(R.id.spnListarRsvCLI_Admin);
