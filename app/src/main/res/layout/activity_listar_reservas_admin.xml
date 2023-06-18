@@ -21,20 +21,21 @@
 
     <TextView
         android:id="@+id/txtvListadoRsvCLI_Admin"
-        android:layout_width="289dp"
-        android:layout_height="449dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="27dp"
-        android:text="Listado"
+        android:layout_width="269dp"
+        android:layout_height="348dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="34dp"
+        android:text="Cargando...."
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/spnListarRsvCLI_Admin" />
 
     <Button
         android:id="@+id/btnSalir_ListaRsvCLI_Admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="43dp"
         android:text="Salir"
         app:layout_constraintStart_toEndOf="@+id/btnActualizar_ListaRsvCLI_Admin"
         app:layout_constraintTop_toBottomOf="@+id/txtvListadoRsvCLI_Admin" />
@@ -43,9 +44,29 @@
         android:id="@+id/btnActualizar_ListaRsvCLI_Admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="51dp"
         android:text="ACTUALIZAR"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtvListadoRsvCLI_Admin" />
+
+    <Spinner
+        android:id="@+id/spnListarRsvCLI_Admin"
+        android:layout_width="305dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="259dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="12dp"
+        android:text="Seleccione una losa:"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -96,7 +96,7 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
                 txtv.append("----------------------------------"+"\n");
                 i++;
             }
-            }
+        }
             Toast.makeText(this, "Tiene "+listaRsvTotal.size()+" reservas", Toast.LENGTH_SHORT).show();
 
     }
