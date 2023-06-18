@@ -22,6 +22,7 @@ public class DAO_Administrador {
                 //Tienda.setAdmin(true);
                 b = true;
             }
+            ConexionMySQL.cerrarConexion(cnx);
         }catch(Exception e){System.out.println("Error AE ConsultarADM(): "+e);}
         return b;
     }
@@ -38,6 +39,7 @@ public class DAO_Administrador {
                 //Tienda.setAdmin(true);
                 b = true;
             }
+            ConexionMySQL.cerrarConexion(cnx);
         }catch(Exception e){System.out.println("Error[DAO] ConsultarCorreoADM(): "+e);}
         return b;
     }
@@ -51,6 +53,7 @@ public class DAO_Administrador {
             csta.setString(1, dni);
             ResultSet rs= csta.executeQuery();
             if(rs.next()) b = true;
+            ConexionMySQL.cerrarConexion(cnx);
         }catch(Exception e){System.out.println("ERROR AE ConsultarDni(): "+e);}
         return b;
     }

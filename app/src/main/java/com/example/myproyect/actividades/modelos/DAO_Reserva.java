@@ -98,46 +98,35 @@ public class DAO_Reserva {
 
 
 
-    /*
-    public static List<Reserva> listarReservasCLI(){ //LISTAR TODAS LAS RESERVAS DEL AÑO
+
+    public static List<Reserva> listarReservasCLI(String losa){
+    //LISTAR TODAS LAS RESERVAS DEL AÑO
         //PARA ACTV. LISTAR_RSV_ADMIN
 
         ArrayList<Reserva> lista = new ArrayList<>();
         Connection cnx = null;
         try {
             cnx = ConexionMySQL.getConexion();
-            CallableStatement csta = cnx.prepareCall("{call sp_ListarReservasCLI()}");
+            CallableStatement csta = cnx.prepareCall("{call sp_ListarReservasCLI(?)}");
+            csta.setString(1, losa);
             ResultSet rs = csta.executeQuery();
             Reserva reserva;
 
             while (rs.next()) {
 
-                String dia ;
-                boolean[] arrayB = new boolean[3];
+                String fecha ;
                 String[] arrayDni = new String[3];
                 String dniBD = ""; //evitar valores nulos
 
-                // index 1 = id_reserva
-                dia = rs.getString(2);
+                // i:1 = id_reserva
+                // i:2 = id_losa
+                fecha = rs.getString(3);
 
-                arrayB[0] = rs.getBoolean(3);
-                arrayB[1] = rs.getBoolean(4);
-                arrayB[2] = rs.getBoolean(5);
+                arrayDni[0] = rs.getString(4);
+                arrayDni[1] = rs.getString(5);
+                arrayDni[2] = rs.getString(6);
 
-                dniBD = rs.getString(6);
-                if(dniBD == null) dniBD="";
-                arrayDni[0] = dniBD;
-
-                dniBD = rs.getString(7);
-                if(dniBD == null) dniBD="";
-                arrayDni[1] = dniBD;
-
-                dniBD = rs.getString(8);
-                if(dniBD == null) dniBD="";
-                arrayDni[2] = dniBD;
-
-
-                reserva = new Reserva(dia, arrayB, arrayDni);
+                reserva = new Reserva(fecha, arrayDni);
                 lista.add(reserva);
             }
 
@@ -149,7 +138,6 @@ public class DAO_Reserva {
         return lista;
     }
 
-     */
 
     public static String insertarRSV(String tabla, String dia, int hora){ //PARA ACTV. CLIENTE
         //editar-UPDATE

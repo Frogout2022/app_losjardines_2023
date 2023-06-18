@@ -1,13 +1,15 @@
 package com.example.myproyect.actividades.entidades;
 
 public class CanchaDeportiva {
-
+    private int id;
     private String nombre;
     private String descripcion;
     private String horario ;
     private String direccion;
     private Boolean mantenimiento;
     private double precio;
+
+    private  String nombre_tabla;
 
     public CanchaDeportiva(String nombre, String descripcion, String horario, String direccion, Boolean mantenimiento, double precio) {
         this.nombre = nombre;
@@ -17,8 +19,23 @@ public class CanchaDeportiva {
         this.mantenimiento = mantenimiento;
         this.precio = precio;
     }
+    public CanchaDeportiva(String nombre, int id, String nombre_tabla){
+        this.nombre = nombre;
+        this.id = id;
+        this.nombre_tabla = nombre_tabla;
+    }
+
     public CanchaDeportiva(){
 
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -67,5 +84,13 @@ public class CanchaDeportiva {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public String getNombre_tabla() {
+        return nombre_tabla;
+    }
+
+    public void setNombre_tabla(String nombre_tabla) {
+        this.nombre_tabla = nombre_tabla;
     }
 }
