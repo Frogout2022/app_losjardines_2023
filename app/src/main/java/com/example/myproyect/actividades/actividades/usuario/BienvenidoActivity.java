@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.usuario;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,14 +8,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myproyect.R;
-import com.example.myproyect.actividades.actividades.usuario.ActualizarDatosUSER_Activity;
+import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.clases.InterfaceMenu;
 import com.example.myproyect.actividades.entidades.Usuario;
 
 public class BienvenidoActivity extends AppCompatActivity implements InterfaceMenu {
 
     TextView lblSaludo;
-    Button btnSalida,btnReservar, btnActualizarDatos, btnListarRsv;
+    Button btnSalida,btnReservar, btnActualizarDatos, btnConsultar;
     TextView lblCancha1, lblCancha2, lblCancha3, lblCancha4;
     Usuario usuario = Login_Activity.getUsuario();
 
@@ -32,11 +32,11 @@ public class BienvenidoActivity extends AppCompatActivity implements InterfaceMe
 
     }
     private void referencias(){
-        btnListarRsv = findViewById(R.id.btnReservasRealizadas_BienvenidoActv);
-        btnListarRsv.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ConsultarReservaUser_Activity.class);
+        btnConsultar = findViewById(R.id.btnReservasRealizadas_User);
+        btnConsultar.setOnClickListener(view -> {
+            Intent intent  = new Intent(this, ConsultarReservaUser_Activity.class);
             startActivity(intent);
-
+            finish();
         });
         btnReservar = findViewById(R.id.btnRealizarRsv_BienvenidoActy);
         btnReservar.setOnClickListener(view -> {
@@ -46,21 +46,23 @@ public class BienvenidoActivity extends AppCompatActivity implements InterfaceMe
         });
         btnSalida = findViewById(R.id.actvbtnCerrar);
         btnSalida.setOnClickListener(view -> {
-            this.finish();
+
             Intent intent = new Intent(this, Login_Activity.class);
             startActivity(intent);
+            this.finish();
         });
         btnActualizarDatos = findViewById(R.id.btnActualizarDatos_BienvenidoActv);
         btnActualizarDatos.setOnClickListener(view -> {
+            finish();
             Intent intent = new Intent(this, ActualizarDatosUSER_Activity.class);
             startActivity(intent);
-            finish();
+
         });
     }
 
     @Override
     public void onClickMenu(int idBoton) {
-        Intent iMenu = new Intent(this, Menu.class);
+        Intent iMenu = new Intent(this, Menu_Losas_Activity.class);
         iMenu.putExtra("idBoton",idBoton);
         startActivity(iMenu);
      //   finish();

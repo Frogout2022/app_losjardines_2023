@@ -4,6 +4,7 @@ import com.example.myproyect.actividades.conexion.ConexionMySQL;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 public class DAO_Administrador {
@@ -21,6 +22,7 @@ public class DAO_Administrador {
                 //Tienda.setAdmin(true);
                 b = true;
             }
+            ConexionMySQL.cerrarConexion(cnx);
         }catch(Exception e){System.out.println("Error AE ConsultarADM(): "+e);}
         return b;
     }
@@ -30,14 +32,15 @@ public class DAO_Administrador {
         boolean b = false;
         try{
             Connection cnx= ConexionMySQL.getConexion();
-            CallableStatement csta=cnx.prepareCall("{call sp_consultarCorreoADM(?)}");
-            csta.setString(1, correo);
-            ResultSet rs= csta.executeQuery();
+            Statement statement = cnx.createStatement();
+            String consulta = "SELECT * FROM ADMIN WHERE CORREO_ADM='"+correo+"' ";
+            ResultSet rs= statement.executeQuery(consulta);
             if(rs.next()) {
                 //Tienda.setAdmin(true);
                 b = true;
             }
-        }catch(Exception e){System.out.println("Error ConsultarCorreoADM(): "+e);}
+            ConexionMySQL.cerrarConexion(cnx);
+        }catch(Exception e){System.out.println("Error[DAO] ConsultarCorreoADM(): "+e);}
         return b;
     }
 
@@ -50,6 +53,7 @@ public class DAO_Administrador {
             csta.setString(1, dni);
             ResultSet rs= csta.executeQuery();
             if(rs.next()) b = true;
+            ConexionMySQL.cerrarConexion(cnx);
         }catch(Exception e){System.out.println("ERROR AE ConsultarDni(): "+e);}
         return b;
     }

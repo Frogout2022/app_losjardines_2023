@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondoyape"
-    tools:context=".actividades.actividades.Yape_Activity">
+    tools:context=".actividades.actividades.usuario.pago.Yape_Activity">
 
 
     <LinearLayout

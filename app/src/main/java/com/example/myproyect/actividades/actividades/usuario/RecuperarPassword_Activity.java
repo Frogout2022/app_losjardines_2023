@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.usuario;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.myproyect.R;
+import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.clases.MostrarMensaje;
 import com.example.myproyect.actividades.modelos.DAO_Cliente;
 

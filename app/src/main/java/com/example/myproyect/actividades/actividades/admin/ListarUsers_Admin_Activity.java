@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,11 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myproyect.R;
+import com.example.myproyect.actividades.actividades.admin.MenuAdmin_Activity;
 import com.example.myproyect.actividades.entidades.Usuario;
 import com.example.myproyect.actividades.modelos.DAO_Cliente;
-import com.mysql.fabric.xmlrpc.Client;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListarUsers_Admin_Activity extends AppCompatActivity {

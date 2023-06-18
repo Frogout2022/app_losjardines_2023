@@ -1,8 +1,9 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.usuario;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -14,12 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myproyect.R;
+import com.example.myproyect.actividades.actividades.Login_Activity;
+import com.example.myproyect.actividades.actividades.usuario.pago.PagoActivity;
 import com.example.myproyect.actividades.clases.Fecha;
 import com.example.myproyect.actividades.entidades.Reserva;
 import com.example.myproyect.actividades.entidades.Usuario;
 import com.example.myproyect.actividades.modelos.DAO_Reserva;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -33,6 +37,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     CheckBox chkS1, chkS2,chkS3;
     TextView lblSemana, lblCantidadPagar;
     TextView txtv_cl1,txtv_cl2,txtv_cl3,txtv_cl4,txtv_cl5,txtv_cl6;
+    TextView lblNombreL;
     int numDia1, numDia6;
     Double cantidadPagar=0.0;
     int cantidadReservas=0;
@@ -42,6 +47,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     List<CheckBox> listaChk = new ArrayList<>();
     List<Integer> listaChkS = new ArrayList<>();
     List<TextView> listaTxtv = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +61,13 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         updateChk(); //consultar a la BD
         clickChk(); //actualizar visualización
 
+        lblSemana.setSingleLine(false);
         lblSemana.setText(Fecha.lblTablaReserva);
+        lblSemana.append("\n"+getIntent().getStringExtra("nombre"));
+
+
     }
+
 
     private void updateChk(){
         //consultar BD
@@ -65,25 +76,21 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         ArrayList<Reserva> lista = new ArrayList<>();
-        lista = DAO_Reserva.listarReservaSemanal();
+        int dia_siguiente = Fecha.obtenerNumeroDiaActual()+1;
+        String tabla = getIntent().getStringExtra("tabla");
+        lista = DAO_Reserva.listarReservaSemanal(tabla, dia_siguiente, dia_siguiente+7);
 
         if(lista.size()==0){
-            //Toast.makeText(this, "LISTA VACIA", Toast.LENGTH_SHORT).show();
-
-            if(DAO_Reserva.LlenarTablaFEcha()){
-                //Toast.makeText(this, "TABLA LLENA", Toast.LENGTH_SHORT).show();
-                lista = DAO_Reserva.listarReservaSemanal();
-            }else{
-                //Toast.makeText(this, "Error de call", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(this, "LISTA VACIA", Toast.LENGTH_SHORT).show();
 
         }else{
             //Toast.makeText(this, "LISTA NO VACIA", Toast.LENGTH_SHORT).show();
 
             int index = 0,cantidadDias= 6,cantidadHoras=3;
+
             for (int i = 0; i < cantidadDias; i++) {
                 for (int j = 0; j < cantidadHoras; j++) {
-                    if(lista.get(i).getArrayB()[j]){
+                    if(lista.get(i).getArrayDni()[j]!=null){
                         //true
                         listaChk.get(index).setChecked(true);
                         listaChk.get(index).setText("OCUPADO");
@@ -159,98 +166,42 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     private void reservar(){
         //PROCESO DE RESERVA EN BD
 
-        String msg = null;
+
         cantidadReservas = listaChkS.size();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String dni = usuario.getDNI();
 
-
+        String msg = null;
         List<String> lista = Fecha.getFechas();
+        String tabla = getIntent().getStringExtra("tabla");
 
-        for(int i=0 ; i<listaChkS.size(); i++){
+
+        int[][] casos = {
+                {0, 1, 2},     // Casos 0, 1, 2
+                {3, 4, 5},     // Casos 3, 4, 5
+                {6, 7, 8},     // Casos 6, 7, 8
+                {9, 10, 11},   // Casos 9, 10, 11
+                {12, 13, 14},  // Casos 12, 13, 14
+                {15, 16, 17}   // Casos 15, 16, 17
+        };
+
+        for (int i = 0; i < listaChkS.size(); i++) {
             int numOrden = listaChkS.get(i);
-            String dia = null;
+            int grupo = -1;
+            String dia;
 
-            if(numOrden<=2){
-                //dia 1 - columna 1
-                dia = lista.get(0);
-                switch (numOrden){
-                    case 0:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 1:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 2:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
+            // Determinar el grupo al que pertenece numOrden
+            for (int j = 0; j < casos.length; j++) {
+                if (Arrays.stream(casos[j]).anyMatch(x -> x == numOrden)) {
+                    grupo = j;
+                    break;
                 }
-            }else if(numOrden<=5){
-                dia = lista.get(1);
-                switch (numOrden){
-                    case 3:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 4:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 5:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
-                }
-            }else if(numOrden<=8){
-                dia = lista.get(2);
-                switch (numOrden){
-                    case 6:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 7:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 8:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
-                }
-            }else if(numOrden<=11) {
-                dia = lista.get(3);;
-                switch (numOrden) {
-                    case 9:
-                        msg = DAO_Reserva.insertarRSV(dia, 3);
-                        break;
-                    case 10:
-                        msg = DAO_Reserva.insertarRSV(dia, 5);
-                        break;
-                    case 11:
-                        msg = DAO_Reserva.insertarRSV(dia, 7);
-                        break;
-                }
-            }else if(numOrden<=14){
-                dia = lista.get(4);;
-                switch (numOrden){
-                    case 12:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 13:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 14:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
-                }
-            }else{
-                dia = lista.get(5);;
-                switch (numOrden){
-                    case 15:
-                        msg = DAO_Reserva.insertarRSV(dia,3);
-                        break;
-                    case 16:
-                        msg = DAO_Reserva.insertarRSV(dia,5);
-                        break;
-                    case 17:
-                        msg = DAO_Reserva.insertarRSV(dia,7);
-                        break;
-                }
+            }
+
+            if (grupo != -1) {
+                dia = lista.get(grupo);
+                int hora = 15 + ((numOrden - grupo * 3) * 2);
+                msg = DAO_Reserva.insertarRSV(tabla, dia, hora);
             }
         }
 
@@ -258,8 +209,10 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         updateChk(); //actualizar vista
 
-        Intent iPago= new Intent(this,PagoActivity.class);
+        Intent iPago= new Intent(this, PagoActivity.class);
         startActivity(iPago);
+
+
     }
     private void asginarReferencias(){
 
@@ -273,6 +226,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         lblSemana = findViewById(R.id.lblSemana_TablaReserva);
         lblCantidadPagar = findViewById(R.id.lblCantidadPagar_TRU);
 
+
         btnVolver = findViewById(R.id.btnRegresar_TRU);
         btnVolver.setOnClickListener(view -> {
             super.onBackPressed();
@@ -283,6 +237,11 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
             reservar();
         });
 
+        referenciasChk();
+
+
+    }
+    private void referenciasChk(){
         chkL1 = findViewById(R.id.chkLunes_3pm_TRU);//0
         chkL2 = findViewById(R.id.chkLunes_5pm_TRU);//1
         chkL3 = findViewById(R.id.chkLunes_7pm_TRU);//2
@@ -306,7 +265,6 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         chkS1 = findViewById(R.id.chkSabado_3pm_TRU);
         chkS2 = findViewById(R.id.chkSabado_5pm_TRU);
         chkS3 = findViewById(R.id.chkSabado_7pm_TRU);
-
     }
     private void agregarListaChk(){
         listaChk.add(chkL1);

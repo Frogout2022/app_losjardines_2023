@@ -1,8 +1,8 @@
-#drop database app_losjardines;
-create database app_losjardines;
-use app_losjardines;
+#drop database app_losjardines2;
+create database if not exists app_losjardines2;
+use app_losjardines2;
 SELECT NOW() AS fecha_hora_actual;
-SET lc_time_names = 'es_ES'; #CAMBIAR ESPAÑOL EL IDIOMA
+SET lc_time_names = 'es_ES'; #CAMBIAR A ESPAÑOL EL IDIOMA
 
 create table Cliente(
 Dni_Cli char(8) primary key,
@@ -14,10 +14,9 @@ Cel_Cli varchar(15) unique not null
 );
 
 insert into cliente values
-('00000000', 'Nombre', 'Apellido', 'correo@email.com', '000', '111111111'),
 ('72673554', 'Milhos', 'Sihuay', 'mi@g.com', '123', '997653086' ),
 ('70829460', 'Luiggi', 'Rebatta', 'lu@g.com', '123', '969599087' ),
-('12345677', 'Marcelo', 'Yabar', 'ma@g.com', '123', '37373732' ),
+('12345677', 'Marcelo', 'Yabar', 'ma@g.com', '123', '986389628' ),
 ('72647015', 'Michell', 'Del Pino', 'mi_dp@g.com', '123', '913428693');
 
 
@@ -34,27 +33,20 @@ Celular varchar(10)
 )
 insert into Cliente values(Dni,Nombre,Apellido,Correo,Contrasena,Celular);
 
-create procedure sp_EliminarCLI(#---------------
-Dni char(8))
+create procedure sp_EliminarCLI( Dni char(8) )
 delete from Cliente where Dni_Cli=Dni;
 
-create procedure sp_ConsultarCLI(
-Correo varchar(30),
-Pass varchar(20))
+create procedure sp_ConsultarCLI(Correo varchar(30),Pass varchar(20))
 select * from Cliente where Correo_Cli = Correo and Contra_Cli = Pass;
 
-create procedure sp_EditarPassCLI(#-----------------------
-Dni char(8) ,
-Contra varchar(20))
+create procedure sp_EditarPassCLI(Dni char(8) , Contra varchar(20))
 update Cliente set Contra_Cli=Contra where Dni_Cli=Dni;
 
 
-create procedure sp_ConsultarDniCLI(#-------------------------
-Dni char(8))
+create procedure sp_ConsultarDniCLI(Dni char(8))
 select * from Cliente where Dni_Cli=Dni;
 
-create procedure sp_ConsultarCorreoCLI(#-------------------------
-Correo char(20))
+create procedure sp_ConsultarCorreoCLI(Correo char(20))
 select * from Cliente where Correo_Cli=Correo;
 
 #-------------------------ADMIN--------
@@ -70,74 +62,100 @@ Cel_Admin varchar(15) unique not null
 insert into admin values
 ('72673554', 'Milhos', 'Sihuay', 'mi_adm@g.com', '123', '997653086' ),
 ('70829460', 'Luiggi', 'Rebatta', 'lu_adm@g.com', '123', '969599087' ),
-('12345677', 'Marcelo', 'Yabar', 'ma_adm@g.com', '123', '37373732' );
+('12345677', 'Marcelo', 'Yabar', 'ma_adm@g.com', '123', '986389628' );
 
 create procedure sp_ConsultarADM(
 Correo varchar(30),
 Pass varchar(20))
 select * from Admin where Correo_Adm = Correo and Contra_Adm = Pass;
 
-create procedure sp_ConsultarDniADM(#-------------------------
-Dni char(9))
+create procedure sp_ConsultarDniADM(Dni char(9))
 select * from Admin where Dni_Adm=Dni;
 
-create procedure sp_ConsultarCorreoADM(#-------------------------
-Correo char(20))
+create procedure sp_ConsultarCorreoADM(Correo char(20))
 select * from Admin where Correo_Adm=Correo;
 
-
-#----------------TABLA FECHA------
-create table tb_FECHA(
-fecha char(10) primary KEY,
-Day_name char(15) default 'N' null,
-day_numb int default 0 NOT null,
-mes_numb int default 0 NOT null,
-anio_numb int default 0 NOT null
-);
-
-
-#------------TABLA RESERVA------------
-
-create table reserva(
+#------------TABLA LOSA------------
+create table tb_losa(
 id int  auto_increment primary key,
-fecha_rsv char(10), #'2023-01-01'
-HORA3 boolean default 0 not null,
-HORA5 boolean default 0 not null,
-HORA7 boolean default 0 not null,
-DNI_H3 char(8) ,
-DNI_H5 char(8),
-DNI_H7 char(8),
-foreign key(fecha_rsv) references tb_fecha(fecha)
-on update cascade on delete cascade,
-foreign key(dni_h3) references cliente(dni_cli)
-on update cascade,
-foreign key(dni_h5) references cliente(dni_cli)
-on update cascade,
-foreign key(dni_h7) references cliente(dni_cli)
-on update cascade
+nombre_losa varchar(30) not null,
+descripcion varchar(80),
+horario varchar(50) not null,
+direccion varchar (80) not null,
+mantenimiento boolean default 0,
+precio_hora decimal default 0,
+nombre_tabla varchar(20) not null unique
 );
-use app_losjardines;
-select * from reserva;
-#-------TRIGGER CREAR_RESERVA
+
+
+insert into tb_losa (nombre_losa, horario, direccion,nombre_tabla) values
+('Losa del pueblo','L-V', 'direccion 1','reserva_losa1'),
+('Losa del barrio','L-V', 'direccion 2' ,'reserva_losa2'),
+('Losa los patas','L-V', 'direccion 3','reserva_losa3'),
+('Losa la Familia','L-V', 'direccion 4','reserva_losa4');
+
+
+#------------TABLA RESERVAS------------
+
+create table reserva_losa1(
+id int  auto_increment primary key,
+id_losa int,
+fecha_rsv char(10) unique, #'2023-01-01'
+3pm char(8),
+5pm char(8),
+7pm char(8),
+foreign key(3pm) references cliente(dni_cli),
+foreign key(5pm) references cliente(dni_cli),
+foreign key(7pm) references cliente(dni_cli),
+foreign key(id_losa) references tb_losa(id)
+);
+
+
+create table reserva_losa2(
+id int  auto_increment primary key,
+id_losa int,
+fecha_rsv char(10) unique, #'2023-01-01'
+3pm char(8),
+5pm char(8),
+7pm char(8),
+foreign key(3pm) references cliente(dni_cli),
+foreign key(5pm) references cliente(dni_cli),
+foreign key(7pm) references cliente(dni_cli),
+foreign key(id_losa) references tb_losa(id)
+);
+
+
+create table reserva_losa3(
+id int  auto_increment primary key,
+id_losa int,
+fecha_rsv char(10) unique, #'2023-01-01'
+3pm char(8),
+5pm char(8),
+7pm char(8),
+foreign key(3pm) references cliente(dni_cli),
+foreign key(5pm) references cliente(dni_cli),
+foreign key(7pm) references cliente(dni_cli),
+foreign key(id_losa) references tb_losa(id)
+);
+
+
+create table reserva_losa4(
+id int  auto_increment primary key,
+id_losa int,
+fecha_rsv char(10) unique, #'2023-01-01'
+3pm char(8),
+5pm char(8),
+7pm char(8),
+foreign key(3pm) references cliente(dni_cli),
+foreign key(5pm) references cliente(dni_cli),
+foreign key(7pm) references cliente(dni_cli),
+foreign key(id_losa) references tb_losa(id)
+);
+
+
+#----SP TABLA RESERVA--------
 DELIMITER //
-CREATE TRIGGER crear_reserva
-AFTER INSERT ON tb_fecha
-FOR EACH ROW
-BEGIN
-	DECLARE valor char(10);
-    set valor = new.fecha;
-    INSERT INTO reserva (fecha_rsv) VALUES (valor);
-END//
-DELIMITER ;
-
-drop table tb_fecha;
-drop table reserva;
-select * from tb_fecha;
-
-#--------------PROCEDURE INSERTAR_FECHAS
-
-DELIMITER //
-CREATE PROCEDURE sp_insertar_fechas()
+CREATE PROCEDURE LLenarTablaReservas(in id_cancha int)
 BEGIN
     DECLARE fecha_inicio DATE;
     DECLARE fecha_fin DATE;
@@ -148,66 +166,80 @@ BEGIN
     SET fecha_actual = fecha_inicio;
 
     WHILE fecha_actual <= fecha_fin DO
-        INSERT INTO TB_FECHA  VALUES (fecha_actual, dayname(fecha_actual),day(fecha_actual),month(fecha_actual),year(fecha_actual));
+		CASE id_cancha
+			when 1 then
+				INSERT INTO reserva_losa1 (fecha_rsv, id_losa)  VALUES (fecha_actual,id_cancha);
+			when 2 then
+				INSERT INTO reserva_losa2 (fecha_rsv, id_losa) VALUES (fecha_actual,id_cancha);
+			when 3 then
+                INSERT INTO reserva_losa3 (fecha_rsv, id_losa)  VALUES (fecha_actual,id_cancha);
+			when 4 then
+                INSERT INTO reserva_losa4 (fecha_rsv, id_losa)  VALUES (fecha_actual,id_cancha);
+		END CASE;
         SET fecha_actual = DATE_ADD(fecha_actual, INTERVAL 1 DAY);
     END WHILE;
 
-    SELECT 'Fechas insertadas correctamente.' AS mensaje;
+    SELECT 'Tablas llenadas correctamente.' AS mensaje;
 END //
 DELIMITER ;
 
-#---llamar funcion para insertar todas las fechas del año
-CALL SP_insertar_fechas();
+call LLenarTablaReservas(1);
+call LLenarTablaReservas(2);
+call LLenarTablaReservas(3);
+call LLenarTablaReservas(4);
 
 
-#----SP TABLA RESERVA--------
-
+###		LISTAR RESERVAS SEMANALES O EN UN RANGO DETERMINADO ###
 DELIMITER //
-CREATE PROCEDURE sp_ListarRESERVA_semanal()#---------PROCEDURE
+CREATE PROCEDURE sp_ListarRsv(IN tabla varchar(50), in dia_min int, in dia_max int)
 BEGIN
-    SELECT *
-    FROM RESERVA
-    WHERE FECHA_RSV IN (
-        DATE_ADD(CURDATE(), INTERVAL 1 DAY),
-        DATE_ADD(CURDATE(), INTERVAL 2 DAY),
-        DATE_ADD(CURDATE(), INTERVAL 3 DAY),
-        DATE_ADD(CURDATE(), INTERVAL 4 DAY),
-        DATE_ADD(CURDATE(), INTERVAL 5 DAY),
-        DATE_ADD(CURDATE(), INTERVAL 6 DAY)
-    );
-END//
+	SET @query = CONCAT('SELECT * FROM ',tabla, ' WHERE id between ', dia_min, ' and ', dia_max);
+	PREPARE stmt FROM @query;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+END //
 DELIMITER ;
 
-create procedure sp_ReservarH3(#-----------------------EDIT
-dia char(10),
-dni char(8))
-update Reserva set hora3=1, dni_h3=dni where fecha_rsv=dia;
-
-create procedure sp_ReservarH5(#-----------------------EDIT
-dia char(10),
-dni char(8))
-update Reserva set hora5=1,dni_h5=dni where fecha_rsv=dia;
-#call sp_ReservarH5(1,'70829460');
-
-create procedure sp_ReservarH7(#-----------------------EDIT
-dia char(10),
-dni char(8))
-update Reserva set hora7=1, dni_h7=dni where fecha_rsv=dia;
-
-create procedure sp_ConsultarRsvCLI(#-------------------------
-Dni char(8))
-select * from Reserva where Dni_h3=Dni or dni_h5=Dni or dni_h7=dni;
-#call sp_ConsultarRsvCLI('72673554');
+### REALIZAR UNA RESERVA ### -> CLIENTE COMPRA
+DELIMITER //
+CREATE PROCEDURE sp_RESERVAR(IN tabla varchar(50), IN dia CHAR(10),IN hora char(5), IN dni_user CHAR(8) )
+BEGIN
+	SET @query =
+		CONCAT('UPDATE ', tabla, ' SET ', hora, '=\'', dni_user, '\' WHERE fecha_rsv=\'', dia, '\'');
+	PREPARE stmt FROM @query;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+	SELECT 'Reserva insertada correctamente.' AS mensaje;
+END //
+DELIMITER ;
 
 
-create procedure sp_ListarReservasCLI() #--para el admin
-select * from Reserva where Dni_h3 is not null or dni_h5 is not null or dni_h7 is not null;
+### LISTAR RESERVAS INDIVIDUAL POR CLIENTE ###
+DELIMITER //
+CREATE PROCEDURE sp_ConsultarRsvCLI(IN tabla VARCHAR(30),IN dni char(8) )
+BEGIN
+    SET @sql = CONCAT('SELECT * FROM ', tabla, ' WHERE 3pm = ', dni ,' OR 5pm= ',dni,' OR 7pm = ',dni);
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END //
+DELIMITER ;
 
-call sp_ListarReservasCLI;
+### LISTAR TODAS LAS RESERVAS COMPRADAS ### -> PARA EL ADMINISTRADOR
+DELIMITER //
+CREATE PROCEDURE sp_ListarReservasCLI(IN tabla VARCHAR(30))
+BEGIN
+    SET @sql = CONCAT('SELECT *
+                       FROM ', tabla, '
+                       WHERE
+                       3pm IS NOT NULL OR
+                       5pm IS NOT NULL OR
+                       7pm IS NOT NULL');
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END //
+DELIMITER ;
 
-use app_losjardines;
-select * from reserva;
 
-
-
-
+##############<----------------->###############

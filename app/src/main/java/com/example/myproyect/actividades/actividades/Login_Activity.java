@@ -5,16 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.myproyect.R;
+import com.example.myproyect.actividades.actividades.admin.MenuAdmin_Activity;
+import com.example.myproyect.actividades.actividades.usuario.BienvenidoActivity;
+import com.example.myproyect.actividades.actividades.usuario.RecuperarPassword_Activity;
+import com.example.myproyect.actividades.actividades.usuario.RegistroActivity;
 import com.example.myproyect.actividades.clases.MostrarMensaje;
 import com.example.myproyect.actividades.entidades.App;
 import com.example.myproyect.actividades.entidades.Usuario;
@@ -164,7 +166,7 @@ public class Login_Activity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        if(DAO_Cliente.ConsultarCLI(correo, clave)){
+        if(DAO_Cliente.ObtenerCLI(correo, clave) != null ){
             //usuario encontrado
             guardarUsuario(correo,clave);
             //validar recordar sesion

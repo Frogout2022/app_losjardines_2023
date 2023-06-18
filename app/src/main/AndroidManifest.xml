@@ -14,73 +14,67 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProyect"
         tools:targetApi="31">
-
-
         <activity
-            android:name=".actividades.actividades.ListarUsers_Admin_Activity"
+            android:name=".actividades.actividades.admin.ListarUsers_Admin_Activity"
             android:exported="false">
 
         </activity>
         <activity
             android:name=".actividades.actividades.admin.ListarReservasADMIN_Activity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+
+        <activity
+            android:name=".actividades.actividades.usuario.ConsultarReservaUser_Activity"
             android:exported="false">
         </activity>
 
         <activity
-            android:name=".actividades.actividades.usuario.ActualizarDatosUSER_Activity"
+            android:name=".actividades.actividades.usuario.TablaReservaUser_Activity"
             android:exported="false">
-
         </activity>
 
         <activity
-            android:name=".actividades.actividades.ConsultarReservaUser_Activity"
-            android:exported="false">
-
-        </activity>
-        <activity
-            android:name=".actividades.actividades.TablaReservaUser_Activity"
-            android:exported="false">
-
-        </activity>
-        <activity
-            android:name=".actividades.actividades.Prueba_Activity"
+            android:name=".actividades.actividades.usuario.pago.Tarjeta_Activity"
             android:exported="false" />
         <activity
-            android:name=".actividades.actividades.Tarjeta_Activity"
+            android:name=".actividades.actividades.usuario.pago.Yape_Activity"
             android:exported="false" />
         <activity
-            android:name=".actividades.actividades.Yape_Activity"
+            android:name=".actividades.actividades.usuario.RecuperarPassword_Activity"
             android:exported="false" />
         <activity
-            android:name=".actividades.actividades.RecuperarPassword_Activity"
+            android:name=".actividades.actividades.admin.MenuAdmin_Activity"
             android:exported="false" />
         <activity
-            android:name=".actividades.actividades.MenuAdmin_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".actividades.actividades.Menu"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
-            android:name=".actividades.actividades.BienvenidoActivity"
+            android:name=".actividades.actividades.usuario.Menu_Losas_Activity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".actividades.actividades.TerminosActivity"
+            android:name=".actividades.actividades.usuario.BienvenidoActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".actividades.actividades.RegistroActivity"
+            android:name=".actividades.actividades.usuario.TerminosActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".actividades.actividades.usuario.RegistroActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -88,11 +82,8 @@
         </activity>
         <activity
             android:name=".actividades.actividades.CargaActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
