@@ -33,27 +33,20 @@ Celular varchar(10)
 )
 insert into Cliente values(Dni,Nombre,Apellido,Correo,Contrasena,Celular);
 
-create procedure sp_EliminarCLI(#---------------
-Dni char(8))
+create procedure sp_EliminarCLI( Dni char(8) )
 delete from Cliente where Dni_Cli=Dni;
 
-create procedure sp_ConsultarCLI(
-Correo varchar(30),
-Pass varchar(20))
+create procedure sp_ConsultarCLI(Correo varchar(30),Pass varchar(20))
 select * from Cliente where Correo_Cli = Correo and Contra_Cli = Pass;
 
-create procedure sp_EditarPassCLI(#-----------------------
-Dni char(8) ,
-Contra varchar(20))
+create procedure sp_EditarPassCLI(Dni char(8) , Contra varchar(20))
 update Cliente set Contra_Cli=Contra where Dni_Cli=Dni;
 
 
-create procedure sp_ConsultarDniCLI(#-------------------------
-Dni char(8))
+create procedure sp_ConsultarDniCLI(Dni char(8))
 select * from Cliente where Dni_Cli=Dni;
 
-create procedure sp_ConsultarCorreoCLI(#-------------------------
-Correo char(20))
+create procedure sp_ConsultarCorreoCLI(Correo char(20))
 select * from Cliente where Correo_Cli=Correo;
 
 #-------------------------ADMIN--------
@@ -76,12 +69,10 @@ Correo varchar(30),
 Pass varchar(20))
 select * from Admin where Correo_Adm = Correo and Contra_Adm = Pass;
 
-create procedure sp_ConsultarDniADM(#-------------------------
-Dni char(9))
+create procedure sp_ConsultarDniADM(Dni char(9))
 select * from Admin where Dni_Adm=Dni;
 
-create procedure sp_ConsultarCorreoADM(#-------------------------
-Correo char(20))
+create procedure sp_ConsultarCorreoADM(Correo char(20))
 select * from Admin where Correo_Adm=Correo;
 
 #------------TABLA LOSA------------
@@ -92,15 +83,16 @@ descripcion varchar(80),
 horario varchar(50) not null,
 direccion varchar (80) not null,
 mantenimiento boolean default 0,
-precio_hora decimal default 0
+precio_hora decimal default 0,
+nombre_tabla varchar(20) not null unique
 );
 
 
-insert into tb_losa (nombre_losa, horario, direccion) values
-('Losa del pueblo','L-V', 'direccion 1'),
-('Losa del barrio','L-V', 'direccion 2'),
-('Losa los patas','L-V', 'direccion 3'),
-('Losa la Familia','L-V', 'direccion 4');
+insert into tb_losa (nombre_losa, horario, direccion,nombre_tabla) values
+('Losa del pueblo','L-V', 'direccion 1','reserva_losa1'),
+('Losa del barrio','L-V', 'direccion 2' ,'reserva_losa2'),
+('Losa los patas','L-V', 'direccion 3','reserva_losa3'),
+('Losa la Familia','L-V', 'direccion 4','reserva_losa4');
 
 
 #------------TABLA RESERVAS------------
@@ -251,5 +243,3 @@ DELIMITER ;
 
 
 ##############<----------------->###############
-
-
