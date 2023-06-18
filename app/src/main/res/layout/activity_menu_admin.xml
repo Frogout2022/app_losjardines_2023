@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".actividades.actividades.admin.MenuAdmin_Activity">
 
-    <Button
-        android:id="@+id/btnListarUsers_MenuAdm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="166dp"
-        android:text="LISTAR USUARIOS"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="315dp"
@@ -30,23 +19,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnSalirAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="22dp"
-        android:text="SALIR"
+    <LinearLayout
+        android:layout_width="329dp"
+        android:layout_height="251dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="143dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnListarRsvUsers_MenuAdm" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <Button
-        android:id="@+id/btnListarRsvUsers_MenuAdm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="122dp"
-        android:layout_marginTop="23dp"
-        android:text="LISTAR RESERVAS"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnListarUsers_MenuAdm" />
+        <Button
+            android:id="@+id/btnListarRsvUsers_MenuAdm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LISTAR RESERVAS" />
+
+        <Button
+            android:id="@+id/btnListarUsers_MenuAdm"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:text="LISTAR USUARIOS" />
+
+        <Button
+            android:id="@+id/btnSalirAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="SALIR" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LISTAR LOSAS"
+            android:visibility="invisible" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
 
@@ -37,6 +36,10 @@
 
         <activity
             android:name=".actividades.actividades.usuario.TablaReservaUser_Activity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".actividades.actividades.usuario.ActualizarDatosUSER_Activity"
             android:exported="false">
         </activity>
 
