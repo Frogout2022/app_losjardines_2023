@@ -20,6 +20,17 @@
 
         </activity>
         <activity
+            android:name=".actividades.actividades.admin.ListarReservasADMIN_Activity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+
+        <activity
             android:name=".actividades.actividades.usuario.ConsultarReservaUser_Activity"
             android:exported="false">
         </activity>
@@ -28,7 +39,6 @@
             android:name=".actividades.actividades.usuario.TablaReservaUser_Activity"
             android:exported="false">
         </activity>
-
 
         <activity
             android:name=".actividades.actividades.usuario.pago.Tarjeta_Activity"
@@ -80,11 +90,8 @@
         </activity>
         <activity
             android:name=".actividades.actividades.Login_Activity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
