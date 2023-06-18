@@ -30,7 +30,7 @@ import java.util.List;
 
 public class ListarReservasADMIN_Activity extends AppCompatActivity {
     Button salir, actualizar;
-    TextView listado;
+    TextView listado, txtvMonto;
     Spinner spnLista;
     private String nombre_tabla = "";
     @Override
@@ -38,7 +38,6 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_reservas_admin);
         referencias();
-        //mostrar();
     }
     private void funSpinner(){
         List<CanchaDeportiva> lista = new ArrayList<>();
@@ -78,45 +77,53 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
         List<Reserva> listaRsv = new ArrayList<>();
         listaRsv = DAO_Reserva.listarReservasCLI(nom_tb);
 
+
+        int contador=0;
         if(listaRsv.size() == 0 ){
             Toast.makeText(this, "NO HAY RESERVAS EN ESTA LOSA", Toast.LENGTH_SHORT).show();
             listado.setText("NO HAY RESERVAS EN ESTA LOSA");
-        }else{
+            txtvMonto.setText("MONTO:   S/0.00");
+        }else {
             listado.setText("");
-            int i=0, can=1;
+            StringBuilder sb = new StringBuilder();
+
             for (Reserva reserva : listaRsv) {
-                listado.append("----------------------------------"+"\n");
-                listado.append("| RESERVA #"+can+"\t|"+"\n");
-                listado.append("----------------------------------"+"\n");
-                listado.append(" FECHA: " + reserva.getDia() + "\n HORA: ");
-                String[] arrayDni = reserva.getArrayDni();
-                if(arrayDni[0] != null){
-                    listado.append(" 3pm"+"\n");
-                    listado.append(" DNI: "+listaRsv.get(i).getArrayDni()[0] +" ");
+                for (int j = 0; j < 3; j++) {
+                    String dni = reserva.getArrayDni()[j];
+                    if (dni != null) {
+                        sb.append("----------------------------------").append("\n");
+                        sb.append("|      RESERVA #").append(contador+1).append("      |").append("\n");
+                        sb.append("----------------------------------").append("\n");
+                        sb.append(" FECHA: ").append(reserva.getDia()).append("\n");
+                        int hora = 3 + (2 * j);
+                        sb.append(" HORA: ").append(hora).append("pm").append("\n");
+                        sb.append(" DNI: ").append(dni).append("\n");
+                        sb.append("----------------------------------").append("\n\n");
+                        contador++;
+                    }
                 }
-                if(arrayDni[1] != null){
-                   listado.append(" 5pm"+"\n");
-                    listado.append(" DNI: "+listaRsv.get(i).getArrayDni()[1] +" ");
-                }
-                if(arrayDni[2] != null){
-                    listado.append(" 7pm"+"\n");
-                    listado.append(" DNI: "+listaRsv.get(i).getArrayDni()[2] +" ");
-                }
-                listado.append("----------------------------------"+"\n\n");
-                i++;
-                can++;
             }
-            Toast.makeText(this, "Hay "+listaRsv.size()+" reservas actualmente en esta losa", Toast.LENGTH_LONG).show();
+            listado.setText(sb.toString());
+
         }
+
+        double total = contador * 50;
+        txtvMonto.setText("MONTO TOTAL:   S/."+total);
+        Toast.makeText(this, "Hay "+listaRsv.size()+" fechas con reservas actualmente en esta losa", Toast.LENGTH_LONG).show();
 
     }
 
-
     private void referencias(){
+        txtvMonto = findViewById(R.id.txtvMonto_Adm);
+
         spnLista = findViewById(R.id.spnListarRsvCLI_Admin);
         funSpinner();
 
         listado = findViewById(R.id.txtvListadoRsvCLI_Admin);
+        listado.setLines(10);
+        listado.setEllipsize(TextUtils.TruncateAt.END);
+        listado.setMovementMethod(new ScrollingMovementMethod());
+
         actualizar = findViewById(R.id.btnActualizar_ListaRsvCLI_Admin);
         actualizar.setOnClickListener(view -> {
             mostrarLista(nombre_tabla);
