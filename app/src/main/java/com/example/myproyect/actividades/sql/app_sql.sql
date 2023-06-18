@@ -10,10 +10,12 @@ Nomb_Cli varchar(20) not null,
 Ape_Cli varchar(20) not null,
 Correo_Cli varchar(30) unique not null,
 Contra_Cli varchar(20) not null,
-Cel_Cli varchar(15) unique not null
+Cel_Cli varchar(15) unique not null,
+Fecha_registro datetime default current_timestamp
 );
 
-insert into cliente values
+
+insert into cliente (dni_cli, nomb_cli, ape_cli, correo_cli, contra_cli, cel_cli) values
 ('72673554', 'Milhos', 'Sihuay', 'mi@g.com', '123', '997653086' ),
 ('70829460', 'Luiggi', 'Rebatta', 'lu@g.com', '123', '969599087' ),
 ('12345677', 'Marcelo', 'Yabar', 'ma@g.com', '123', '986389628' ),
@@ -42,12 +44,20 @@ select * from Cliente where Correo_Cli = Correo and Contra_Cli = Pass;
 create procedure sp_EditarPassCLI(Dni char(8) , Contra varchar(20))
 update Cliente set Contra_Cli=Contra where Dni_Cli=Dni;
 
-
 create procedure sp_ConsultarDniCLI(Dni char(8))
 select * from Cliente where Dni_Cli=Dni;
 
 create procedure sp_ConsultarCorreoCLI(Correo char(20))
 select * from Cliente where Correo_Cli=Correo;
+
+create procedure sp_ConsultarCelularCLI(Celular varchar(15))
+select * from Cliente where Cel_cli = celular;
+
+create procedure sp_EditarDatosCLI(#-----------------------
+Dni char(8) ,
+Correo varchar(53),
+Celular varchar(15))
+update Cliente set Correo_cli=correo , cel_cli=celular where Dni_Cli=Dni;
 
 #-------------------------ADMIN--------
 create table Admin(
@@ -243,3 +253,4 @@ DELIMITER ;
 
 
 ##############<----------------->###############
+
