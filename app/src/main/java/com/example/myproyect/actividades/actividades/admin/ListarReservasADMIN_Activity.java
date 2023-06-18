@@ -62,7 +62,18 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
                 //spnLista.setVisibility(View.GONE);
                 txtvListado.setText("Cargando...");
                 txtvMonto.setText("Cargando...");
-                mostrarLista();
+
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mostrarLista();
+                    }
+                });
+
+                // Iniciar el hilo
+                thread.start();
+
+                //mostrarLista();
             }
 
             @Override
@@ -72,8 +83,8 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
         });
     }
     private void mostrarLista(){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        //StrictMode.setThreadPolicy(policy);
 
         List<Reserva> listaRsv = new ArrayList<>();
         listaRsv = DAO_Reserva.listarReservasCLI(nombre_tabla);
@@ -83,7 +94,14 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
             String msg = "NO HAY RESERVAS EN ESTA LOSA";
             txtvListado.setText(msg);
             txtvMonto.setText("MONTO:   S/0.00");
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(ListarReservasADMIN_Activity.this, msg, Toast.LENGTH_SHORT).show();
+                }
+            });
+            //Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
         }else {
             txtvListado.setText("");
@@ -108,7 +126,15 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
             txtvListado.setText(sb.toString());
             double total = contador * 50;
             txtvMonto.setText("MONTO TOTAL:   S/."+total);
-            Toast.makeText(this, "Hay "+listaRsv.size()+" fechas con reservas actualmente en esta losa", Toast.LENGTH_LONG).show();
+
+            List<Reserva> finalListaRsv = listaRsv;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(ListarReservasADMIN_Activity.this, "Hay "+ finalListaRsv.size()+" fechas con reservas actualmente en esta losa", Toast.LENGTH_SHORT).show();
+                }
+            });
+            //Toast.makeText(this, "Hay "+listaRsv.size()+" fechas con reservas actualmente en esta losa", Toast.LENGTH_LONG).show();
         }
 
     }
