@@ -148,16 +148,4 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtvDeleteUser_ActualizarDatos_Actv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="51dp"
-        android:text="Darse de baja"
-        android:textColor="#DF316C"
-        android:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

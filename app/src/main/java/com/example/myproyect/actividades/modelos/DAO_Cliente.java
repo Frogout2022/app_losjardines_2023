@@ -1,5 +1,7 @@
 package com.example.myproyect.actividades.modelos;
 
+import android.os.StrictMode;
+
 import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.conexion.ConexionMySQL;
 import com.example.myproyect.actividades.entidades.Usuario;
@@ -73,8 +75,6 @@ public class DAO_Cliente {
         String msg=null;
         try{
             Connection cnx=ConexionMySQL.getConexion();
-            String consulta, dni, nom, ape, email, clave,cel;
-            //consulta = "INSER INTO "+tabla+" values ('"+dni+"','"+nom+"','"+ape+"', '"+email+"', '"+clave+"', "+email, contra,  cel)";
             CallableStatement csta=	cnx.prepareCall("{call sp_InsertarCLI(?,?,?,?,?,?)}");
             csta.setString(1, user.getDNI());
             csta.setString(2, user.getNombre());
@@ -153,13 +153,27 @@ public class DAO_Cliente {
     }
 
     public static  String updateDatos(String correo, String celular){
-        String msg= "";
-        if(ConsultarCorreo(correo)){
-            msg = "Correo ya existe ";
-        }else if(ConsultarCelular(celular)){
-            msg = msg+"Celular ya existe ";
-        }else{
-            String dni = Login_Activity.getUsuario().getDNI();
+        String msg= "Error: ";
+        String correo_login = Login_Activity.getUsuario().getCorreo();
+        String cel_login = Login_Activity.getUsuario().getCelular();
+        String dni = Login_Activity.getUsuario().getDNI();
+        boolean retorno = false;
+
+        if(!correo_login.equals(correo) ){
+            if(ConsultarCorreo(correo)) {
+                msg = msg+ "Correo ya existe ";
+                retorno = true;
+            }
+        }
+        if(!cel_login.equals(celular)){
+            if(ConsultarCelular(celular)){
+                msg = msg+" Celular ya existe ";
+                retorno = true;
+            }
+
+        }
+        if(retorno) return msg;
+        else{
             try {
                 Connection cnx = ConexionMySQL.getConexion();
                 CallableStatement psta = cnx.prepareCall("{call sp_EditarDatosCLI(?,?,?)}");
@@ -172,12 +186,11 @@ public class DAO_Cliente {
                 Login_Activity.usuario.setCorreo(correo);
                 Login_Activity.usuario.setCelular(celular);
             } catch (Exception e) {
-                System.out.println("ERROR[DAO] updateDatos(): "+e);
                 msg = "Error al actualizar"+e;
             }
-        }
 
-        return msg;
+            return msg;
+        }
     }
 
     public static String deleteCLI(){

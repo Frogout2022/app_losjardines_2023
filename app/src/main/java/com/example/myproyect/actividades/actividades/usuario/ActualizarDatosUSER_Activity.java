@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class ActualizarDatosUSER_Activity extends AppCompatActivity {
 
-    TextView txtDNI, txtNOMBRES, txtDeleteUser, txtFechaR;
+    TextView txtDNI, txtNOMBRES, txtFechaR;
     Button btnReset, btnUpdate, btnSalir, btnBaja;
     EditText txtCorreo, txtCel;
     final String email = Login_Activity.getUsuario().getCorreo();
@@ -50,10 +50,6 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
             Intent intent = new Intent(this, BienvenidoActivity.class);
             startActivity(intent);
             this.finish();
-        });
-        txtDeleteUser = findViewById(R.id.txtvDeleteUser_ActualizarDatos_Actv);
-        txtDeleteUser.setOnClickListener(view -> {
-            //delete();
         });
 
         btnUpdate = findViewById(R.id.btnUpdate_ActDatos_Actv);
