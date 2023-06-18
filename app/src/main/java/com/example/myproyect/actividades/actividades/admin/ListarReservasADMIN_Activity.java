@@ -12,16 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myproyect.R;
-import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.entidades.CanchaDeportiva;
 import com.example.myproyect.actividades.entidades.Reserva;
-import com.example.myproyect.actividades.modelos.DAO_Administrador;
-import com.example.myproyect.actividades.modelos.DAO_Cliente;
 import com.example.myproyect.actividades.modelos.DAO_Losa;
 import com.example.myproyect.actividades.modelos.DAO_Reserva;
 
@@ -30,7 +26,7 @@ import java.util.List;
 
 public class ListarReservasADMIN_Activity extends AppCompatActivity {
     Button salir, actualizar;
-    TextView listado, txtvMonto;
+    TextView txtvListado, txtvMonto;
     Spinner spnLista;
     private String nombre_tabla = "";
     @Override
@@ -46,8 +42,10 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
         lista = DAO_Losa.listarNombres();
 
         List<String> opciones = new ArrayList<>();
+        int i=1;
         for(CanchaDeportiva canchaDeportiva : lista){
-            opciones.add(canchaDeportiva.getNombre());
+            opciones.add(i+". "+canchaDeportiva.getNombre());
+            i++;
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
@@ -61,7 +59,10 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //String opcion = (String) adapterView.getItemAtPosition(i);
                 nombre_tabla = finalLista.get(i).getNombre_tabla();
-                   mostrarLista(nombre_tabla);
+                //spnLista.setVisibility(View.GONE);
+                txtvListado.setText("Cargando...");
+                txtvMonto.setText("Cargando...");
+                mostrarLista();
             }
 
             @Override
@@ -70,21 +71,22 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
             }
         });
     }
-    private void mostrarLista(String nom_tb){
+    private void mostrarLista(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         List<Reserva> listaRsv = new ArrayList<>();
-        listaRsv = DAO_Reserva.listarReservasCLI(nom_tb);
-
+        listaRsv = DAO_Reserva.listarReservasCLI(nombre_tabla);
 
         int contador=0;
         if(listaRsv.size() == 0 ){
-            Toast.makeText(this, "NO HAY RESERVAS EN ESTA LOSA", Toast.LENGTH_SHORT).show();
-            listado.setText("NO HAY RESERVAS EN ESTA LOSA");
+            String msg = "NO HAY RESERVAS EN ESTA LOSA";
+            txtvListado.setText(msg);
             txtvMonto.setText("MONTO:   S/0.00");
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
         }else {
-            listado.setText("");
+            txtvListado.setText("");
             StringBuilder sb = new StringBuilder();
 
             for (Reserva reserva : listaRsv) {
@@ -103,13 +105,11 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
                     }
                 }
             }
-            listado.setText(sb.toString());
-
+            txtvListado.setText(sb.toString());
+            double total = contador * 50;
+            txtvMonto.setText("MONTO TOTAL:   S/."+total);
+            Toast.makeText(this, "Hay "+listaRsv.size()+" fechas con reservas actualmente en esta losa", Toast.LENGTH_LONG).show();
         }
-
-        double total = contador * 50;
-        txtvMonto.setText("MONTO TOTAL:   S/."+total);
-        Toast.makeText(this, "Hay "+listaRsv.size()+" fechas con reservas actualmente en esta losa", Toast.LENGTH_LONG).show();
 
     }
 
@@ -119,14 +119,14 @@ public class ListarReservasADMIN_Activity extends AppCompatActivity {
         spnLista = findViewById(R.id.spnListarRsvCLI_Admin);
         funSpinner();
 
-        listado = findViewById(R.id.txtvListadoRsvCLI_Admin);
-        listado.setLines(10);
-        listado.setEllipsize(TextUtils.TruncateAt.END);
-        listado.setMovementMethod(new ScrollingMovementMethod());
+        txtvListado = findViewById(R.id.txtvListadoRsvCLI_Admin);
+        txtvListado.setLines(10);
+        txtvListado.setEllipsize(TextUtils.TruncateAt.END);
+        txtvListado.setMovementMethod(new ScrollingMovementMethod());
 
         actualizar = findViewById(R.id.btnActualizar_ListaRsvCLI_Admin);
         actualizar.setOnClickListener(view -> {
-            mostrarLista(nombre_tabla);
+            mostrarLista();
         });
         salir = findViewById(R.id.btnSalir_ListaRsvCLI_Admin);
         salir.setOnClickListener(view -> {

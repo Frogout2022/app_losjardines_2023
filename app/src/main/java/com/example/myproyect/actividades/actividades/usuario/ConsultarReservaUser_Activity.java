@@ -36,7 +36,7 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_consultar_reserva_user);
 
         asignarReferencias();
-        //mostrar();
+
 
     }
     private void funSpinner(){
@@ -46,8 +46,10 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         lista = DAO_Losa.listarNombres();
 
         List<String> opciones = new ArrayList<>();
+        int i=1;
         for(CanchaDeportiva canchaDeportiva : lista){
-            opciones.add(canchaDeportiva.getNombre());
+            opciones.add(i+". "+canchaDeportiva.getNombre());
+            i++;
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
@@ -77,10 +79,11 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         List<Reserva> listaRsv = new ArrayList<>();
         listaRsv = DAO_Reserva.ConsultarRsv(nombre_tabla);
 
-        int contador=0;
+        int contador=0; //contador reservas
         if(listaRsv.size() == 0 ){
-            Toast.makeText(this, "NO HAY RESERVAS EN ESTA LOSA", Toast.LENGTH_SHORT).show();
             txtvListado.setText("NO HAY RESERVAS EN ESTA LOSA");
+            Toast.makeText(this, "NO HAY RESERVAS EN ESTA LOSA", Toast.LENGTH_SHORT).show();
+
 
         }else {
             txtvListado.setText("");
@@ -103,12 +106,8 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
                 }
             }
             txtvListado.setText(sb.toString());
-
+            Toast.makeText(this, "Hay "+listaRsv.size()+" fechas con reservas actualmente en esta losa", Toast.LENGTH_LONG).show();
         }
-
-        Toast.makeText(this, "Hay "+listaRsv.size()+" fechas con reservas actualmente en esta losa", Toast.LENGTH_LONG).show();
-
-
     }
     private void asignarReferencias(){
         spnLosas = findViewById(R.id.spnConsultarRsv_CLI);
@@ -124,63 +123,6 @@ public class ConsultarReservaUser_Activity extends AppCompatActivity {
         txtvListado.setMovementMethod(new ScrollingMovementMethod());
 
     }
-
-    private void mostrar(){
-        txtvListado.setLines(20);
-        txtvListado.setEllipsize(TextUtils.TruncateAt.END);
-        txtvListado.setMovementMethod(new ScrollingMovementMethod());
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        List<Reserva> listaRsv1 = new ArrayList<>();
-        List<Reserva> listaRsv2 = new ArrayList<>();
-        List<Reserva> listaRsv3 = new ArrayList<>();
-        List<Reserva> listaRsv4 = new ArrayList<>();
-        List<Reserva> listaRsvTotal = new ArrayList<>();
-
-        listaRsv1 = DAO_Reserva.ConsultarRsv("reserva_losa1");
-        listaRsv2 = DAO_Reserva.ConsultarRsv("reserva_losa2");
-        listaRsv3 = DAO_Reserva.ConsultarRsv("reserva_losa3");
-        listaRsv4 = DAO_Reserva.ConsultarRsv("reserva_losa4");
-
-        listaRsvTotal.addAll(listaRsv1);
-        listaRsvTotal.addAll(listaRsv2);
-        listaRsvTotal.addAll(listaRsv3);
-        listaRsvTotal.addAll(listaRsv4);
-
-        if(listaRsvTotal.size() == 0 ){
-            txtvListado.setText("NO TIENE RESERVAS");
-        }else{
-            txtvListado.setText("");
-            final String dni = Login_Activity.getUsuario().getDNI();
-            int i=1;
-            for (Reserva reserva : listaRsvTotal) {
-                txtvListado.append("| RESERVA #"+i+"\t|"+"\n");
-                txtvListado.append("----------------------------------"+"\n");
-                txtvListado.append("FECHA: " + reserva.getDia() + "\nHORA: ");
-                String[] arrayDni = reserva.getArrayDni();
-                if(arrayDni[0] != null){
-                    if (arrayDni[0].equals(dni)) txtvListado.append("3pm");
-                }
-                if(arrayDni[1] != null){
-                    if (arrayDni[1].equals(dni)) txtvListado.append("5pm");
-                }
-                if(arrayDni[2] != null){
-                    if (arrayDni[2].equals(dni)) txtvListado.append("7pm");
-                }
-
-                String nom= DAO_Losa.consultarNombre(reserva.getId_losa());
-                txtvListado.append("\nLUGAR: " + nom + "\n\n");
-                txtvListado.append("----------------------------------"+"\n");
-                i++;
-            }
-        }
-            Toast.makeText(this, "Tiene "+listaRsvTotal.size()+" reservas", Toast.LENGTH_SHORT).show();
-
-    }
-
-
 
 
 }
