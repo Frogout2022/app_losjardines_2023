@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo1"
-    tools:context=".actividades.actividades.TablaReservaUser_Activity">
+    android:background="@color/black"
+    tools:context=".actividades.actividades.usuario.TablaReservaUser_Activity">
 
     <TableLayout
         android:id="@+id/tabla1_reserva"
@@ -339,10 +339,10 @@
 
     <TextView
         android:id="@+id/lblSemana_TablaReserva"
-        android:layout_width="337dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="341dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:clickable="false"
         android:gravity="center"
         android:text="SEMANA XX - XX - JUN_2023"
@@ -372,8 +372,9 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="13dp"
         android:text="COSTO/1H = 50 SOLES"
-        android:textSize="20sp"
+        android:textColor="#FAFAFA"
 
+        android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnReservarTablaUser" />
@@ -386,6 +387,7 @@
         android:layout_marginTop="15dp"
         android:text="S/0.00"
 
+        android:textColor="#FBFBFB"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblTarifa_TRU" />

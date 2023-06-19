@@ -1,7 +1,7 @@
 <manifest xmlns:android ="http://schemas.android.com/apk/res/android"
     >
     <application>
-    <activity android:name ="com.example.myproyect.actividades.actividades.PagoActivity"
+    <activity android:name ="com.example.myproyect.actividades.actividades.usuario.pago.PagoActivity"
     android:exported="false"
 
     >

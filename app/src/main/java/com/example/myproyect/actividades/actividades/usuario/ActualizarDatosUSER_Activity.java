@@ -3,12 +3,10 @@ package com.example.myproyect.actividades.actividades.usuario;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myproyect.R;
-import com.example.myproyect.actividades.actividades.BienvenidoActivity;
 import com.example.myproyect.actividades.actividades.Login_Activity;
-import com.example.myproyect.actividades.actividades.RecuperarPassword_Activity;
 import com.example.myproyect.actividades.clases.MostrarMensaje;
 import com.example.myproyect.actividades.entidades.Usuario;
 import com.example.myproyect.actividades.modelos.DAO_Cliente;
@@ -27,8 +23,8 @@ import java.util.regex.Pattern;
 
 public class ActualizarDatosUSER_Activity extends AppCompatActivity {
 
-    TextView txtDNI, txtNOMBRES, txtDeleteUser;
-    Button btnReset, btnUpdate, btnSalir;
+    TextView txtDNI, txtNOMBRES, txtFechaR;
+    Button btnReset, btnUpdate, btnSalir, btnBaja;
     EditText txtCorreo, txtCel;
     final String email = Login_Activity.getUsuario().getCorreo();
     final String cel = Login_Activity.getUsuario().getCelular();
@@ -42,6 +38,11 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
         mostrar();
     }
     private void referencias(){
+        txtFechaR = findViewById(R.id.txtvFecha_registro_ActualizarDatosCLI);
+        btnBaja = findViewById(R.id.btnDeleteUser_ActualizarDatos_Actv);
+        btnBaja.setOnClickListener(view -> {
+            delete();
+        });
         txtCorreo = findViewById(R.id.txtCorreo_ActualizarDatos_Actv);
         txtCel = findViewById(R.id.txtCelular_ActualizarDatos_Actv);
         btnSalir = findViewById(R.id.btnSALIR_ActDatos_Actv);
@@ -50,12 +51,30 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
             startActivity(intent);
             this.finish();
         });
-        txtDeleteUser = findViewById(R.id.txtvDeleteUser_ActualizarDatos_Actv);
-        txtDeleteUser.setOnClickListener(view -> {
-            delete();
-        });
 
         btnUpdate = findViewById(R.id.btnUpdate_ActDatos_Actv);
+        listenerCorreo();
+        listenerCel();
+
+        txtDNI = findViewById(R.id.txtvDNI_ActualizarDatos_Actv);
+
+        txtNOMBRES = findViewById(R.id.txtvNOMBRES_ActualizarDatos_Actv);
+        btnReset = findViewById(R.id.btnResetclave_ActDatos_Actv);
+        btnReset.setOnClickListener(view -> {
+            Intent intent = new Intent(this, RecuperarPassword_Activity.class);
+            intent.putExtra("login",false);
+            startActivity(intent);
+            finish();
+        });
+
+
+        btnUpdate.setOnClickListener(view -> {
+            update();
+        });
+
+
+    }
+    private void listenerCorreo(){
         txtCorreo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -80,7 +99,8 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
                 //Toast.makeText(ActualizarDatosUSER_Activity.this, b+"", Toast.LENGTH_SHORT).show();
             }
         });
-
+    }
+    private void listenerCel(){
         txtCel.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -105,24 +125,6 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
                 //Toast.makeText(ActualizarDatosUSER_Activity.this, b+"", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        txtDNI = findViewById(R.id.txtvDNI_ActualizarDatos_Actv);
-
-        txtNOMBRES = findViewById(R.id.txtvNOMBRES_ActualizarDatos_Actv);
-        btnReset = findViewById(R.id.btnResetclave_ActDatos_Actv);
-        btnReset.setOnClickListener(view -> {
-            Intent intent = new Intent(this, RecuperarPassword_Activity.class);
-            startActivity(intent);
-            finish();
-        });
-
-
-        btnUpdate.setOnClickListener(view -> {
-            update();
-        });
-
-
     }
     private void delete(){
         AlertDialog.Builder ventana = new AlertDialog.Builder(this);
@@ -144,7 +146,6 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
 
 
     }
-
     private void update(){
         String correoEdit = txtCorreo.getText().toString();
         String celEdit = txtCel.getText().toString();
@@ -175,6 +176,8 @@ public class ActualizarDatosUSER_Activity extends AppCompatActivity {
         txtNOMBRES.setText(nombres.toUpperCase());
         txtCorreo.setText(usuario.getCorreo());
         txtCel.setText(usuario.getCelular());
+        String fecha = usuario.getFecha_registro();
+        txtFechaR.setText(fecha.substring(0,10));
 
 
     }

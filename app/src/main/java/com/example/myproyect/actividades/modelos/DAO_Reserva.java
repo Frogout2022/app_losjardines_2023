@@ -13,23 +13,30 @@ import java.util.List;
 public class DAO_Reserva {
 
 
-    public static  ArrayList<Reserva> listarReservaSemanal() {// PARA LA ACT. TABLA RESERVAS - CLI
+    public static  ArrayList<Reserva> listarReservaSemanal(String tabla, int dia_min, int dia_max) {
+        // PARA LA ACT. TABLA RESERVAS - CLI
         ArrayList<Reserva> lista = new ArrayList<>();
         Connection cnx = null;
         try {
             cnx = ConexionMySQL.getConexion();
-            CallableStatement csta = cnx.prepareCall("{call sp_ListarRESERVA_semanal()}");
+            CallableStatement csta = cnx.prepareCall("{call sp_ListarRsv(?,?,?)}");
+            csta.setString(1, tabla); // 'reserva_losa1'
+            csta.setInt(2, dia_min); // acutal
+            csta.setInt(3, dia_max); // actual + 7
+
             ResultSet rs = csta.executeQuery();
             Reserva reserva;
 
             while (rs.next()) {
-                boolean[] ab = new boolean[3];
-                String dia = rs.getString(2);
-                ab[0] = rs.getBoolean(3);
-                ab[1] = rs.getBoolean(4);
-                ab[2] = rs.getBoolean(5);
+                String[] arrayHorario = new String[3];
+                // i:1 -> id tabla
+                // i:2 --> id_losa
+                String dia = rs.getString(3);
+                arrayHorario[0] = rs.getString(4);
+                arrayHorario[1] = rs.getString(5);
+                arrayHorario[2] = rs.getString(6);
 
-                reserva = new Reserva(dia, ab);
+                reserva = new Reserva(dia, arrayHorario);
                 lista.add(reserva);
             }
 
@@ -54,42 +61,33 @@ public class DAO_Reserva {
     }
 
 
-    public static List<Reserva> ConsultarRsv(){
+    public static List<Reserva> ConsultarRsv(String tabla){
+        //CONSULTAR RESERVAS DEL CLIENTE
+
         List<Reserva> lista = new ArrayList<>();
         String dni = Login_Activity.getUsuario().getDNI();
         try{
             Connection cnx=ConexionMySQL.getConexion();
-            CallableStatement csta=cnx.prepareCall("{call sp_ConsultarRsvCLI(?)}");
-            csta.setString(1, dni);
+            CallableStatement csta=cnx.prepareCall("{call sp_ConsultarRsvCLI(?,?)}");
+            csta.setString(1, tabla);
+            csta.setString(2, dni);
             ResultSet rs= csta.executeQuery();
             Reserva reserva=null;
             while(rs.next()){
                 String dia;
-                boolean[] arrayb = new boolean[3];
+                int id_losa=0;
                 String[] arrayDni = new String[3];
                 String dniBD = "";
-                // 1 -> ID
-                dia = rs.getString(2);
+                // i:1 -> ID_tabla
+                // i:2 -> ID_LOSA
+                id_losa = rs.getInt(2);
+                dia = rs.getString(3);
 
-                arrayb[0] = rs.getBoolean(3);
-                arrayb[1] = rs.getBoolean(4);
-                arrayb[2] = rs.getBoolean(5);
+                arrayDni[0] = rs.getString(4);
+                arrayDni[1] = rs.getString(5);
+                arrayDni[2] = rs.getString(6);
 
-
-                dniBD = rs.getString(6);
-                if(dniBD == null) dniBD="";
-                arrayDni[0] = dniBD;
-
-                dniBD = rs.getString(7);
-                if(dniBD == null) dniBD="";
-                arrayDni[1] = dniBD;
-
-                dniBD = rs.getString(8);
-                if(dniBD == null) dniBD="";
-                arrayDni[2] = dniBD;
-
-
-                reserva = new Reserva(dia, arrayb,arrayDni);
+                reserva = new Reserva(dia, arrayDni, id_losa);
                 lista.add(reserva);
             }
 
@@ -98,45 +96,37 @@ public class DAO_Reserva {
         return lista;
     }
 
-    public static List<Reserva> listarReservasCLI(){ //LISTAR TODAS LAS RESERVAS DEL AÑO
+
+
+
+    public static List<Reserva> listarReservasCLI(String losa){
+    //LISTAR TODAS LAS RESERVAS DEL AÑO
         //PARA ACTV. LISTAR_RSV_ADMIN
 
         ArrayList<Reserva> lista = new ArrayList<>();
         Connection cnx = null;
         try {
             cnx = ConexionMySQL.getConexion();
-            CallableStatement csta = cnx.prepareCall("{call sp_ListarReservasCLI()}");
+            CallableStatement csta = cnx.prepareCall("{call sp_ListarReservasCLI(?)}");
+            csta.setString(1, losa);
             ResultSet rs = csta.executeQuery();
             Reserva reserva;
 
             while (rs.next()) {
 
-                String dia ;
-                boolean[] arrayB = new boolean[3];
+                String fecha ;
                 String[] arrayDni = new String[3];
                 String dniBD = ""; //evitar valores nulos
 
-                // index 1 = id_reserva
-                dia = rs.getString(2);
+                // i:1 = id_reserva
+                // i:2 = id_losa
+                fecha = rs.getString(3);
 
-                arrayB[0] = rs.getBoolean(3);
-                arrayB[1] = rs.getBoolean(4);
-                arrayB[2] = rs.getBoolean(5);
+                arrayDni[0] = rs.getString(4);
+                arrayDni[1] = rs.getString(5);
+                arrayDni[2] = rs.getString(6);
 
-                dniBD = rs.getString(6);
-                if(dniBD == null) dniBD="";
-                arrayDni[0] = dniBD;
-
-                dniBD = rs.getString(7);
-                if(dniBD == null) dniBD="";
-                arrayDni[1] = dniBD;
-
-                dniBD = rs.getString(8);
-                if(dniBD == null) dniBD="";
-                arrayDni[2] = dniBD;
-
-
-                reserva = new Reserva(dia, arrayB, arrayDni);
+                reserva = new Reserva(fecha, arrayDni);
                 lista.add(reserva);
             }
 
@@ -148,15 +138,27 @@ public class DAO_Reserva {
         return lista;
     }
 
-    public static String insertarRSV(String dia, int h){
-        //editar
+
+    public static String insertarRSV(String tabla, String dia, int hora){ //PARA ACTV. CLIENTE
+        //editar-UPDATE
+        String hora_str= "";
+        switch (hora){
+            case 15:
+                hora_str="3pm";break;
+            case 17:
+                hora_str="5pm";break;
+            case 19:
+                hora_str="7pm";break;
+        }
         String msg=null;
         String dni = Login_Activity.getUsuario().getDNI();
         try{
             Connection cnx=ConexionMySQL.getConexion();
-            CallableStatement csta=	cnx.prepareCall("{call sp_ReservarH"+h+"(?,?)}");
-            csta.setString(1,dia);
-            csta.setString(2,dni);
+            CallableStatement csta=	cnx.prepareCall("{call sp_Reservar(?,?,?,?)}");
+            csta.setString(1,tabla); // 'reserva_losa1'
+            csta.setString(2,dia); // '2023-12-31'
+            csta.setString(3,hora_str); // '3pm'
+            csta.setString(4,dni); // '12345678'
 
             csta.executeUpdate();
             msg="Reserva registrada correctamente";

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actividades.actividades.ConsultarReservaUser_Activity">
+    tools:context=".actividades.actividades.usuario.ConsultarReservaUser_Activity">
 
     <Button
         android:id="@+id/btnVolver_ConsultRsvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="19dp"
         android:text="VOLVER"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtv_consultasRsv_user" />
@@ -31,13 +31,32 @@
 
     <TextView
         android:id="@+id/txtv_consultasRsv_user"
-        android:layout_width="298dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="280dp"
+        android:layout_height="376dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
         android:singleLine="false"
-        android:text="TextView"
+        android:text="Cargando..."
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnConsultarRsv_CLI" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="231dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="8dp"
+        android:text="Seleecione una losa:"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <Spinner
+        android:id="@+id/spnConsultarRsv_CLI"
+        android:layout_width="331dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 </androidx.constraintlayout.widget.ConstraintLayout>

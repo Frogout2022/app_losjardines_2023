@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.usuario;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.myproyect.R;
+import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.clases.MostrarMensaje;
 import com.example.myproyect.actividades.modelos.DAO_Cliente;
 
@@ -29,8 +30,16 @@ public class RecuperarPassword_Activity extends AppCompatActivity {
         });
         btnSalir = findViewById(R.id.btnSalir_RecupPass);
         btnSalir.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Login_Activity.class);
-            startActivity(intent);
+            boolean b = getIntent().getBooleanExtra("login",false);
+            if(b ){
+                Intent intent = new Intent(this, Login_Activity.class);
+                startActivity(intent);
+                this.finish();
+            }else{
+                Intent intent = new Intent(this, ActualizarDatosUSER_Activity.class);
+                startActivity(intent);
+                this.finish();
+            }
         });
         pass1 = findViewById(R.id.txtPass1_RecupPass);
         pass2 = findViewById(R.id.txtPass2_RecupPass);
@@ -48,7 +57,13 @@ public class RecuperarPassword_Activity extends AppCompatActivity {
             //pasa
             String dni = getIntent().getStringExtra("dni");
             String msg = DAO_Cliente.editarPass(dni, p1);
-            MostrarMensaje.mensajeToast(msg,this, Login_Activity.class);
+            boolean b = getIntent().getBooleanExtra("login",false);
+            if(b ){
+                MostrarMensaje.mensajeToast(msg,this, Login_Activity.class);
+            }else{
+                MostrarMensaje.mensajeToast(msg,this, ActualizarDatosUSER_Activity.class);
+            }
+
 
         }
     }

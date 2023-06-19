@@ -1,5 +1,7 @@
 package com.example.myproyect.actividades.modelos;
 
+import android.os.StrictMode;
+
 import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.conexion.ConexionMySQL;
 import com.example.myproyect.actividades.entidades.Usuario;
@@ -7,17 +9,21 @@ import com.example.myproyect.actividades.entidades.Usuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DAO_Cliente {
+    public static final String tabla = "CLIENTE";
+
 
     public static ArrayList<Usuario> listarClientes() {//PARA V. MANTENIMIENTO DE EMPLEADO
         ArrayList<Usuario> lista = new ArrayList<>();
         Connection cnx = null;
         try {
             cnx = ConexionMySQL.getConexion();
-            CallableStatement csta = cnx.prepareCall("{call sp_ListarCLI()}");
-            ResultSet rs = csta.executeQuery();
+            Statement statement = cnx.createStatement();
+            String consulta = "SELECT * FROM "+tabla;
+            ResultSet rs = statement.executeQuery(consulta);
             Usuario user;
             while (rs.next()) {
                 String DNI = rs.getString(1);
@@ -26,7 +32,8 @@ public class DAO_Cliente {
                 String correo = rs.getString(4);
                 String clave = rs.getString(5);
                 String cel = rs.getString(6);
-                user = new Usuario(DNI, nom, ape, correo, clave, cel);
+                String fecha = rs.getString(7);
+                user = new Usuario(DNI, nom, ape, correo, clave, cel, fecha);
                 lista.add(user);
             }
         } catch (Exception e) {
@@ -36,32 +43,17 @@ public class DAO_Cliente {
         return lista;
     }
 
-    public static boolean ConsultarCLI(String correo, String pass){
-        //PARA V. LOGIN
-        //PARA V. RESET PASS
-        boolean b= false;
-        try{
-            Connection cnx=ConexionMySQL.getConexion();
-            CallableStatement csta=cnx.prepareCall("{call sp_consultarCLI(?,?)}");
-            csta.setString(1, correo);
-            csta.setString(2, pass);
-            ResultSet rs= csta.executeQuery();
-            if(rs.next()) b = true;
-            ConexionMySQL.cerrarConexion(cnx);
-        }catch(Exception e){System.out.println("ERROR AC ConsultarDni(): "+e);}
-
-        return b;
-    }
     public static Usuario ObtenerCLI(String correo, String pass){
         //PARA V. LOGIN
         Usuario user = null;
         boolean b= false;
         try{
             Connection cnx=ConexionMySQL.getConexion();
-            CallableStatement csta=cnx.prepareCall("{call sp_consultarCLI(?,?)}");
-            csta.setString(1, correo);
-            csta.setString(2, pass);
-            ResultSet rs= csta.executeQuery();
+            Statement statement = cnx.createStatement();
+            String consulta = "SELECT * FROM "+tabla+" WHERE CORREO_CLI= '"+correo+"' AND CONTRA_CLI = '"+pass+"' ";
+
+
+            ResultSet rs= statement.executeQuery(consulta);
             if(rs.next()) {
                 String dni = rs.getString(1);
                 String nom = rs.getString(2);
@@ -69,7 +61,8 @@ public class DAO_Cliente {
                 String email = rs.getString(4);
                 String clave = rs.getString(5);
                 String cel = rs.getString(6);
-                user = new Usuario(dni,nom,ape,email,clave,cel);
+                String fecha = rs.getString(7);
+                user = new Usuario(dni,nom,ape,email,clave,cel,fecha);
             }
 
             ConexionMySQL.cerrarConexion(cnx);
@@ -93,7 +86,7 @@ public class DAO_Cliente {
             msg="Usuario registrado correctamente";
             ConexionMySQL.cerrarConexion(cnx);
         }catch(Exception e){
-            System.out.println("ERROR AC insertar(): " +e);
+            System.out.println("ERROR[DAO] insertar(): " +e);
             msg= "Error al registrar!";
         }
 
@@ -160,13 +153,27 @@ public class DAO_Cliente {
     }
 
     public static  String updateDatos(String correo, String celular){
-        String msg= "";
-        if(ConsultarCorreo(correo)){
-            msg = "Correo ya existe ";
-        }else if(ConsultarCelular(celular)){
-            msg = msg+"Celular ya existe ";
-        }else{
-            String dni = Login_Activity.getUsuario().getDNI();
+        String msg= "Error: ";
+        String correo_login = Login_Activity.getUsuario().getCorreo();
+        String cel_login = Login_Activity.getUsuario().getCelular();
+        String dni = Login_Activity.getUsuario().getDNI();
+        boolean retorno = false;
+
+        if(!correo_login.equals(correo) ){
+            if(ConsultarCorreo(correo)) {
+                msg = msg+ "Correo ya existe ";
+                retorno = true;
+            }
+        }
+        if(!cel_login.equals(celular)){
+            if(ConsultarCelular(celular)){
+                msg = msg+" Celular ya existe ";
+                retorno = true;
+            }
+
+        }
+        if(retorno) return msg;
+        else{
             try {
                 Connection cnx = ConexionMySQL.getConexion();
                 CallableStatement psta = cnx.prepareCall("{call sp_EditarDatosCLI(?,?,?)}");
@@ -179,12 +186,11 @@ public class DAO_Cliente {
                 Login_Activity.usuario.setCorreo(correo);
                 Login_Activity.usuario.setCelular(celular);
             } catch (Exception e) {
-                System.out.println("ERROR[DAO] updateDatos(): "+e);
                 msg = "Error al actualizar"+e;
             }
-        }
 
-        return msg;
+            return msg;
+        }
     }
 
     public static String deleteCLI(){
@@ -199,7 +205,7 @@ public class DAO_Cliente {
             msg = "Usuario eliminado correctamente";
 
         } catch (Exception e) {
-            System.out.println("ERROR[DAO] updateDatos(): "+e);
+            System.out.println("ERROR[DAO] deleteCLI(): "+e);
             msg = "Error al eliminar"+e;
         }
         return msg;

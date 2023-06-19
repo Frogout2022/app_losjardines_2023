@@ -50,6 +50,7 @@ public class Fecha {
     }
 
     public static List<String>  getFechas(){
+        //retornar las fechas de los proximos días
         List<String> fechas = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
@@ -65,6 +66,12 @@ public class Fecha {
         }
 
         return fechas;
+    }
+
+    public static int obtenerNumeroDiaActual() {
+        Calendar calendar = Calendar.getInstance();
+        int numeroDiaActual = calendar.get(Calendar.DAY_OF_YEAR);
+        return numeroDiaActual;
     }
 
 

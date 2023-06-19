@@ -1,4 +1,4 @@
-package com.example.myproyect.actividades.actividades;
+package com.example.myproyect.actividades.actividades.usuario;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,7 +14,7 @@ import com.example.myproyect.actividades.fragmentos.Losa2Fragment;
 import com.example.myproyect.actividades.fragmentos.Losa3Fragment;
 import com.example.myproyect.actividades.fragmentos.Losa4Fragment;
 
-public class Menu extends AppCompatActivity implements InterfaceMenu {
+public class Menu_Losas_Activity extends AppCompatActivity implements InterfaceMenu {
     Fragment[] fragments;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

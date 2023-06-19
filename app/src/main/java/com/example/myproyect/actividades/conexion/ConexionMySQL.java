@@ -9,8 +9,10 @@ public class ConexionMySQL {
     public static Connection getConexion() {
         Connection conexion = null;
         try {
+
+            String url = "jdbc:mysql://mysql-android.mysql.database.azure.com:3306/app_losjardines2?useSSL=false";
             Class.forName("com.mysql.jdbc.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql://mysql-android.mysql.database.azure.com:3306/app_losjardines?useSSL=false", "admin2023", "P@$$w0rd");
+            conexion = DriverManager.getConnection(url, "admin2023", "P@$$w0rd");
             System.out.println("Conexión exitosa a la base de datos.");
 
         } catch (ClassNotFoundException | SQLException e) {
