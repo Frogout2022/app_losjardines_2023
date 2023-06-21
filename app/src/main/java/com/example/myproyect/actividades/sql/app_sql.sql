@@ -32,8 +32,8 @@ Apellido varchar(20) ,
 Correo varchar(30) ,
 Contrasena varchar(20),
 Celular varchar(10)
-)
-insert into Cliente values(Dni,Nombre,Apellido,Correo,Contrasena,Celular);
+) insert into Cliente (dni_cli, nomb_cli, ape_cli, correo_cli, contra_cli, cel_cli)
+values (Dni,Nombre,Apellido,Correo,Contrasena,Celular);
 
 create procedure sp_EliminarCLI( Dni char(8) )
 delete from Cliente where Dni_Cli=Dni;
@@ -241,4 +241,8 @@ DELIMITER ;
 
 SELECT 'FINISH' AS mensaje;
 ##############<----------------->###############
+
+
+
+
 
