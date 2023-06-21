@@ -37,7 +37,7 @@ public class DAO_Cliente {
                 lista.add(user);
             }
         } catch (Exception e) {
-            System.out.println("ERROR AC listarClientes(): " + e);
+            System.out.println("ERROR[DAO_CLI] listarClientes(): " + e);
         }
         ConexionMySQL.cerrarConexion(cnx);
         return lista;
@@ -66,7 +66,7 @@ public class DAO_Cliente {
             }
 
             ConexionMySQL.cerrarConexion(cnx);
-        }catch(Exception e){System.out.println("ERROR AC ConsultarDni(): "+e);}
+        }catch(Exception e){System.out.println("ERROR[DAO_CLI] ObtenerCLI(): "+e);}
 
         return user;
     }
@@ -86,7 +86,7 @@ public class DAO_Cliente {
             msg="Usuario registrado correctamente";
             ConexionMySQL.cerrarConexion(cnx);
         }catch(Exception e){
-            System.out.println("ERROR[DAO] insertar(): " +e);
+            System.out.println("ERROR[DAO_CLI] insertarCLI(): " +e);
             msg= "Error al registrar!";
         }
 
@@ -103,7 +103,7 @@ public class DAO_Cliente {
             ResultSet rs= csta.executeQuery();
             if(rs.next()) b= true;
             ConexionMySQL.cerrarConexion(cnx);
-        }catch(Exception e){System.out.println("Error AC ConsultarCorreo(): "+e);}
+        }catch(Exception e){System.out.println("Error[DAO_CLI] ConsultarCorreo(): "+e);}
         return b;
     }
     public static boolean ConsultarCelular(String celular){
@@ -116,7 +116,7 @@ public class DAO_Cliente {
             ResultSet rs= csta.executeQuery();
             if(rs.next()) b= true;
             ConexionMySQL.cerrarConexion(cnx);
-        }catch(Exception e){System.out.println("ERROR[DAO] ConsultarCelular(): "+e);}
+        }catch(Exception e){System.out.println("ERROR[DAO_CLI] ConsultarCelular(): "+e);}
         return b;
     }
 
@@ -131,7 +131,7 @@ public class DAO_Cliente {
             ResultSet rs= csta.executeQuery();
             if(rs.next()) b = true;
             ConexionMySQL.cerrarConexion(cnx);
-        }catch(Exception e){System.out.println("ERROR AC ConsultarDni(): "+e);}
+        }catch(Exception e){System.out.println("ERROR[DAO_CLI] ConsultarDni(): "+e);}
         return b;
     }
 
@@ -146,7 +146,7 @@ public class DAO_Cliente {
             ConexionMySQL.cerrarConexion(cnx);
             msg="Se actualizó su contraseña";
         } catch (Exception e) {
-            System.out.println("Error editarPass: "+e);
+            System.out.println("ERROR[DAO_CLI] editarPass: "+e);
             msg="Error al actualizar la contraseña";
         }
         return msg;
@@ -186,7 +186,8 @@ public class DAO_Cliente {
                 Login_Activity.usuario.setCorreo(correo);
                 Login_Activity.usuario.setCelular(celular);
             } catch (Exception e) {
-                msg = "Error al actualizar"+e;
+                System.out.println("ERROR[DAO_CLI] updateDatos(): "+e);
+                msg = "Error al actualizar";
             }
 
             return msg;
@@ -205,12 +206,10 @@ public class DAO_Cliente {
             msg = "Usuario eliminado correctamente";
 
         } catch (Exception e) {
-            System.out.println("ERROR[DAO] deleteCLI(): "+e);
+            System.out.println("ERROR[DAO_CLI] deleteCLI(): "+e);
             msg = "Error al eliminar"+e;
         }
         return msg;
     }
-
-
 
 }
