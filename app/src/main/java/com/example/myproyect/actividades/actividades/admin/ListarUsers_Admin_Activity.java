@@ -48,20 +48,26 @@ public class ListarUsers_Admin_Activity extends AppCompatActivity {
         txtListar.setEllipsize(TextUtils.TruncateAt.END);
         txtListar.setMovementMethod(new ScrollingMovementMethod());
         if(listaUsers.size()!=0){
-            for(int i=1; i<listaUsers.size(); i++){//omitimos el primer usuario
-                txtListar.setText(txtListar.getText()+ "\n"+
-                        "DNI: "+listaUsers.get(i).getDNI()+"\n"+
-                        "NOMBRE: "+listaUsers.get(i).getNombre()+"\n"+
-                        "APELLIDO: "+listaUsers.get(i).getApellido()+"\n"+
-                        "CORREO: "+listaUsers.get(i).getCorreo()+"\n"+
-                        "CELULAR: "+listaUsers.get(i).getCelular()+"\n"+
-
-                        "------------------------");
+            int contador=0;
+            for(Usuario user : listaUsers){
+                String fechaR = user.getFecha_registro().substring(0,10);
+                int num = contador+1;
+                txtListar.append(
+                        " | CLIENTE       #"+num+ "    | \n"+
+                        "--------------------------------"+"\n"+
+                        "FECHA REGISTRO: "+fechaR+"\n"+
+                        "DNI: "+user.getDNI()+"\n"+
+                        "NOMBRES: "+user.getNombre()+"\n"+
+                        "APELLIDOS: "+user.getApellido()+"\n"+
+                        "CORREO: "+user.getCorreo()+"\n"+
+                        "CELULAR: "+user.getCelular()+"\n"+
+                        "---------------------------------"+"\n");
+                contador++;
             }
+            Toast.makeText(this, "Hay "+contador+" usuarios registrados", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, "No hay usuarios registrados", Toast.LENGTH_SHORT).show();
         }
-
 
     }
 }
