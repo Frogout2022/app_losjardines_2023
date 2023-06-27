@@ -10,7 +10,7 @@ import com.example.myproyect.R;
 import com.example.myproyect.actividades.actividades.Login_Activity;
 
 public class MenuAdmin_Activity extends AppCompatActivity {
-    Button btnSalir, btnListarUsers;
+    Button btnSalir, btnListarUsers ,btnLosas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,12 @@ public class MenuAdmin_Activity extends AppCompatActivity {
         btnListarUsers = findViewById(R.id.btnListarUsers_MenuAdm);
         btnListarUsers.setOnClickListener(view -> {
             Intent intent = new Intent(this, ListarUsers_Admin_Activity.class);
+            startActivity(intent);
+            finish();
+        });
+        btnLosas = findViewById(R.id.btn_MngLosas_AdminMenu);
+        btnLosas.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MantenimientoLosas_Activity.class);
             startActivity(intent);
             finish();
         });
