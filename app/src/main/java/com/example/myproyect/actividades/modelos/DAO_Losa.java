@@ -48,5 +48,48 @@ public class DAO_Losa {
         }
         return  lista;
     }
+    public static List<CanchaDeportiva> listarLosas(){
+        List<CanchaDeportiva> lista = new ArrayList<>();
+        try {
+            Connection cnx= ConexionMySQL.getConexion();
+            Statement statement = cnx.createStatement();
+            String sql="SELECT * from tb_losa";
+            ResultSet rs= statement.executeQuery(sql);
+            while(rs.next()) {
+                // i:1 -> id
+                String nom_losa = rs.getString(2);
+                String descripcion = rs.getString(3);
+                String horario = rs.getString(4);
+                String direccion = rs.getString(5);
+                boolean mantenimiento = rs.getBoolean(6);
+                double precio_hora = rs.getDouble(7);
+                // String nom_tb =  rs.getString(8); // i:8 -> nombre_tabla
+
+                lista.add(new CanchaDeportiva(nom_losa, descripcion, horario,direccion, mantenimiento, precio_hora));
+            }
+            ConexionMySQL.cerrarConexion(cnx);
+        }catch (Exception e){
+            Log.d("DAO", "ERROR DAO[LOSA] listarLosas");
+        }
+
+        return lista;
+    }
+
+    public static boolean editarLosas(int id, boolean mante, double precio){
+        boolean b = false;
+        try {
+            Connection cnx = ConexionMySQL.getConexion();
+            CallableStatement psta = cnx.prepareCall("{call sp_EditarLosas(?,?,?)}");
+            psta.setInt(1, id);
+            psta.setBoolean(2, mante);
+            psta.setDouble(3, precio);
+            psta.executeQuery();
+            ConexionMySQL.cerrarConexion(cnx);
+            b = true;
+        }catch (Exception e){
+            Log.d("DAO", "ERROR DAO[LOSA] editarLosas() -> "+e);
+        }
+        return b;
+    }
 
 }

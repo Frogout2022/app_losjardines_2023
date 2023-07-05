@@ -41,6 +41,12 @@
             android:text="LISTAR USUARIOS" />
 
         <Button
+            android:id="@+id/btn_MngLosas_AdminMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MANTENIMIENTO LOSAS" />
+
+        <Button
             android:id="@+id/btnSalirAdmin"
             android:layout_width="match_parent"
             android:layout_height="48dp"
