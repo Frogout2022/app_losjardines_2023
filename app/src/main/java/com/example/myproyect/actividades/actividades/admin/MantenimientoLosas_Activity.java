@@ -2,6 +2,7 @@ package com.example.myproyect.actividades.actividades.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.InputFilter;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class MantenimientoLosas_Activity extends AppCompatActivity {
     Spinner spnLosas;
-    Button btnGuardar;
+    Button btnGuardar, btnSalir;
     RadioGroup radioGroup;
     RadioButton rbtnSi, rbtnNo;
     EditText txtPrecio;
@@ -41,6 +42,12 @@ public class MantenimientoLosas_Activity extends AppCompatActivity {
     }
 
     private void referencias(){
+        btnSalir = findViewById(R.id.btnSalir_ManteLosas_Admin);
+        btnSalir.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MenuAdmin_Activity.class);
+            startActivity(intent);
+            finish();
+        });
         txtHorario = findViewById(R.id.txtHorario_AdminLosas);
         txtPrecio = findViewById(R.id.txtPrecio_AdminLosas);
         funPrecio();
@@ -57,7 +64,7 @@ public class MantenimientoLosas_Activity extends AppCompatActivity {
 
     }
     private void funPrecio(){
-        int maxLength = 6; // Número máximo de dígitos permitidos
+        int maxLength = 5; // Número máximo de dígitos permitidos
 
         InputFilter[] filters = new InputFilter[1];
         filters[0] = new InputFilter.LengthFilter(maxLength);
@@ -82,9 +89,39 @@ public class MantenimientoLosas_Activity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Error al acutalizar", Toast.LENGTH_SHORT).show();
         }
+        updateVista();
 
 
 
+    }
+    private void updateVista(){
+        spnLosas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                List<CanchaDeportiva> lista = new ArrayList<>();
+                //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                //StrictMode.setThreadPolicy(policy);
+                lista = DAO_Losa.listarLosas();
+                //actualizar radio buttons
+                if(lista.get(i).getMantenimiento()){
+                    rbtnSi.setChecked(true);
+                    rbtnNo.setChecked(false);
+                }else{
+                    rbtnSi.setChecked(false);
+                    rbtnNo.setChecked(true);
+                }
+                //actualizar precio
+                txtPrecio.setText(lista.get(i).getPrecio()+"");
+                //actualizar horairo
+                txtHorario.setText("HORARIO: "+lista.get(i).getHorario());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
     private void spnFun(){
         List<CanchaDeportiva> lista = new ArrayList<>();
@@ -104,30 +141,7 @@ public class MantenimientoLosas_Activity extends AppCompatActivity {
 
         spnLosas.setAdapter(adapter);
 
-        List<CanchaDeportiva> finalLista = lista;
-        spnLosas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(MantenimientoLosas_Activity.this, "int: "+i+" long: "+l, Toast.LENGTH_SHORT).show();
-                //actualizar radio buttons
-                if(finalLista.get(i).getMantenimiento()){
-                    rbtnSi.setChecked(true);
-                    rbtnNo.setChecked(false);
-                }else{
-                    rbtnSi.setChecked(false);
-                    rbtnNo.setChecked(true);
-                }
-                //actualizar precio
-                txtPrecio.setText(finalLista.get(i).getPrecio()+"");
-                //actualizar horairo
-                txtHorario.setText("HORARIO: "+finalLista.get(i).getHorario());
+        updateVista();
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
     }
 }

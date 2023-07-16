@@ -5,16 +5,24 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.myproyect.R;
 import com.example.myproyect.actividades.actividades.usuario.BienvenidoActivity;
 import com.example.myproyect.actividades.actividades.usuario.TablaReservaUser_Activity;
+import com.example.myproyect.actividades.clases.MostrarMensaje;
+import com.example.myproyect.actividades.entidades.CanchaDeportiva;
+import com.example.myproyect.actividades.modelos.DAO_Losa;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,11 +116,21 @@ public class Losa3Fragment extends Fragment {
     }
 
     private void tablaAceptar() {
-        Intent intent = new Intent(getContext(), TablaReservaUser_Activity.class);
-        intent.putExtra("tabla", nombre_tabla);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        List<CanchaDeportiva> lista = new ArrayList<>();
+        lista = DAO_Losa.listarLosas();
         final String nombre_losa = getString(R.string.bieLblCan3);
-        intent.putExtra("nombre", nombre_losa);
-        startActivity(intent);
+        if(!lista.get(2).getMantenimiento()){
+            Intent intent = new Intent(getContext(), TablaReservaUser_Activity.class);
+            intent.putExtra("tabla", nombre_tabla);
+            intent.putExtra("nombre", nombre_losa);
+            startActivity(intent);
+        }else{
+            MostrarMensaje.mensaje(nombre_losa+" en mantenimiento."+"\n"+"Disculpa las molestias", getContext()); //alert
+            //Toast.makeText(getContext(), "LOSA "+nombre_losa+" EN MANTENIMIENTO", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void regresar() {

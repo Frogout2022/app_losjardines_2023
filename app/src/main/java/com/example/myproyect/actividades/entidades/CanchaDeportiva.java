@@ -19,6 +19,15 @@ public class CanchaDeportiva {
         this.mantenimiento = mantenimiento;
         this.precio = precio;
     }
+    public CanchaDeportiva(String nombre, String descripcion, String horario, String direccion, Boolean mantenimiento, double precio, String nombre_tabla) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.horario = horario;
+        this.direccion = direccion;
+        this.mantenimiento = mantenimiento;
+        this.precio = precio;
+        this.nombre_tabla = nombre_tabla;
+    }
     public CanchaDeportiva(String nombre, int id, String nombre_tabla){
         this.nombre = nombre;
         this.id = id;

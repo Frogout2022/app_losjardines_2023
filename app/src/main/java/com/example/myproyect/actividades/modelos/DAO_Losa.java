@@ -63,9 +63,9 @@ public class DAO_Losa {
                 String direccion = rs.getString(5);
                 boolean mantenimiento = rs.getBoolean(6);
                 double precio_hora = rs.getDouble(7);
-                // String nom_tb =  rs.getString(8); // i:8 -> nombre_tabla
+                String nom_tb =  rs.getString(8); // i:8 -> nombre_tabla
 
-                lista.add(new CanchaDeportiva(nom_losa, descripcion, horario,direccion, mantenimiento, precio_hora));
+                lista.add(new CanchaDeportiva(nom_losa, descripcion, horario,direccion, mantenimiento, precio_hora,nom_tb));
             }
             ConexionMySQL.cerrarConexion(cnx);
         }catch (Exception e){

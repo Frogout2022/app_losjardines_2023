@@ -18,8 +18,10 @@ import com.example.myproyect.R;
 import com.example.myproyect.actividades.actividades.Login_Activity;
 import com.example.myproyect.actividades.actividades.usuario.pago.PagoActivity;
 import com.example.myproyect.actividades.clases.Fecha;
+import com.example.myproyect.actividades.entidades.CanchaDeportiva;
 import com.example.myproyect.actividades.entidades.Reserva;
 import com.example.myproyect.actividades.entidades.Usuario;
+import com.example.myproyect.actividades.modelos.DAO_Losa;
 import com.example.myproyect.actividades.modelos.DAO_Reserva;
 
 import java.util.ArrayList;
@@ -35,11 +37,11 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     CheckBox chkJ1,chkJ2,chkJ3;
     CheckBox chkV1,chkV2,chkV3;
     CheckBox chkS1, chkS2,chkS3;
-    TextView lblSemana, lblCantidadPagar;
+    TextView lblSemana, lblCantidadPagar, lblTarifa;
     TextView txtv_cl1,txtv_cl2,txtv_cl3,txtv_cl4,txtv_cl5,txtv_cl6;
     TextView lblNombreL;
     int numDia1, numDia6;
-    Double cantidadPagar=0.0;
+    Double cantidadPagar=0.0, precio_hora=0.0;
     int cantidadReservas=0;
     Usuario usuario = Login_Activity.getUsuario();
 
@@ -59,11 +61,28 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         updateTxtv();
 
         updateChk(); //consultar a la BD
+        consultarPrecioH();
         clickChk(); //actualizar visualización
 
         lblSemana.setSingleLine(false);
         lblSemana.setText(Fecha.lblTablaReserva);
         lblSemana.append("\n"+getIntent().getStringExtra("nombre"));
+
+
+    }
+    private void consultarPrecioH(){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        List<CanchaDeportiva> lista = new ArrayList<>();
+        lista = DAO_Losa.listarLosas();
+        String tabla = getIntent().getStringExtra("tabla");
+        int i=0;
+        for(CanchaDeportiva canchaDeportiva : lista){
+            if(canchaDeportiva.getNombre_tabla().equals(tabla)) break;
+            i++;
+        }
+        precio_hora = lista.get(i).getPrecio();
+        lblTarifa.setText("PRECIO/HORA: "+precio_hora+" soles");
 
 
     }
@@ -137,14 +156,14 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
                             listaChk.get(i).setText("ELEGIDO");
                             int color = ContextCompat.getColor(TablaReservaUser_Activity.this, R.color.purple_500);
                             checkBox.setTextColor(color); // Establecer el color del texto utilizando un recurso de color
-                            cantidadPagar += 50;
+                            cantidadPagar += precio_hora;
                             listaChkS.add(i);
                             lblCantidadPagar.setText("Pagar: S/"+cantidadPagar);
                         }else{
                             listaChk.get(i).setText("LIBRE");
                             int color = ContextCompat.getColor(TablaReservaUser_Activity.this, R.color.black);
                             checkBox.setTextColor(color); // Establecer el color del texto utilizando un recurso de color
-                            cantidadPagar -= 50;
+                            cantidadPagar -= precio_hora;
                             if(listaChkS.size()!=0){//buscar y borrar de la lista
                                 for(int j=0; j<listaChkS.size(); j++){
                                     if(listaChkS.get(j) == i){
@@ -225,6 +244,8 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
 
         lblSemana = findViewById(R.id.lblSemana_TablaReserva);
         lblCantidadPagar = findViewById(R.id.lblCantidadPagar_TRU);
+
+        lblTarifa = findViewById(R.id.lblTarifa_TRU);
 
 
         btnVolver = findViewById(R.id.btnRegresar_TRU);
