@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class ConexionMySQL {
     public static Connection getConexion() {
         Connection conexion = null;
@@ -20,6 +21,8 @@ public class ConexionMySQL {
         return conexion;
     }
 
+
+
     public static void cerrarConexion(Connection conexion) {
         if (conexion != null) {
             try {
@@ -31,10 +34,13 @@ public class ConexionMySQL {
         }
     }
 
+
+
     public static void main(String[] args) {
         Connection conexion = getConexion();
         // Aquí puedes realizar operaciones en la base de datos utilizando la conexión
         cerrarConexion(conexion);
     }
 }
+
 
