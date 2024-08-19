@@ -3,7 +3,6 @@ package com.example.myproyect.actividades.actividades.usuario;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -45,6 +44,8 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     int cantidadReservas=0;
     Usuario usuario = Login_Activity.getUsuario();
 
+    ArrayList<Reserva> listaSemanal = new ArrayList<>();
+
     Button btnReservar,btnVolver;
     List<CheckBox> listaChk = new ArrayList<>();
     List<Integer> listaChkS = new ArrayList<>();
@@ -56,6 +57,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabla);
         asginarReferencias();
+
         agregarListaChk();
         agregarListaTxtv();
         updateTxtv();
@@ -94,25 +96,25 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        ArrayList<Reserva> lista = new ArrayList<>();
+
         int dia_siguiente = Fecha.obtenerNumeroDiaActual()+1;
         String tabla = getIntent().getStringExtra("tabla");
-        lista = DAO_Reserva.listarReservaSemanal(tabla, dia_siguiente, dia_siguiente+7);
+        listaSemanal = DAO_Reserva.listarReservaSemanal(tabla, dia_siguiente, dia_siguiente+7);
 
-        if(lista.size()==0){
+        if(listaSemanal.size()==0){
             Toast.makeText(this, "LISTA VACIA", Toast.LENGTH_SHORT).show();
 
         }else{
             //Toast.makeText(this, "LISTA NO VACIA", Toast.LENGTH_SHORT).show();
 
-            int index = 0,cantidadDias= 6,cantidadHoras=3;
+            int index = 0, cantidadDias= 6, cantidadHoras=3;
 
             for (int i = 0; i < cantidadDias; i++) {
                 for (int j = 0; j < cantidadHoras; j++) {
-                    if(lista.get(i).getArrayDni()[j]!=null){
+                    if(listaSemanal.get(i).getArrayDni()[j]!=null){
                         //true
                         listaChk.get(index).setChecked(true);
-                        listaChk.get(index).setText("OCUPADO");
+                        listaChk.get(index).setText("Ocupado");
                         listaChk.get(index).setEnabled(false);
                     }else{
                         listaChk.get(index).setChecked(false);
@@ -123,7 +125,6 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
                 }
             }
         }
-
 
     }
 
@@ -161,7 +162,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
                             lblCantidadPagar.setText("Pagar: S/"+cantidadPagar);
                         }else{
                             listaChk.get(i).setText("LIBRE");
-                            int color = ContextCompat.getColor(TablaReservaUser_Activity.this, R.color.black);
+                            int color = ContextCompat.getColor(TablaReservaUser_Activity.this, R.color.white);
                             checkBox.setTextColor(color); // Establecer el color del texto utilizando un recurso de color
                             cantidadPagar -= precio_hora;
                             if(listaChkS.size()!=0){//buscar y borrar de la lista
@@ -184,7 +185,6 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
     }
     private void reservar(){
         //PROCESO DE RESERVA EN BD
-
 
         cantidadReservas = listaChkS.size();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -220,7 +220,15 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
             if (grupo != -1) {
                 dia = lista.get(grupo);
                 int hora = 15 + ((numOrden - grupo * 3) * 2);
-                msg = DAO_Reserva.insertarRSV(tabla, dia, hora);
+
+                if(listaSemanal.get(i).getArrayDni()[1] != null){
+                    //verificar disponibilidad en tiempo real
+                    msg = "Hora selecciona ya OCUPADA";
+
+                }else{
+                    //insertar reserva
+                    msg = DAO_Reserva.insertarRSV(tabla, dia, hora);
+                }
             }
         }
 

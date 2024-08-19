@@ -10,12 +10,12 @@ import com.example.myproyect.R;
 import com.example.myproyect.actividades.actividades.Login_Activity;
 
 public class MenuAdmin_Activity extends AppCompatActivity {
-    Button btnSalir, btnListarUsers ,btnLosas;
+    Button btnSalir, btnListarUsers ,btnLosas, btnListarRsv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.myproyect.R.layout.activity_menu_admin);
-/// @tupapi
+
         asignarReferencias();
     }
     void asignarReferencias(){
@@ -30,11 +30,20 @@ public class MenuAdmin_Activity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
         btnLosas = findViewById(R.id.btn_MngLosas_AdminMenu);
         btnLosas.setOnClickListener(view -> {
             Intent intent = new Intent(this, MantenimientoLosas_Activity.class);
             startActivity(intent);
             finish();
+        });
+
+        btnListarRsv = findViewById(R.id.btnListarRsvUsers_MenuAdm);
+        btnListarRsv.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ListarReservasADMIN_Activity.class);
+            startActivity(intent);
+            finish();
+
         });
 
     }

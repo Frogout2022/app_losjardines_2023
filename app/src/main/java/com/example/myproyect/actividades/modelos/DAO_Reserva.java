@@ -21,7 +21,7 @@ public class DAO_Reserva {
             cnx = ConexionMySQL.getConexion();
             CallableStatement csta = cnx.prepareCall("{call sp_ListarRsv(?,?,?)}");
             csta.setString(1, tabla); // 'reserva_losa1'
-            csta.setInt(2, dia_min); // acutal
+            csta.setInt(2, dia_min); // actual
             csta.setInt(3, dia_max); // actual + 7
 
             ResultSet rs = csta.executeQuery();

@@ -345,7 +345,7 @@
         android:layout_marginTop="16dp"
         android:clickable="false"
         android:gravity="center"
-        android:text="SEMANA XX - XX - JUN_2023"
+        android:text="SEMANA XX - XX - JUN_2032"
         android:textColor="#CF1F1F"
         android:textSize="24sp"
         android:textStyle="bold|italic"
