@@ -22,7 +22,7 @@ public class CargaActivity extends AppCompatActivity {
                 //internet datos y etc
                 //domir aprox 3 seg
                 try {
-                    sleep(3000);
+                    sleep(1500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }finally {
