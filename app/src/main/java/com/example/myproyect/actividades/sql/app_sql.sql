@@ -99,10 +99,10 @@ nombre_tabla varchar(20) not null unique
 
 
 insert into tb_losa (nombre_losa, horario, direccion,nombre_tabla) values
-('Losa del pueblo','L-V', 'direccion 1','reserva_losa1'),
-('Losa del barrio','L-V', 'direccion 2' ,'reserva_losa2'),
-('Losa los patas','L-V', 'direccion 3','reserva_losa3'),
-('Losa la Familia','L-V', 'direccion 4','reserva_losa4');
+('La Bombonerita','L-D', 'Av. Eduardo de Habich, San Martín de Porres 15102','reserva_losa1'),
+('La Bombonera','L-D', 'Jr. Riobamba 601, San Martín de Porres 15101' ,'reserva_losa2'),
+('Estadio La 70','L-D', 'San Martín de Porres 15107','reserva_losa3'),
+('Campo deportivo 27 de noviembre','L-D', 'Av. 27 de Noviembre, San Martín de Porres 15106','reserva_losa4');
 
 
 #------------TABLA RESERVAS------------
