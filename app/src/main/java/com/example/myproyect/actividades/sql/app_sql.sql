@@ -88,7 +88,7 @@ select * from Admin where Correo_Adm=Correo;
 #------------TABLA LOSA------------
 create table tb_losa(
 id int  auto_increment primary key,
-nombre_losa varchar(30) not null,
+nombre_losa varchar(40) not null,
 descripcion varchar(80),
 horario varchar(50) not null,
 direccion varchar (80) not null,
@@ -99,10 +99,10 @@ nombre_tabla varchar(20) not null unique
 
 
 insert into tb_losa (nombre_losa, horario, direccion,nombre_tabla) values
-('La Bombonerita','L-D', 'Av. Eduardo de Habich, San Martín de Porres 15102','reserva_losa1'),
-('La Bombonera','L-D', 'Jr. Riobamba 601, San Martín de Porres 15101' ,'reserva_losa2'),
-('Estadio La 70','L-D', 'San Martín de Porres 15107','reserva_losa3'),
-('Campo deportivo 27 de noviembre','L-D', 'Av. 27 de Noviembre, San Martín de Porres 15106','reserva_losa4');
+('La Bombonerita','Horario: L-D', 'Av. Eduardo de Habich, San Martín de Porres 15102','reserva_losa1'),
+('La Bombonera','Horario: L-D', 'Jr. Riobamba 601, San Martín de Porres 15101' ,'reserva_losa2'),
+('Estadio La 70','Horario: L-D', 'San Martín de Porres 15107','reserva_losa3'),
+('Campo deportivo 27 de noviembre','Horario> L-D', 'Av. 27 de Noviembre, San Martín de Porres 15106','reserva_losa4');
 
 
 #------------TABLA RESERVAS------------
