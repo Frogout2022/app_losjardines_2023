@@ -2,7 +2,7 @@
 
     //login string
     //texto
-    <string name="app_name">Los Jardines </string>
+    <string name="app_name">CanchaFacil </string>
     <string name="carLblMensaje">Cargando Aplicacion</string>
     //login
     <string name="logTxtCorreo">example@email.com</string>
@@ -16,11 +16,11 @@
     <string name="logBtnSalir">Salir</string>
     //texto
     <string name="logTitIniciar">Iniciar Sesión</string>
-    <string name="logTitHola">!Hola¡ ¿Estas listos para una partido?</string>
-    <string name="logTitCorreo">Email</string>
-    <string name="logTitClave">Password </string>
+    <string name="logTitHola">¿Estás listo para un partido!?</string>
+    <string name="logTitCorreo">Correo: </string>
+    <string name="logTitClave">Contraseña: </string>
     <string name="logMegRegistrate">Registrate si no lo estas</string>
-    <string name="logLblCopyRight">Los Jardines </string>
+    <string name="logLblCopyRight">Cancha Facil</string>
 
     //recuperar password
     <string name="recTitPassword">Cambiar Contraseña</string>
@@ -28,7 +28,7 @@
     <string name="recTxtRepitaPassword">Repita su contraseña</string>
 
     //registro string
-    <string name="regTitulo">Registrate  Los Jardines</string>
+    <string name="regTitulo">Registrate - Cancha Facil</string>
     //registro
     <string name="regNombre">Nombre</string>
     <string name="regApellido">Apellidos</string>
@@ -58,15 +58,15 @@
     //Bienvenido String
     <string name="bieLblSaludo">Bienvenido {usuario}</string>
     //texto //link
-    <string name="bieLblCan1">1- Losa del pueblo</string>
-    <string name="bieLblCan2">2- Losa del barrio</string>
-    <string name="bieLblCan3">3- Losa de los patas</string>
-    <string name="bieLblCan4">4- Losa La Familia</string>
+    <string name="bieLblCan1">1- La bombonerita</string>
+    <string name="bieLblCan2">2- La Bombonera</string>
+    <string name="bieLblCan3">3- Estadio La 70</string>
+    <string name="bieLblCan4">4- Campo deportivo 27 de noviembre</string>
     //button
     <string name="bieBtnSalir">Salir</string>
 
     //Caracteristicas 1 string
-    <string name="car1TitLosa">Losa Deportiva "El pueblo"</string>
+    <string name="car1TitLosa">Losa Deportiva "La bombonerita"</string>
     <string name="car1Horario">Carateristicas: </string>
     <string name="car1Rbt3a4">-Grass sintetico</string>
     <string name="car1Rbt5a6">-5 a 9 personas</string>
@@ -76,7 +76,7 @@
     <string name="car1BtnRegresar">Regresar</string>
 
     //Caracteristicas 2 string
-    <string name="car2TitLosa">Losa Deportiva "EL Barrio"</string>
+    <string name="car2TitLosa">"La Bombonera"</string>
     <string name="car2Horario">Carateristicas:</string>
     <string name="car2Rbt3a4">-Grass sintetico</string>
     <string name="car2Rbt5a6">-9 a 12 personas</string>
@@ -86,7 +86,7 @@
     <string name="car2BtnRegresar">Regresar</string>
 
     //Caracteristicas 3 string
-    <string name="car3TitLosa">Losa Deportiva "Los patas"</string>
+    <string name="car3TitLosa">"Estadio La 70"</string>
     <string name="car3Horario">Carateristicas:</string>
     <string name="car3Rbt3a4">-Grass sintetico</string>
     <string name="car3Rbt5a6">-5 a 9 personas</string>
@@ -96,7 +96,7 @@
     <string name="car3BtnRegresar">Regresar</string>
 
     //Caracteristicas 4 string
-    <string name="car4TitLosa">Losa Deportiva "La Familia"</string>
+    <string name="car4TitLosa">"Campo deportivo 27 de noviembre</string>
     <string name="car4Horario">Carateristicas: </string>
     <string name="car4Rbt3a4">-Grass sintetico</string>
     <string name="car4Rbt5a6">-9 a 12 personas</string>
