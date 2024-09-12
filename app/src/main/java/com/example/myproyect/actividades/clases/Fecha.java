@@ -41,7 +41,7 @@ public class Fecha {
                 dia1 = numeroDia;
             }else if(i==5){
                 dia6= numeroDia;
-                lblTablaReserva = "SEMANA "+dia1+" - "+dia6+" -> "+nombreMesAbreviado.toUpperCase()+" "+String.valueOf(anioActual);
+                lblTablaReserva = dia1+" - "+dia6+" "+nombreMesAbreviado+" "+String.valueOf(anioActual);
             }
             calendar.add(Calendar.DAY_OF_YEAR, 1); // Avanzar al siguiente día
         }

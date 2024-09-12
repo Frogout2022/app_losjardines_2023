@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/txtv_cl2_TRU"
-                android:layout_width="wrap_content"
+                android:layout_width="92dp"
                 android:layout_height="wrap_content"
                 android:text="MARTES"
                 android:textColor="@color/white"
@@ -50,7 +50,7 @@
 
             <TextView
                 android:id="@+id/txtv_cl3_TRU"
-                android:layout_width="wrap_content"
+                android:layout_width="121dp"
                 android:layout_height="wrap_content"
                 android:text="MIERCOLES"
                 android:textColor="@color/white"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="LIBRE"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/chkMartes_3pm_TRU"
@@ -205,7 +205,7 @@
 
             <TextView
                 android:id="@+id/txtv_cl5_TRU"
-                android:layout_width="wrap_content"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:text="VIERNES"
                 android:textColor="@color/white"
@@ -214,11 +214,11 @@
 
             <TextView
                 android:id="@+id/txtv_cl6_TRU"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="wrap_content"
                 android:text="SABADO"
-                android:textSize="20sp"
                 android:textColor="@color/white"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -243,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:text="LIBRE"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/chkViernes_3pm_TRU"
@@ -345,7 +345,7 @@
         android:layout_marginTop="16dp"
         android:clickable="false"
         android:gravity="center"
-        android:text="SEMANA XX - XX - JUN_2032"
+        android:text="XX - XX - ene 20XX"
         android:textColor="#CF1F1F"
         android:textSize="24sp"
         android:textStyle="bold|italic"

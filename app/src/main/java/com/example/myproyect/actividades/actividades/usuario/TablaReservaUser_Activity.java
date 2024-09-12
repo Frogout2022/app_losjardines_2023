@@ -154,14 +154,14 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
                 for(int i=0 ; i<listaChk.size(); i++){
                     if(selectedCheckBoxId == listaChk.get(i).getId()){
                         if(listaChk.get(i).isChecked()){
-                            listaChk.get(i).setText("ELEGIDO");
+                            listaChk.get(i).setText("Elegido");
                             int color = ContextCompat.getColor(TablaReservaUser_Activity.this, R.color.purple_500);
                             checkBox.setTextColor(color); // Establecer el color del texto utilizando un recurso de color
                             cantidadPagar += precio_hora;
                             listaChkS.add(i);
                             lblCantidadPagar.setText("Pagar: S/"+cantidadPagar);
                         }else{
-                            listaChk.get(i).setText("LIBRE");
+                            listaChk.get(i).setText("Libre");
                             int color = ContextCompat.getColor(TablaReservaUser_Activity.this, R.color.white);
                             checkBox.setTextColor(color); // Establecer el color del texto utilizando un recurso de color
                             cantidadPagar -= precio_hora;
