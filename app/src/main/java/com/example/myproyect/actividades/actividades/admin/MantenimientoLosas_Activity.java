@@ -87,7 +87,7 @@ public class MantenimientoLosas_Activity extends AppCompatActivity {
         if(DAO_Losa.editarLosas(i+1,mante, precio)){
             Toast.makeText(this, "Se actualizó", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "Error al acutalizar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error al actualizar", Toast.LENGTH_SHORT).show();
         }
         updateVista();
 

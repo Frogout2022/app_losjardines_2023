@@ -84,7 +84,7 @@ public class TablaReservaUser_Activity extends AppCompatActivity {
             i++;
         }
         precio_hora = lista.get(i).getPrecio();
-        lblTarifa.setText("PRECIO/HORA: "+precio_hora+" soles");
+        lblTarifa.setText("Precio/HORA: "+precio_hora+" soles");
 
 
     }

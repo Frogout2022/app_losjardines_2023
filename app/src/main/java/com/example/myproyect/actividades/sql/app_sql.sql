@@ -105,6 +105,14 @@ insert into tb_losa (precio_hora,nombre_losa, horario, direccion,nombre_tabla) v
 (40.5,'Campo deportivo 27 de noviembre','L-D', 'Av. 27 de Noviembre, San Martín de Porres 15106','reserva_losa4');
 
 
+
+create procedure sp_EditarLosas(#-----------------------
+Id_losa char(8) ,
+mante boolean,
+precio decimal)
+update tb_losa set mantenimiento=mante, precio_hora=precio where id=Id_losa;
+
+
 #------------TABLA RESERVAS------------
 
 create table reserva_losa1(
