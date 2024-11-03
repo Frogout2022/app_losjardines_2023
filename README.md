@@ -1,2 +1,2 @@
-# app_losjardines_2023
-UPN - CALIDAD Y PRUEBAS DE SOFTWARE - 2023_1
+# app_cancha_facil_2024
+UPN - CAPSTONE PROJECT - 2024_2
